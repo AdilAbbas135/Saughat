@@ -3,7 +3,7 @@ const router = express.Router();
 const StudentModel = require("../Models/Student");
 var jwt = require("jsonwebtoken");
 
-// Route 1: Creation of Student Account while google signin
+// Route 1: Creation of Student Account while google signin and it is done
 router.post("/", async (req, res) => {
   const student = await StudentModel.findOne({ email: req.body.email });
   if (!student) {
