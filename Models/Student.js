@@ -16,7 +16,6 @@ const StudentSchema = new Schema(
     },
     LastName: {
       type: String,
-      required: true,
     },
     Email: {
       type: String,
@@ -25,7 +24,6 @@ const StudentSchema = new Schema(
     isEmailVerified: { type: Boolean },
     Password: {
       type: String,
-      required: true,
     },
     ProfilePicture: {
       type: String,
