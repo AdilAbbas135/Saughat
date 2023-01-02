@@ -5,7 +5,7 @@ var jwt = require("jsonwebtoken");
 
 // Route 1: Creation of Student Account while google signin and it is done
 router.post("/", async (req, res) => {
-  const student = await StudentModel.findOne({ email: req.body.email });
+  const student = await StudentModel.findOne({ Email: req.body.email });
   if (!student) {
     const FirstLastName = req.body.displayName.split(" ");
     const newStudent = await StudentModel.create({
@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
       const authtoken = jwt.sign(
         {
           userId: newStudent._id,
-          email: newStudent.email,
+          email: newStudent.Email,
           image: newStudent.ProfilePicture,
         },
         process.env.JWT_SECRET_KEY,
@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
     const authtoken = jwt.sign(
       {
         userId: student._id,
-        email: student.email,
+        email: student.Email,
         image: student.ProfilePicture,
       },
       process.env.JWT_SECRET_KEY,
@@ -46,6 +46,7 @@ router.post("/", async (req, res) => {
     );
     return res.status(200).json({
       success: true,
+      email: student.Email,
       msg: "User Already exist with this email",
       authtoken,
     });
