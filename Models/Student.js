@@ -22,6 +22,9 @@ const StudentSchema = new Schema(
       required: true,
     },
     isEmailVerified: { type: Boolean },
+    PhoneNo: {
+      type: String,
+    },
     Password: {
       type: String,
     },

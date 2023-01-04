@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const StudentModel = require("../Models/Student");
+const StudentModel = require("../../Models/Student");
 var jwt = require("jsonwebtoken");
 
 // Route 1: Creation of Student Account while google signin and it is done
@@ -44,12 +44,14 @@ router.post("/", async (req, res) => {
       process.env.JWT_SECRET_KEY,
       { expiresIn: "1d" }
     );
-    return res.status(200).json({
-      success: true,
-      email: student.Email,
-      msg: "User Already exist with this email",
-      authtoken,
-    });
+    return res
+      .status(200)
+      .cookie("authtoken", authtoken, { httpOnly: true })
+      .json({
+        success: true,
+        msg: "User Already exist with this email",
+        authtoken,
+      });
   }
 });
 
