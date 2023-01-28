@@ -2,17 +2,19 @@ const express = require("express");
 const QaHubModel = require("../../Models/Qahub");
 const StudentModel = require("../../Models/Student");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 
 // Route 1 : GET ALL QUESTIONS AGAINST A USERID
 router.post("/findquestions", async (req, res) => {
   if (req.method === "POST") {
+    const token = jwt.verify(req.body.token, process.env.JWT_SECRET_KEY);
     const student = await StudentModel.findOne({
-      _id: req.body.userId,
-      Email: req.body.email,
+      _id: token.profileId,
+      userId: token.userId,
     });
     if (student) {
       const questions = await QaHubModel.find({
-        StudenId: req.body.userId,
+        StudenId: student._id,
       }).sort({ createdAt: -1 });
       return res.status(200).json({ Success: true, questions });
     } else {
@@ -31,16 +33,17 @@ router.post("/findquestions", async (req, res) => {
 // ROUTE2 : POST A QUESTION AGAINST A USER
 router.post("/postquestion", async (req, res) => {
   if (req.method === "POST") {
+    const token = jwt.verify(req.body.token, process.env.JWT_SECRET_KEY);
     const student = await StudentModel.findOne({
-      _id: req.body.userId,
-      Email: req.body.userEmail,
+      _id: token.profileId,
+      userId: token.userId,
     });
     if (student) {
       const question = await QaHubModel.create({
         Title: req.body.questiondata.Title,
         Description: req.body.questiondata.Description,
         isActive: req.body.questiondata.Status === "active" ? true : false,
-        StudenId: req.body.userId,
+        StudentId: student._id,
       });
       if (question) {
         const updatestudent = await student.update(
@@ -82,13 +85,14 @@ router.post("/postquestion", async (req, res) => {
 
 //ROUTE3: DELETE A QUESTION THAT A USER ADDS
 router.post("/deletequestion", async (req, res) => {
+  const token = jwt.verify(req.body.token, process.env.JWT_SECRET_KEY);
   const question = await QaHubModel.findById(req.body.questionid);
   if (question) {
     const deletequestion = await QaHubModel.findByIdAndDelete(
       req.body.questionid
     );
     if (deletequestion) {
-      const findstudent = await StudentModel.findById(question.StudenId);
+      const findstudent = await StudentModel.findById(token.profileId);
       if (findstudent) {
         const updatestudent = await findstudent.update({
           $pull: { Questions: question._id },

@@ -11,8 +11,9 @@ const QaHubSchema = new Schema(
       required: true,
     },
     isActive: { type: Boolean },
-    StudenId: {
-      type: String,
+    StudentId: {
+      type: Schema.Types.ObjectId,
+      ref: "Students",
     },
     PeopleApplied: {
       type: [String],

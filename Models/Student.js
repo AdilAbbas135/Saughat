@@ -2,11 +2,6 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const StudentSchema = new Schema(
   {
-    Username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     FirstName: {
       type: String,
       required: true,
@@ -17,15 +12,16 @@ const StudentSchema = new Schema(
     LastName: {
       type: String,
     },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
     Email: {
       type: String,
       required: true,
     },
-    isEmailVerified: { type: Boolean },
+
     PhoneNo: {
-      type: String,
-    },
-    Password: {
       type: String,
     },
     ProfilePicture: {
@@ -35,7 +31,7 @@ const StudentSchema = new Schema(
       type: String,
     },
     Questions: {
-      type: [String],
+      type: [Schema.Types.ObjectId],
     },
     Discussion: {
       type: [Object],
