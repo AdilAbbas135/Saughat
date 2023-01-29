@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
         googleData,
         User: findUser,
       });
-    } else {
+    } else if (findUser.AccountType === "google.com") {
       const authtoken = jwt.sign(
         {
           userId: findUser._id,
@@ -54,6 +54,11 @@ router.post("/", async (req, res) => {
         User: findUser,
         msg: "User Already exist with this email and profile also exist",
         authtoken,
+      });
+    } else if (findUser.AccountType === "email") {
+      return res.status(400).json({
+        success: false,
+        msg: `this email is not linked as google account`,
       });
     }
   }
