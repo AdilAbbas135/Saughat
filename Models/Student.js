@@ -1,5 +1,17 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+
+const AddressSchema = new Schema({
+  "Street Address": {
+    type: String,
+  },
+  Province: {
+    type: String,
+  },
+  City: { type: String },
+  ZipCode: { type: String },
+});
+
 const StudentSchema = new Schema(
   {
     FirstName: {
@@ -36,6 +48,7 @@ const StudentSchema = new Schema(
     Discussion: {
       type: [Object],
     },
+    Address: { type: AddressSchema },
   },
   { timestamps: true }
 );

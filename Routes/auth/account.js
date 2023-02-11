@@ -96,44 +96,42 @@ router.post("/verifyemail/:userid/:token", async (req, res) => {
 
 // ROUTE 3 : Login User with Email and password
 router.post("/login", async (req, res) => {
-  console.log("body is ");
-  console.log(req.body);
-  // try {
-  const User = await AllUsersModel.findOne({ Email: req.body.email });
-  if (User) {
-    const password = await bcrypt.compare(req.body.password, User.Password);
-    if (password) {
-      const authtoken = jwt.sign(
-        {
-          userId: User?._id,
-          profileId: User?.profileId,
-          email: User?.Email,
-          ProfilePicture: User?.ProfilePicture,
-        },
-        process.env.JWT_SECRET_KEY,
-        { expiresIn: "1d" }
-      );
-      return res.status(200).json({
-        success: true,
-        User: User,
-        msg: "Login Sucessfull",
-        authtoken,
-      });
+  try {
+    const User = await AllUsersModel.findOne({ Email: req.body.email });
+    if (User) {
+      const password = await bcrypt.compare(req.body.password, User.Password);
+      if (password) {
+        const authtoken = jwt.sign(
+          {
+            userId: User?._id,
+            profileId: User?.profileId,
+            email: User?.Email,
+            ProfilePicture: User?.ProfilePicture,
+          },
+          process.env.JWT_SECRET_KEY,
+          { expiresIn: "1d" }
+        );
+        return res.status(200).json({
+          success: true,
+          User: User,
+          msg: "Login Sucessfull",
+          authtoken,
+        });
+      } else {
+        return res
+          .status(400)
+          .json({ success: false, msg: "Wrong Credentials! Try Again" });
+      }
     } else {
       return res
         .status(400)
         .json({ success: false, msg: "Wrong Credentials! Try Again" });
     }
-  } else {
+  } catch (error) {
     return res
       .status(400)
-      .json({ success: false, msg: "Wrong Credentials! Try Again" });
+      .json({ success: false, msg: "Internal Server Error" });
   }
-  // } catch (error) {
-  //   return res
-  //     .status(400)
-  //     .json({ success: false, msg: "Internal Server Error" });
-  // }
 });
 
 module.exports = router;
