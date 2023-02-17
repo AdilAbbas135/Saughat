@@ -1,38 +1,54 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.HeaderNavContainer{
+    background: url("../public/assets/pexels-max-fischer-5212365.jpg");
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    z-index: 0;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .HeaderNavContainer::before{
+    content: "";
+    position:absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(0,53,128,1) 0%, rgba(0,53,128,0.8) 47%, rgba(0,53,128,0) 100%);
+    z-index: -1;
   }
-  to {
-    transform: rotate(360deg);
-  }
+.active{
+    border : 2px solid white;
+    padding: 10px 10px;
+    border-radius: 58px;
 }
+.headerSearch,
+.options{
+    border: 3px solid #febb02;
+}
+.date-range,
+.options{
+    z-index: 2;
+}
+/* Home page banners */
+.featuredItem{
+    z-index: 1;
+  }
+  .featuredItem::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(0,0,0,0.8746849081429446) 0%, rgba(5,5,5,0.7) 40%, rgba(0,0,0,0) 100%);
+  
+  }
+  .LoginWrapper{
+    background: url("../public/assets/low-poly-grid-haikei.svg"); 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+.container {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter:saturate(100%) blur(5px);
+  }

@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Error from "./Pages/Error";
+import Home from "./Pages/Home";
+import Login from "./Pages/auth/signin";
+import SignUp from "./Pages/auth/signup";
+import Student from "./Pages/student";
+import SendEmail from "./Pages/auth/signup/sendemail";
+import Emailverification from "./Pages/auth/signup/emailverification";
+import CompleteProfile from "./Pages/auth/signup/nextstep";
+import TeachersPage from "./Pages/teachers";
+import SearchTeacher from "./Pages/SearchTeacher";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const router = createBrowserRouter([
+    { path: "/", element: <Home /> },
+    { path: "/auth/signin", element: <Login /> },
+    { path: "/auth/signup", element: <SignUp /> },
+    { path: "/user/student", element: <Student /> },
+    { path: "/auth/signup/sendemail", element: <SendEmail /> },
+    { path: "/auth/signup/emailverification", element: <Emailverification /> },
+    { path: "/auth/signup/nextstep", element: <CompleteProfile /> },
+    { path: "/teachers", element: <TeachersPage /> },
+    { path: "/SearchTeacher", element: <SearchTeacher /> },
+    { path: "*", element: <Error /> },
+  ]);
+  return <RouterProvider router={router} />;
 }
 
 export default App;
