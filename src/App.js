@@ -10,6 +10,15 @@ import Emailverification from "./Pages/auth/signup/emailverification";
 import CompleteProfile from "./Pages/auth/signup/nextstep";
 import TeachersPage from "./Pages/teachers";
 import SearchTeacher from "./Pages/SearchTeacher";
+import SingleTeacher from "./Pages/teachers/singleteacher";
+import QAHUB from "./Pages/qahub";
+import Singlequestion from "./Pages/qahub/singlequestion";
+import Discussion from "./Pages/discussion";
+import SingleDiscussion from "./Pages/discussion/singlediscussion";
+import Jobs from "./Pages/Jobs";
+import SingleJob from "./Pages/Jobs/singleJob";
+import Institute from "./Pages/institute";
+import SingleInstitute from "./Pages/institute/singleInstitute";
 
 function App() {
   const router = createBrowserRouter([
@@ -21,7 +30,16 @@ function App() {
     { path: "/auth/signup/emailverification", element: <Emailverification /> },
     { path: "/auth/signup/nextstep", element: <CompleteProfile /> },
     { path: "/teachers", element: <TeachersPage /> },
+    { path: "/teachers/:id", element: <SingleTeacher /> },
     { path: "/SearchTeacher", element: <SearchTeacher /> },
+    { path: "/qahub", element: <QAHUB /> },
+    { path: "/qahub/:qid", element: <Singlequestion /> },
+    { path: "/discussion", element: <Discussion /> },
+    { path: "/discussion/:id", element: <SingleDiscussion /> },
+    { path: "/jobs", element: <Jobs /> },
+    { path: "/jobs/:id", element: <SingleJob /> },
+    { path: "/institutes", element: <Institute /> },
+    { path: "/institutes/:id", element: <SingleInstitute /> },
     { path: "*", element: <Error /> },
   ]);
   return <RouterProvider router={router} />;

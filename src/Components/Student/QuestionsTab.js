@@ -130,14 +130,6 @@ const QuestionsTab = () => {
             </p>
           </div>
           <div className="AddQuestion flex space-x-3">
-            {/* <Button
-              onClick={handleOpen}
-              variant="contained"
-              className="w-fit font-semibold"
-              size="large"
-            >
-              Add Question
-            </Button> */}
             <button
               // disabled={loading ? true : false}
               onClick={handleOpen}
@@ -316,16 +308,6 @@ const QuestionsTab = () => {
                             DeleteQuestion(question._id);
                           }}
                         >
-                          {/* {deletebtnloading ? (
-                            <span>
-                              <CircularProgress color="inherit" size={20} />
-                            </span>
-                          ) : (
-                            <span className="flex items-center space-x-1">
-                              <MdDeleteOutline size={17} className="mr-1 " />
-                              DELETE
-                            </span>
-                          )} */}
                           <MdDeleteOutline size={17} className="mr-1 " />
                           DELETE
                         </Button>

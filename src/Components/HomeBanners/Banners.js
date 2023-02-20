@@ -1,15 +1,30 @@
+import { Link } from "react-router-dom";
+
 const Banners = () => {
   const Banners = [
-    { name: "Q&A HUB", FeaturedImage: "/assets/pexels-pixabay-356079.jpg" },
-    { name: "Discussion", FeaturedImage: "/assets/pexels-fauxels-3184360.jpg" },
-    { name: "Jobs", FeaturedImage: "/assets/pexels-fauxels-3184465.jpg" },
+    {
+      name: "Q&A HUB",
+      FeaturedImage: "/assets/pexels-pixabay-356079.jpg",
+      link: "/qahub",
+    },
+    {
+      name: "Discussion",
+      FeaturedImage: "/assets/pexels-fauxels-3184360.jpg",
+      link: "/discussion",
+    },
+    {
+      name: "Jobs",
+      FeaturedImage: "/assets/pexels-fauxels-3184465.jpg",
+      link: "/jobs",
+    },
   ];
   return (
     <>
       <div className="mt-5 md:mt-10 grid px-5 md:px-0 grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-4">
         {Banners.map((elem, index) => {
           return (
-            <div
+            <Link
+              to={elem.link}
               key={index}
               className={`featuredItem relative rounded-lg overflow-hidden text-white cursor-pointer h-60 w-full`}
             >
@@ -25,7 +40,7 @@ const Banners = () => {
                   {elem.name}
                 </h1>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

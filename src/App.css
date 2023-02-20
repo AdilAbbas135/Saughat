@@ -1,3 +1,82 @@
+.menu ul li{
+  position: relative;
+}
+.menu ul li a{
+  transition: all 0.5s ease;
+  padding: 5px 10px;
+}
+/* HOVER EFFECT 1 */
+.menu ul li a:hover{
+  background-color: white;
+  color: black;
+}
+
+.menu ul li a::before{
+content: '';
+position: absolute;
+bottom: 4px;
+left: 6px;
+height: 12px;
+width: 12px;
+border: 2px solid white;
+border-width: 0 0 3px 3px;
+opacity: 0;
+transition: all 0.5s ease;
+}
+.menu ul li a:hover::before{
+  opacity: 1;
+  bottom: -10px;
+  left: -6px;
+}
+
+.menu ul li a::after{
+  content: '';
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  height: 12px;
+  width: 12px;
+  border: 2px solid white;
+  border-width: 3px 3px 0 0;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.menu ul li a:hover::after{
+  opacity: 1;
+  top: -10px;
+  right: -6px;
+}
+/* HOVER EFFECT 2 */
+/* .menu ul li a::before{
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: all 1s ease;
+
+}
+.menu ul li a:hover::before,
+.menu ul li a:hover::after{
+  transform: scaleX(1);
+}
+.menu ul li a::after{
+  content: "";
+  position: absolute;
+  bottom: -7px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: all 0.5s ease;
+} */
+
 .HeaderNavContainer{
     background: url("../public/assets/pexels-max-fischer-5212365.jpg");
     background-position: center center;
@@ -52,3 +131,10 @@
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter:saturate(100%) blur(5px);
   }
+
+.qahub-header{
+  background: url("../public/assets/action.png"); 
+}
+.discussion-header{
+  background: url("../public/assets/laptops-g8acb4fbf3_1280.jpg"); 
+}

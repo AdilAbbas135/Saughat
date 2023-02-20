@@ -12,6 +12,7 @@ module.exports = {
         text_color_secondary: "#242526",
         text_color_secondary_2: "#3a3b3c",
         gray_light: "#f7f7fa",
+        btn_secondary: "#70C4CF",
         // admin_panel_color: "#3d5ee1",
       },
       screens: {

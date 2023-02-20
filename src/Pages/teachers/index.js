@@ -3,6 +3,7 @@ import Header from "../../Components/Header/Header";
 import { MenuItem, Select, TextField } from "@mui/material";
 import Footer from "../../Components/Footer/Footer";
 import { MdLocationOn } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const TeachersPage = () => {
   const [userType, setuserType] = useState("");
@@ -174,9 +175,11 @@ function SearchItem({ teacher }) {
             <h3 className="font-bold text-red-400">Not Rated Yet</h3>
           )}
         </div>
-        <h1 className="text-3xl font-bold text-hover_color font-sans">
-          {teacher.name}
-        </h1>
+        <Link to="/teachers/134">
+          <h1 className="text-3xl font-bold text-hover_color font-sans">
+            {teacher.name}
+          </h1>
+        </Link>
 
         <div className="flex space-x-2">
           {teacher.Subjects.map((subject, index) => {
@@ -195,9 +198,11 @@ function SearchItem({ teacher }) {
           <p className="text-md">{teacher.city}</p>
         </div>
         <p className="pt-1 pb-3 text-md text-justify">{teacher.About}</p>
-        <button className="py-2 px-10 bg-hover_color text-white font-bold rounded-sm w-fit">
-          Visit Profile
-        </button>
+        <Link to="/teachers/134">
+          <button className="py-2 px-10 bg-hover_color text-white font-bold rounded-sm w-fit">
+            Visit Profile
+          </button>
+        </Link>
       </div>
     </div>
   );

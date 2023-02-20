@@ -70,9 +70,11 @@ const FeaturedTeachers = () => {
                     );
                   })}
                 </div>
-                <button className="mt-4 w-full py-2 bg-hover_color text-white font-semibold rounded-sm">
-                  Visit Profile
-                </button>
+                <Link to="/teachers/134">
+                  <button className="mt-4 w-full py-2 bg-hover_color text-white font-semibold rounded-sm">
+                    Visit Profile
+                  </button>
+                </Link>
               </div>
             </div>
           ))}

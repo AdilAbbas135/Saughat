@@ -16,23 +16,32 @@ const Navbar = () => {
 
   return (
     <div className="Navbar z-[2] h-fit flex justify-center">
-      <div className="navbar-container mt-2 flex justify-between items-center h-full w-full max-w-6xl px-5 lg:px-0 text-white">
+      <div className="navbar-container my-2 flex justify-between items-center h-full w-full max-w-6xl px-5 lg:px-0 text-white">
         <div>
           <Link to={"/"}>
             {/* <div className="logo font-bold text-lg tablets:text-3xl">
               TEACHERS HUB.
             </div> */}
-            <img height={250} width={250} src={"/TH-white.png"} alt="" />
+            <img height={200} width={200} src={"/TH-white.png"} alt="" />
           </Link>
         </div>
-        <div className="hidden md:block">
-          <ul className="font-semibold flex space-x-4 text-lg">
+        <div className="hidden md:block menu">
+          <ul className="font-semibold flex space-x-2 text-[15px]">
             <li className="cursor-pointer">
               <Link to={"/teachers"}>Teachers</Link>
             </li>
-            <li className="cursor-pointer">Q&A HUB</li>
-            <li className="cursor-pointer">Jobs</li>
-            <li className="cursor-pointer">Discussion</li>
+            <li className="cursor-pointer">
+              <Link to={"/qahub"}>Q&A HUB</Link>
+            </li>
+            <li className="cursor-pointer">
+              <Link to={"/jobs"}>Jobs</Link>
+            </li>
+            <li className="cursor-pointer">
+              <Link to={"/institutes"}>Institutes</Link>
+            </li>
+            <li className="cursor-pointer">
+              <Link to={"/discussion"}>Discussion</Link>
+            </li>
           </ul>
         </div>
 
@@ -49,7 +58,7 @@ const Navbar = () => {
                     ? session?.user?.ProfilePicture
                     : "/assets/user.png"
                 }
-                className="h-14 w-14 rounded-full"
+                className="h-[40px] w-[40px] rounded-full"
               />
             </Link>
             <button
@@ -57,7 +66,7 @@ const Navbar = () => {
                 localStorage.removeItem("authtoken");
                 window.location.reload();
               }}
-              className="h-fit py-1 px-2 tablets:py-2 tablets:px-3 bg-white text-main_bg_color font-semibold rounded-sm"
+              className="h-fit text-sm px-2 tablets:py-2 tablets:px-3 bg-white text-main_bg_color font-semibold rounded-sm"
             >
               Logout
             </button>
