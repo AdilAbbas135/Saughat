@@ -4,14 +4,14 @@ const StudentModel = require("../../Models/Student");
 const router = express.Router();
 var jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const VerifyToken = require("../../Middlewear/VerifyToken");
 
 // FIND STUDENT AT POST REQUEST AND RETURNS STUDENT DATA
-router.post("/", async (req, res) => {
+router.post("/", VerifyToken, async (req, res) => {
   if (req.method === "POST") {
-    const token = jwt.verify(req.body.token, process.env.JWT_SECRET_KEY);
     const student = await StudentModel.findOne({
-      _id: token.profileId,
-      userId: token.userId,
+      _id: req.user?.profileId,
+      userId: req.user?.userId,
     });
     if (student) {
       res.status(200).json({ Success: true, student });
@@ -72,6 +72,7 @@ router.post("/createprofile", async (req, res) => {
             profileId: newStudent._id,
             email: newStudent.Email,
             ProfilePicture: newStudent.ProfilePicture,
+            role: "student",
           },
           process.env.JWT_SECRET_KEY,
           { expiresIn: "1d" }
@@ -101,6 +102,7 @@ router.post("/createprofile", async (req, res) => {
         userId: student.userId,
         ProfileId: student._id,
         email: student.Email,
+        role: "student",
         ProfilePicture: student.ProfilePicture,
       },
       process.env.JWT_SECRET_KEY,
@@ -116,7 +118,7 @@ router.post("/createprofile", async (req, res) => {
 });
 
 // Update the student Account
-router.post("/updatestudent", async (req, res) => {
+router.post("/updatestudent", VerifyToken, async (req, res) => {
   const student = await StudentModel.findOne({ _id: req.body._id });
   if (student) {
     const updatestudent = await student.update(
@@ -126,6 +128,12 @@ router.post("/updatestudent", async (req, res) => {
           MiddleName: req.body.MiddleName,
           LastName: req.body.LastName,
           PhoneNo: req.body.PhoneNo,
+          Address: {
+            StreetAddress: req.body?.StreetAddress,
+            Province: req.body?.Province,
+            City: req.body?.City,
+            ZipCode: req.body?.ZipCode,
+          },
         },
       },
       { new: true }

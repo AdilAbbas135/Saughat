@@ -3,6 +3,7 @@ const QaHubModel = require("../../Models/Qahub");
 const StudentModel = require("../../Models/Student");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const VerifyToken = require("../../Middlewear/VerifyToken");
 
 // Route 1 : GET ALL QUESTIONS AGAINST A USERID
 router.post("/findquestions", async (req, res) => {
@@ -14,8 +15,9 @@ router.post("/findquestions", async (req, res) => {
     });
     if (student) {
       const questions = await QaHubModel.find({
-        StudenId: student._id,
+        StudentId: student._id,
       }).sort({ createdAt: -1 });
+
       return res.status(200).json({ Success: true, questions });
     } else {
       return res
@@ -31,12 +33,11 @@ router.post("/findquestions", async (req, res) => {
 });
 
 // ROUTE2 : POST A QUESTION AGAINST A USER
-router.post("/postquestion", async (req, res) => {
+router.post("/postquestion", VerifyToken, async (req, res) => {
   if (req.method === "POST") {
-    const token = jwt.verify(req.body.token, process.env.JWT_SECRET_KEY);
     const student = await StudentModel.findOne({
-      _id: token.profileId,
-      userId: token.userId,
+      _id: req.user?.profileId,
+      userId: req.user?.userId,
     });
     if (student) {
       const question = await QaHubModel.create({
@@ -84,15 +85,14 @@ router.post("/postquestion", async (req, res) => {
 });
 
 //ROUTE3: DELETE A QUESTION THAT A USER ADDS
-router.post("/deletequestion", async (req, res) => {
-  const token = jwt.verify(req.body.token, process.env.JWT_SECRET_KEY);
+router.post("/deletequestion", VerifyToken, async (req, res) => {
   const question = await QaHubModel.findById(req.body.questionid);
   if (question) {
     const deletequestion = await QaHubModel.findByIdAndDelete(
       req.body.questionid
     );
     if (deletequestion) {
-      const findstudent = await StudentModel.findById(token.profileId);
+      const findstudent = await StudentModel.findById(req.user?.profileId);
       if (findstudent) {
         const updatestudent = await findstudent.update({
           $pull: { Questions: question._id },

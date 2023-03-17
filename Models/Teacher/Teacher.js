@@ -15,7 +15,7 @@ const AddressSchema = new Schema(
   { timestamps: true }
 );
 
-const StudentSchema = new Schema(
+const TeacherSchema = new Schema(
   {
     FirstName: {
       type: String,
@@ -27,6 +27,9 @@ const StudentSchema = new Schema(
     LastName: {
       type: String,
     },
+    Gender: {
+      type: String,
+    },
     userId: {
       type: Schema.Types.ObjectId,
       required: true,
@@ -34,18 +37,25 @@ const StudentSchema = new Schema(
     Email: {
       type: String,
       required: true,
-    },
-
-    PhoneNo: {
-      type: String,
+      unique: true,
     },
     ProfilePicture: {
+      type: String,
+    },
+    CoverPicture: {
       type: String,
     },
     AccountType: {
       type: String,
     },
-    Questions: {
+    Rating: {
+      type: Number,
+      default: 0,
+    },
+    Description: {
+      type: String,
+    },
+    Tutions: {
       type: [Schema.Types.ObjectId],
     },
     Discussion: {
@@ -56,5 +66,5 @@ const StudentSchema = new Schema(
   { timestamps: true }
 );
 
-const StudentModel = mongoose.model("Students", StudentSchema);
-module.exports = StudentModel;
+const TeacherModel = mongoose.model("Teachers", TeacherSchema);
+module.exports = TeacherModel;

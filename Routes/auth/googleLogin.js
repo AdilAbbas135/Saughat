@@ -45,6 +45,7 @@ router.post("/", async (req, res) => {
           profileId: findUser.profileId,
           email: findUser.Email,
           ProfilePicture: findUser.ProfilePicture,
+          role: findUser?.userRole,
         },
         process.env.JWT_SECRET_KEY,
         { expiresIn: "1d" }

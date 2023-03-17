@@ -10,37 +10,43 @@ const jwt = require("jsonwebtoken");
 
 // ROUTE 1 : REGISTER WITH MAIL AND SEND VERIFY EMAIL
 router.post("/createaccount", async (req, res) => {
-  const finduser = await AllUsersModel.findOne({ Email: req.query.email });
-  if (!finduser) {
-    const finduser2 = await UserModel.findOne({ email: req.query.email });
-    let user = null;
-    if (!finduser2) {
-      user = await UserModel.create({ email: req.query.email });
-    } else {
-      user = finduser2;
-    }
+  try {
+    const finduser = await AllUsersModel.findOne({ Email: req.query.email });
+    if (!finduser) {
+      const finduser2 = await UserModel.findOne({ email: req.query.email });
+      let user = null;
+      if (!finduser2) {
+        user = await UserModel.create({ email: req.query.email });
+      } else {
+        user = finduser2;
+      }
 
-    if (user) {
-      const token = assigntoken(user);
-      if (token) {
-        return res.status(200).json({
-          success: true,
-          msg: "email has been sent to your email addrsss",
-        });
+      if (user) {
+        const token = assigntoken(user);
+        if (token) {
+          return res.status(200).json({
+            success: true,
+            msg: "email has been sent to your email addrsss",
+          });
+        } else {
+          return res
+            .status(400)
+            .json({ success: false, msg: "error in sending the mail" });
+        }
       } else {
         return res
           .status(400)
-          .json({ success: false, msg: "error in sending the mail" });
+          .json({ success: false, msg: "error in creating the user" });
       }
     } else {
       return res
         .status(400)
-        .json({ success: false, msg: "error in creating the user" });
+        .json({ success: false, msg: "This Email is Already Registered" });
     }
-  } else {
+  } catch (error) {
     return res
-      .status(400)
-      .json({ success: false, msg: "This Email is Already Registered" });
+      .status(500)
+      .json({ success: false, error: "Internal Server Error" });
   }
 });
 
@@ -107,15 +113,16 @@ router.post("/login", async (req, res) => {
             profileId: User?.profileId,
             email: User?.Email,
             ProfilePicture: User?.ProfilePicture,
+            role: User?.userRole,
           },
           process.env.JWT_SECRET_KEY,
           { expiresIn: "1d" }
         );
         return res.status(200).json({
           success: true,
-          User: User,
           msg: "Login Sucessfull",
           authtoken,
+          role: User?.userRole,
         });
       } else {
         return res

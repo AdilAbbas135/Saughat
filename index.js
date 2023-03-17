@@ -24,6 +24,9 @@ app.use("/account", require("./Routes/auth/account"));
 app.use("/auth/login/google", require("./Routes/auth/googleLogin"));
 // STUDENT ROUTES
 app.use("/student", require("./Routes/Student/student"));
+// Teacher ROUTES
+app.use("/teacher", require("./Routes/Teacher/Teacher"));
+app.use("/tutions", require("./Routes/Teacher/Tution"));
 
 // QAHUB Route
 app.use("/qahub", require("./Routes/QaHub/qahub"));
