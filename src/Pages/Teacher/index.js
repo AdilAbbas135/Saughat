@@ -1,42 +1,41 @@
 import React, { useEffect, useState } from "react";
-import ProfileTab from "../../Components/Student/ProfileTab";
-import QuestionsTab from "../../Components/Student/QuestionsTab";
+
+import QuestionsTab from "../../Components/Teacher/QuestionsTab";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
-import DiscussionTab from "../../Components/Student/DiscussionTab";
-import Header from "../../Components/Student/Header";
-import Sidebar from "../../Components/Student/Sidebar";
+import DiscussionTab from "../../Components/Teacher/DiscussionTab";
+import Header from "../../Components/Teacher/Header";
+import Sidebar from "../../Components/Teacher/Sidebar";
 import Loader from "../../Components/Loader";
-import Dashboard from "../../Components/Student/Dashboard";
+import Dashboard from "../../Components/Teacher/Dashboard";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearSession } from "../../Redux/SessionRedux";
+import GeneralTab from "../../Components/Teacher/GeneralTab";
+import ProfileTab from "../../Components/Teacher/ProfileTab";
+import TutionServices from "../../Components/Teacher/TutionServices";
 
-const Student = () => {
+const Teacher = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const session = useSelector((state) => state.session.session);
-  const [Student, setStudent] = useState({});
+  const [Teacher, setTeacher] = useState({});
   const [loading, setloading] = useState(true);
   const [showSidebar, setshowSidebar] = useState(true);
   const [selected, setselected] = useState("Dashboard");
-  // FUNCTIONS
-  // const handleChange = (event, newValue) => {
-  //   setValue(newValue);
-  // };
+
   useEffect(() => {
     setloading(true);
     const token = localStorage.getItem("authtoken");
     axios
       .post(
-        `${process.env.REACT_APP_BACKEND_URL}/student`,
+        `${process.env.REACT_APP_BACKEND_URL}/teacher`,
         {},
         { headers: { token: token } }
       )
       .then((result) => {
-        console.log("student profile fetched successfully");
+        console.log("Teacher profile fetched successfully");
         console.log(result);
-        setStudent(result.data.student);
+        setTeacher(result.data?.Teacher);
         setloading(false);
       })
       .catch((err) => {
@@ -59,7 +58,7 @@ const Student = () => {
           <div>
             <div className="fixed top-0 left-0 z-[500]">
               <Header
-                Student={Student}
+                Teacher={Teacher}
                 setshowSidebar={setshowSidebar}
                 showSidebar={showSidebar}
               />
@@ -78,13 +77,15 @@ const Student = () => {
               </div>
               <div className="mt-[65px] w-full relative pt-5 sm:px-6 md:px-10 lg:mx-auto lg:max-w-7xl">
                 {selected === "Dashboard" && (
-                  <Dashboard Student={Student} SetStudent={setStudent} />
+                  <Dashboard Teacher={Teacher} SetTeacher={setTeacher} />
                 )}
-                {selected === "Profile" && (
-                  <ProfileTab Student={Student} SetStudent={setStudent} />
-                )}
+                {selected === "Profile" && <ProfileTab />}
+                {selected === "Tution Services" && <TutionServices />}
                 {selected === "MY Questions" && <QuestionsTab />}
                 {selected === "Discussion" && <DiscussionTab />}
+                {selected === "General" && (
+                  <GeneralTab Teacher={Teacher} SetTeacher={setTeacher} />
+                )}
               </div>
             </div>
             {/* <Footer /> */}
@@ -95,4 +96,4 @@ const Student = () => {
   );
 };
 
-export default Student;
+export default Teacher;

@@ -1,16 +1,15 @@
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getSession } from "../../Redux/SessionRedux";
 
 const Navbar = () => {
   const session = useSelector((state) => state.session.session);
-  const [authenticated, setauthenticated] = useState(undefined);
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (session.user.userId && session.user.profileId) {
-      setauthenticated(true);
-    } else {
-      setauthenticated(false);
-    }
+    dispatch(getSession());
+    // console.log("session is");
+    // console.log(session);
     // eslint-disable-next-line
   }, []);
 
@@ -45,10 +44,10 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {authenticated ? (
+        {session?.authenticated ? (
           <div className="space-x-2 flex items-center">
             {/* PROFILE BUTTON FOR AUTHORIZED USERS */}
-            <Link to={"/user/student"}>
+            <Link to={`/user/${session?.user?.role}`}>
               <img
                 height={50}
                 width={50}

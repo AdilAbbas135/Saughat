@@ -13,17 +13,35 @@ try {
 const SessionSlice = createSlice({
   name: "session",
   initialState: {
-    session: { user: user },
+    session: { user: user, authenticated: false },
   },
   reducers: {
     createSession: (state, action) => {
-      state.session.user.userId = action.payload?.userId;
-      state.session.user.profileId = action.payload?.profileId;
-      state.session.user.ProfilePicture = action.payload?.ProfilePicture;
-      state.session.user.email = action.payload?.email;
+      const token = localStorage.getItem("authtoken");
+      let user = jwtDecode(token);
+      state.session.user = user;
+      // state.session.user.userId = action.payload?.userId;
+      // state.session.user.profileId = action.payload?.profileId;
+      // state.session.user.ProfilePicture = action.payload?.ProfilePicture;
+      // state.session.user.email = action.payload?.email;
+      // state.session.user.role = user?.role;
+    },
+    clearSession: (state, session) => {
+      state.session = {};
+      localStorage.removeItem("authtoken");
+    },
+    getSession: (state, session) => {
+      const token = localStorage.getItem("authtoken");
+      if (token) {
+        user = jwtDecode(token);
+        if (user?.userId && user?.profileId) {
+          state.session.authenticated = true;
+          state.session.user = user;
+        }
+      }
     },
   },
 });
 
-export const { createSession } = SessionSlice.actions;
+export const { createSession, clearSession, getSession } = SessionSlice.actions;
 export default SessionSlice.reducer;

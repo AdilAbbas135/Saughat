@@ -57,14 +57,13 @@ const SignUp = () => {
           <div className="w-full max-w-sm md:max-w-md space-y-4 md:space-y-6 bg-white py-8 px-5 md:px-12 rounded-sm">
             <div>
               <Link to={"/"} className="cursor-pointer">
-                {/* <img
-                  className="mx-auto h-12 w-auto"
-                  src="/assets/chainraise_logo_black_text.png"
-                  alt="Chainraise Logo"
-                /> */}
-                <h1 className="text-center logo font-bold text-3xl">
-                  Teachers Hub
-                </h1>
+                <img
+                  height={300}
+                  width={250}
+                  src={"/TH-black.png"}
+                  className="h-full w-full"
+                  alt=""
+                />
               </Link>
               <h2 className="mt-6 text-center text-xl font-bold text-gray-900">
                 Create Your Account

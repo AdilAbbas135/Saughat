@@ -41,11 +41,7 @@ const FeaturedTeachers = () => {
           {Teachers.map((teacher, index) => (
             <div
               key={index}
-              style={{
-                boxShadow:
-                  "0 4px 5px -2px rgb(0 0 0 / 20%), 0 7px 10px 1px rgb(0 0 0 / 14%), 0 2px 16px 1px rgb(0 0 0 / 12%)",
-              }}
-              className="fp-container-item flex flex-col rounded-md overflow-hidden"
+              className="fp-container-item flex flex-col rounded-md overflow-hidden border-2 hover:shadow-md transition-all"
             >
               <img
                 height={300}

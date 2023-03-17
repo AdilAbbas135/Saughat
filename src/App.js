@@ -19,6 +19,7 @@ import Jobs from "./Pages/Jobs";
 import SingleJob from "./Pages/Jobs/singleJob";
 import Institute from "./Pages/institute";
 import SingleInstitute from "./Pages/institute/singleInstitute";
+import Teacher from "./Pages/Teacher";
 
 function App() {
   const router = createBrowserRouter([
@@ -26,6 +27,7 @@ function App() {
     { path: "/auth/signin", element: <Login /> },
     { path: "/auth/signup", element: <SignUp /> },
     { path: "/user/student", element: <Student /> },
+    { path: "/user/teacher", element: <Teacher /> },
     { path: "/auth/signup/sendemail", element: <SendEmail /> },
     { path: "/auth/signup/emailverification", element: <Emailverification /> },
     { path: "/auth/signup/nextstep", element: <CompleteProfile /> },

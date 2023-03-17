@@ -1,5 +1,6 @@
 import { MdLocationOn } from "react-icons/md";
 import { VscTypeHierarchySub } from "react-icons/vsc";
+import { Link } from "react-router-dom";
 const FeaturedJobs = () => {
   const jobs = [
     {
@@ -59,11 +60,7 @@ const FeaturedJobs = () => {
             return (
               <div
                 key={index}
-                style={{
-                  boxShadow:
-                    "0 4px 5px -2px rgb(0 0 0 / 20%), 0 7px 10px 1px rgb(0 0 0 / 14%), 0 2px 16px 1px rgb(0 0 0 / 12%)",
-                }}
-                className="flex flex-col rounded-md overflow-hidden"
+                className="flex flex-col rounded-md overflow-hidden shadow-sm border border-gray-300"
               >
                 <img
                   height={200}
@@ -102,9 +99,11 @@ const FeaturedJobs = () => {
                       );
                     })}
                   </div> */}
-                  <button className="mt-4 w-full py-2 bg-hover_color text-white font-semibold rounded-sm">
-                    View Job
-                  </button>
+                  <Link to={"/jobs/12345"}>
+                    <button className="mt-4 w-full py-2 bg-hover_color text-white font-semibold rounded-sm">
+                      View Job
+                    </button>
+                  </Link>
                 </div>
               </div>
             );

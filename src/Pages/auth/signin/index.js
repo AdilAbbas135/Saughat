@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { createAlert } from "../../../Redux/Alert";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { createSession } from "../../../Redux/SessionRedux";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const Login = () => {
     await axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/account/login`, formData)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         dispatch(
           createAlert({
             type: "success",
@@ -60,7 +61,8 @@ const Login = () => {
           })
         );
         localStorage.setItem("authtoken", response.data.authtoken);
-        navigate("/user/student");
+        dispatch(createSession());
+        navigate(`/user/${response.data?.role}`);
         setloading(false);
       })
       .catch((err) => {
@@ -69,21 +71,33 @@ const Login = () => {
         dispatch(
           createAlert({
             type: "error",
-            message: "Wrong Credentials! Try Again",
+            message: err?.response?.data?.msg
+              ? err?.response?.data?.msg
+              : "Wrong Credentials! Try Again",
           })
         );
       });
   };
 
   useEffect(() => {
-    if (location?.state?.studentPageError) {
+    if (location?.state?.error) {
       dispatch(
         createAlert({
           type: "error",
-          message: "Error in Getting User Details! Please SignIn Again!",
+          message: location?.state?.error
+            ? location?.state?.error
+            : "Something Went Wrong! Try Again",
         })
       );
     }
+    // if (location?.state?.studentPageError) {
+    //   dispatch(
+    //     createAlert({
+    //       type: "error",
+    //       message: "Error in Getting User Details! Please SignIn Again!",
+    //     })
+    //   );
+    // }
     // eslint-disable-next-line
   }, []);
   return (
@@ -215,9 +229,10 @@ const Login = () => {
                   <Button
                     variant="contained"
                     color="primary"
-                    className="w-full font-semibold"
+                    className="w-full font-semibold disabled:cursor-not-allowed disabled:opacity-50"
                     size="large"
                     type="submit"
+                    disabled={loading ? true : false}
                   >
                     {loading ? (
                       <div className="text-white">

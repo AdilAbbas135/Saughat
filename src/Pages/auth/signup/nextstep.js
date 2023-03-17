@@ -1,13 +1,15 @@
 import { Button, MenuItem, Select, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { createAlert } from "../../../Redux/Alert";
 
 const CompleteProfile = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const [SamePasswordError, setSamePasswordError] = useState(false);
   const [UserALLData, setUserALLData] = useState(
@@ -32,7 +34,6 @@ const CompleteProfile = (props) => {
     setUserData({ ...UserData, userRole: event.target.value });
   };
 
-  useEffect(() => {}, []);
   const CreatePofileFunc = async (e) => {
     e.preventDefault();
     if (UserData.Password === UserData.c_Password) {
@@ -46,20 +47,52 @@ const CompleteProfile = (props) => {
           )
           .then((result) => {
             console.log(result);
-            toast.success("Login Successfull", {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            dispatch(
+              createAlert({
+                type: "success",
+                message: "Login Successfull",
+              })
+            );
             localStorage.setItem("authtoken", result.data.authtoken);
             navigate("/user/student");
           })
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            dispatch(
+              createAlert({
+                type: "error",
+                message: "Something Went Wrong! Try Again",
+              })
+            );
+          });
+      }
+      if (userType === "teacher") {
+        console.log("i am in teacher");
+        console.log(UserData);
+        await axios
+          .post(
+            `${process.env.REACT_APP_BACKEND_URL}/teacher/createprofile`,
+            UserData
+          )
+          .then((result) => {
+            console.log(result);
+            dispatch(
+              createAlert({
+                type: "success",
+                message: "SignUp Successfull",
+              })
+            );
+            localStorage.setItem("authtoken", result.data.authtoken);
+            navigate("/user/teacher");
+          })
+          .catch((err) => {
+            console.log(err);
+            dispatch(
+              createAlert({
+                type: "error",
+                message: "Something Went Wrong! Try Again",
+              })
+            );
+          });
       }
     } else {
       setSamePasswordError(true);
