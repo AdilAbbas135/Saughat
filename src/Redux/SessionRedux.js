@@ -20,11 +20,6 @@ const SessionSlice = createSlice({
       const token = localStorage.getItem("authtoken");
       let user = jwtDecode(token);
       state.session.user = user;
-      // state.session.user.userId = action.payload?.userId;
-      // state.session.user.profileId = action.payload?.profileId;
-      // state.session.user.ProfilePicture = action.payload?.ProfilePicture;
-      // state.session.user.email = action.payload?.email;
-      // state.session.user.role = user?.role;
     },
     clearSession: (state, session) => {
       state.session = {};

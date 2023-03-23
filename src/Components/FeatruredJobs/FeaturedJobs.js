@@ -73,7 +73,7 @@ const FeaturedJobs = () => {
                   <h1 className="fpName text-2xl uppercase font-bold font-sans ">
                     {job.JobTitle}
                   </h1>
-                  <p className="text-justify">
+                  <p className="">
                     {job.Dscription.length > 100
                       ? job.Dscription.substring(0, 100)
                       : job.Dscription}{" "}
