@@ -6,8 +6,6 @@ const AllUsersModel = require("../../Models/Allusers");
 // Route 1: Main Login/SignUp With Google
 router.post("/", async (req, res) => {
   const googleData = req.body;
-  // console.log("the google data is ");
-  // console.log(googleData);
   const findUser = await AllUsersModel.findOne({ Email: req.body.email });
   if (!findUser) {
     const newUser = await AllUsersModel.create({

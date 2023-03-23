@@ -4,8 +4,69 @@ const StudentModel = require("../../Models/Student");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const VerifyToken = require("../../Middlewear/VerifyToken");
+const { mongo, default: mongoose } = require("mongoose");
 
-// Route 1 : GET ALL QUESTIONS AGAINST A USERID
+//Route 1:  GET ALL THE QUESTION FOR MAIN QAHUB PAGE
+router.get("/allquestions", async (req, res) => {
+  try {
+    const totalQuestions = await QaHubModel.count({ isActive: true });
+    const questions = await QaHubModel.aggregate([
+      {
+        $match: {
+          isActive: true,
+        },
+      },
+      {
+        $lookup: {
+          from: "students",
+          localField: "StudentId",
+          foreignField: "_id",
+          as: "Student",
+        },
+      },
+      { $sort: { createdAt: -1 } },
+    ]);
+    return res
+      .status(200)
+      .json({ success: true, questions, total: totalQuestions });
+  } catch (error) {
+    return res.status(400).json({
+      success: false,
+      error: "Error in Getting the questions from database",
+    });
+  }
+});
+
+// Route 2 : GET Single Question Against its id
+router.get("/FindQuestion", async (req, res) => {
+  try {
+    const question = await QaHubModel.aggregate([
+      { $match: { _id: mongoose.Types.ObjectId(req.query.id) } },
+      {
+        $lookup: {
+          from: "students",
+          localField: "StudentId",
+          foreignField: "_id",
+          as: "Student",
+        },
+      },
+    ]);
+    if (question) {
+      return res.status(200).json({ success: true, question });
+    } else {
+      return res.status(400).json({
+        success: false,
+        error: "There is not a such question with this id in database",
+      });
+    }
+  } catch (err) {
+    return res
+      .status(400)
+      .json({ success: false, error: "Error in Getting the Question " });
+  }
+});
+
+// Route 3 : GET ALL QUESTIONS AGAINST A Specific USERID
 router.post("/findquestions", async (req, res) => {
   if (req.method === "POST") {
     const token = jwt.verify(req.body.token, process.env.JWT_SECRET_KEY);
@@ -32,7 +93,7 @@ router.post("/findquestions", async (req, res) => {
   }
 });
 
-// ROUTE2 : POST A QUESTION AGAINST A USER
+// ROUTE 4 : POST A QUESTION AGAINST A USER
 router.post("/postquestion", VerifyToken, async (req, res) => {
   if (req.method === "POST") {
     const student = await StudentModel.findOne({
@@ -84,7 +145,7 @@ router.post("/postquestion", VerifyToken, async (req, res) => {
   }
 });
 
-//ROUTE3: DELETE A QUESTION THAT A USER ADDS
+//ROUTE 5: DELETE A QUESTION THAT A USER ADDS
 router.post("/deletequestion", VerifyToken, async (req, res) => {
   const question = await QaHubModel.findById(req.body.questionid);
   if (question) {
