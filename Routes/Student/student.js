@@ -9,17 +9,23 @@ const VerifyToken = require("../../Middlewear/VerifyToken");
 // FIND STUDENT AT POST REQUEST AND RETURNS STUDENT DATA
 router.post("/", VerifyToken, async (req, res) => {
   if (req.method === "POST") {
-    const student = await StudentModel.findOne({
-      _id: req.user?.profileId,
-      userId: req.user?.userId,
-    });
-    if (student) {
-      res.status(200).json({ Success: true, student });
-    } else {
-      res.status(404).json({
-        Success: false,
-        msg: "No user Found with this userId and pofileId",
+    try {
+      const student = await StudentModel.findOne({
+        _id: req.user?.profileId,
+        userId: req.user?.userId,
       });
+      if (student) {
+        return res.status(200).json({ Success: true, student });
+      } else {
+        res.status(404).json({
+          Success: false,
+          msg: "No user Found with this userId and pofileId",
+        });
+      }
+    } catch (error) {
+      return res
+        .status(400)
+        .json({ success: false, error: "Internal Server Error" });
     }
   } else {
     res.status(404).json({

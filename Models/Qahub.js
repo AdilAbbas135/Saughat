@@ -16,7 +16,7 @@ const QaHubSchema = new Schema(
       ref: "Students",
     },
     PeopleApplied: {
-      type: [String],
+      type: [Schema.Types.ObjectId],
     },
   },
   { timestamps: true }

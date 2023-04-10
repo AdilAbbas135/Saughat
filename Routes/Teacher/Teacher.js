@@ -9,17 +9,27 @@ const VerifyToken = require("../../Middlewear/VerifyToken");
 // FIND Teacher AT POST REQUEST AND RETURNS Teacher DATA
 router.post("/", VerifyToken, async (req, res) => {
   if (req.method === "POST") {
-    const Teacher = await TeacherModel.findOne({
-      _id: req.user?.profileId,
-      userId: req.user?.userId,
-    });
-    if (Teacher) {
-      res.status(200).json({ Success: true, Teacher });
-    } else {
-      res.status(404).json({
-        Success: false,
-        error: "Access Denied",
+    try {
+      const Teacher = await TeacherModel.findOne({
+        _id: req.user?.profileId,
+        userId: req.user?.userId,
       });
+      if (Teacher) {
+        res.status(200).json({ Success: true, Teacher });
+      } else {
+        res.status(404).json({
+          Success: false,
+          error: "Access Denied",
+        });
+      }
+    } catch (error) {
+      return res
+        .status(500)
+        .json({
+          success: false,
+          error: "Internal Server Error",
+          errorMessage: error.message,
+        });
     }
   } else {
     res.status(404).json({

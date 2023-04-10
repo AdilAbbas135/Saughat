@@ -6,6 +6,14 @@ const jwt = require("jsonwebtoken");
 const VerifyToken = require("../../Middlewear/VerifyToken");
 const { mongo, default: mongoose } = require("mongoose");
 
+//  Route 1:  GET ALL THE QUESTION FOR MAIN QAHUB PAGE
+//  Route 2 : GET Single Question Against its id
+//  Route 3 : GET ALL QUESTIONS AGAINST A Specific USERID
+//  ROUTE 4 : POST A QUESTION AGAINST A USER
+//  ROUTE 5: DELETE A QUESTION THAT A USER ADDS
+//  Route 6: Apply for a question in qahub as a teacher
+//  Route 7: Get a Single Question Details Along with all the details of its applicants
+
 //Route 1:  GET ALL THE QUESTION FOR MAIN QAHUB PAGE
 router.get("/allquestions", async (req, res) => {
   try {
@@ -186,6 +194,70 @@ router.post("/deletequestion", VerifyToken, async (req, res) => {
     return res
       .status(404)
       .json({ Success: false, msg: "no such question found in the database" });
+  }
+});
+
+//route 6: Apply for a question in qahub as a teacher
+router.post("/applyForQaHub", VerifyToken, async (req, res) => {
+  const id = req.query.id;
+  try {
+    // const updateQuestion =await QaHubModel.findByIdAndUpdate(id,{})
+    const FindQuestion = await QaHubModel.findById(id);
+    if (FindQuestion) {
+      const ProfileId = req.user.profileId;
+      await FindQuestion.update({
+        $push: { PeopleApplied: ProfileId },
+      });
+      return res
+        .status(200)
+        .json({ success: true, msg: "Applied to question Successfully" });
+    } else {
+      return res
+        .status(400)
+        .json({ success: false, error: "No such question Found with this id" });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      success: false,
+      error: "Something Went Wrong durating Application",
+    });
+  }
+});
+//  Route 7: Get a Single Question Details Along with all the details of its applicants
+router.post("/FindQuestionDetails/:id", async (req, res) => {
+  try {
+    const question = await QaHubModel.aggregate([
+      {
+        $match: {
+          _id: mongoose.Types.ObjectId(req.params.id),
+        },
+      },
+      {
+        $lookup: {
+          from: "teachers",
+          localField: "PeopleApplied",
+          foreignField: "_id",
+          as: "Teachers_Applied",
+        },
+      },
+      {
+        $project: {
+          StudentId: 0,
+          isActive: 0,
+          PeopleApplied: 0,
+          "Teachers_Applied.AccountType": 0,
+          "Teachers_Applied.Discussion": 0,
+          "Teachers_Applied.Rating": 0,
+          "Teachers_Applied.Tutions": 0,
+        },
+      },
+    ]);
+    return res.status(200).json({ success: true, question: question[0] });
+  } catch (err) {
+    return res
+      .status(400)
+      .json({ success: false, error: "Something went wrong! Try again" });
   }
 });
 

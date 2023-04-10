@@ -5,18 +5,15 @@ var cors = require("cors");
 var cookieParser = require("cookie-parser");
 const PORT = 8800;
 
+app.listen(PORT, () => {
+  console.log("the app is running at port " + PORT);
+});
+
 // Middlewears
 connect_to_db();
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
-
-app.listen(PORT, () => {
-  console.log("the app is running at port " + PORT);
-});
-// app.use("/", async (req, res) => {
-//   return res.status(200).json({ success: true, homepage: true });
-// });
 
 //Create email account and login
 app.use("/account", require("./Routes/auth/account"));
@@ -27,6 +24,6 @@ app.use("/student", require("./Routes/Student/student"));
 // Teacher ROUTES
 app.use("/teacher", require("./Routes/Teacher/Teacher"));
 app.use("/tutions", require("./Routes/Teacher/Tution"));
-
 // QAHUB Route
 app.use("/qahub", require("./Routes/QaHub/qahub"));
+app.use("/qahub/rooms", require("./Routes/QaHub/Rooms/rooms"));
