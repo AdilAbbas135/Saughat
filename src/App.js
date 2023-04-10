@@ -20,6 +20,12 @@ import SingleJob from "./Pages/Jobs/singleJob";
 import Institute from "./Pages/institute";
 import SingleInstitute from "./Pages/institute/singleInstitute";
 import Teacher from "./Pages/Teacher";
+import Profile from "./Pages/student/Profile";
+import StudentQAHUB from "./Pages/student/QAHUB";
+import TeacherProfilePage from "./Pages/Teacher/Profile";
+import TeacherTutionPage from "./Pages/Teacher/Tution";
+import ViewQuestion from "./Pages/student/QAHUB/ViewQuestion";
+import QaHubRoom from "./Pages/qahub/QaHubRoom";
 
 function App() {
   const router = createBrowserRouter([
@@ -27,7 +33,12 @@ function App() {
     { path: "/auth/signin", element: <Login /> },
     { path: "/auth/signup", element: <SignUp /> },
     { path: "/user/student", element: <Student /> },
+    { path: "/user/student/profile", element: <Profile /> },
+    { path: "/user/student/questions", element: <StudentQAHUB /> },
+    { path: "/user/student/questions/:id", element: <ViewQuestion /> },
     { path: "/user/teacher", element: <Teacher /> },
+    { path: "/user/teacher/profile", element: <TeacherProfilePage /> },
+    { path: "/user/teacher/tution-services", element: <TeacherTutionPage /> },
     { path: "/auth/signup/sendemail", element: <SendEmail /> },
     { path: "/auth/signup/emailverification", element: <Emailverification /> },
     { path: "/auth/signup/nextstep", element: <CompleteProfile /> },
@@ -36,6 +47,7 @@ function App() {
     { path: "/SearchTeacher", element: <SearchTeacher /> },
     { path: "/qahub", element: <QAHUB /> },
     { path: "/qahub/:qid", element: <Singlequestion /> },
+    { path: "/qahub/create-room/roomDetails", element: <QaHubRoom /> },
     { path: "/discussion", element: <Discussion /> },
     { path: "/discussion/:id", element: <SingleDiscussion /> },
     { path: "/jobs", element: <Jobs /> },

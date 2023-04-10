@@ -5,14 +5,24 @@ import { GiDiscussion } from "react-icons/gi";
 import { ImMail } from "react-icons/im";
 import { RiDashboardFill, RiLogoutCircleLine } from "react-icons/ri";
 import { MdPassword, MdSettingsAccessibility } from "react-icons/md";
+import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 const links = [
   {
     title: "Dashboard",
     links: [
-      { name: "Dashboard", icon: <RiDashboardFill /> },
-      { name: "Profile", icon: <CgProfile /> },
-      { name: "MY Questions", icon: <AiFillQuestionCircle /> },
-      { name: "Discussion", icon: <GiDiscussion /> },
+      { name: "Dashboard", icon: <RiDashboardFill />, link: "/user/student" },
+      { name: "Profile", icon: <CgProfile />, link: "/user/student/profile" },
+      {
+        name: "MY Questions",
+        icon: <AiFillQuestionCircle />,
+        link: "/user/student/questions",
+      },
+      {
+        name: "Discussion",
+        icon: <GiDiscussion />,
+        link: "/user/student/discussion",
+      },
     ],
   },
   {
@@ -26,7 +36,10 @@ const links = [
   },
 ];
 
-const Sidebar = ({ showSidebar, selected, setselected }) => {
+const Sidebar = ({ showSidebar }) => {
+  const [selected, setselected] = useState("Dashboard");
+
+  // setselected(location.slice(-1));
   return (
     <div
       className={`transition-all fixed top-0 left-0 bg-white border-r-[2px] border-gray-200 h-screen overflow-hidden mt-[65px] z-10 ${
@@ -42,17 +55,19 @@ const Sidebar = ({ showSidebar, selected, setselected }) => {
             <span className="block h-1 w-10 bg-hover_color rounded-md mt-1 mb-5"></span>
             {link.links.map((link, index) => {
               return (
-                <div key={index} className="menu-item mr-4 mb-2">
-                  <div
-                    className={`${
-                      link.name === selected && "text-hover_color"
-                    } transition-all w-full flex space-x-2 py-2 pl-4 cursor-pointer items-center text-[15px] font-semibold hover:text-hover_color rounded-md `}
-                    onClick={() => setselected(link.name)}
-                  >
-                    <span className="text-xl">{link.icon}</span>
-                    <h1 className="capitalize">{link.name}</h1>
+                <Link to={link.link}>
+                  <div key={index} className="menu-item mr-4 mb-2">
+                    <div
+                      className={`${
+                        link.name === selected && "text-hover_color"
+                      } transition-all w-full flex space-x-2 py-2 pl-4 cursor-pointer items-center text-[15px] font-semibold hover:text-hover_color rounded-md `}
+                      onClick={() => setselected(link.name)}
+                    >
+                      <span className="text-xl">{link.icon}</span>
+                      <h1 className="capitalize">{link.name}</h1>
+                    </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

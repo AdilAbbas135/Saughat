@@ -16,6 +16,7 @@ const Header = ({ Student, showSidebar, setshowSidebar }) => {
     localStorage.removeItem("authtoken");
     window.open("/", "_self");
   };
+
   return (
     <div className="h-[65px] w-screen bg-white px-10 border-b-[2px] border-gray-200 flex items-center justify-between">
       <div className="flex items-center">

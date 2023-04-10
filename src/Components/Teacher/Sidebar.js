@@ -1,19 +1,28 @@
 import React from "react";
 import { AiFillQuestionCircle } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import { GiDiscussion, GiTeacher } from "react-icons/gi";
+import { GiTeacher } from "react-icons/gi";
 import { ImMail } from "react-icons/im";
 import { RiDashboardFill, RiLogoutCircleLine } from "react-icons/ri";
 import { MdPassword, MdSettingsAccessibility } from "react-icons/md";
+import { Link } from "react-router-dom";
 const links = [
   {
     title: "Dashboard",
     links: [
-      { name: "Dashboard", icon: <RiDashboardFill /> },
-      { name: "Profile", icon: <CgProfile /> },
-      { name: "Tution Services", icon: <GiTeacher /> },
-      { name: "QaHub", icon: <AiFillQuestionCircle /> },
-      { name: "Discussion", icon: <GiDiscussion /> },
+      { name: "Dashboard", icon: <RiDashboardFill />, link: "/user/teacher" },
+      { name: "Profile", icon: <CgProfile />, link: "/user/teacher/profile" },
+      {
+        name: "Tution Services",
+        icon: <GiTeacher />,
+        link: "/user/teacher/tution-services",
+      },
+      {
+        name: "QaHub",
+        icon: <AiFillQuestionCircle />,
+        link: "/user/teacher/qahub",
+      },
+      // { name: "Discussion", icon: <GiDiscussion /> },
     ],
   },
   {
@@ -43,17 +52,19 @@ const Sidebar = ({ showSidebar, selected, setselected }) => {
             <span className="block h-1 w-10 bg-hover_color rounded-md mt-1 mb-5"></span>
             {link.links.map((link, index) => {
               return (
-                <div key={index} className="menu-item mr-4 mb-2">
-                  <div
-                    className={`${
-                      link.name === selected && "text-hover_color"
-                    } transition-all w-full flex space-x-2 py-2 pl-4 cursor-pointer items-center text-[15px] font-semibold hover:text-hover_color rounded-md `}
-                    onClick={() => setselected(link.name)}
-                  >
-                    <span className="text-xl">{link.icon}</span>
-                    <h1 className="capitalize">{link.name}</h1>
+                <Link key={index} to={link.link}>
+                  <div className="menu-item mr-4 mb-2">
+                    <div
+                      className={`${
+                        link.name === selected && "text-hover_color"
+                      } transition-all w-full flex space-x-2 py-2 pl-4 cursor-pointer items-center text-[15px] font-semibold hover:text-hover_color rounded-md `}
+                      onClick={() => setselected(link.name)}
+                    >
+                      <span className="text-xl">{link.icon}</span>
+                      <h1 className="capitalize">{link.name}</h1>
+                    </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

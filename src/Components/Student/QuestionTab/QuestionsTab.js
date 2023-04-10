@@ -15,6 +15,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { FiExternalLink } from "react-icons/fi";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const QuestionsTab = () => {
   const [loading, setloading] = useState(true);
@@ -280,15 +281,19 @@ const QuestionsTab = () => {
                           people applied
                         </p>
                       </div>
-                      <div className="w-full mt-4 flex space-x-2">
-                        <Button
-                          variant="outlined"
-                          className="flex-1"
-                          size="medium"
-                        >
-                          <RxReader size={17} className="mr-1" />
-                          VIEW
-                        </Button>
+                      <div className="w-full mt-4 grid grid-cols-3 gap-2">
+                        <div>
+                          <Link to={question._id} className="w-full">
+                            <Button
+                              variant="outlined"
+                              className="w-full"
+                              size="medium"
+                            >
+                              <RxReader size={17} className="mr-1" />
+                              VIEW
+                            </Button>
+                          </Link>
+                        </div>
                         <Button
                           variant="outlined"
                           className="flex-1"

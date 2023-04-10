@@ -1,6 +1,8 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const Dashboard = ({ Student }) => {
+const Dashboard = () => {
+  const Student = useSelector((state) => state.StudentDashboard.Student);
   const links = [
     {
       name: "Tutors Near Me",

@@ -32,7 +32,9 @@ const Login = () => {
           });
         } else {
           localStorage.setItem("authtoken", response?.authtoken);
-          navigate("/user/student");
+          console.log("response in google is ");
+          console.log(response);
+          navigate(`/user/${response.User.userRole}`);
         }
       } else {
         dispatch(
@@ -66,6 +68,7 @@ const Login = () => {
         setloading(false);
       })
       .catch((err) => {
+        console.log("ok i am in the error");
         console.log(err);
         setloading(false);
         dispatch(

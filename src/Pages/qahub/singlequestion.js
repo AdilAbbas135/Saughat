@@ -1,20 +1,29 @@
 import { Button } from "@material-tailwind/react";
-import { Skeleton } from "@mui/material";
+import { Backdrop, CircularProgress, Skeleton } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineFieldTime } from "react-icons/ai";
 import { RiPenNibFill } from "react-icons/ri";
 import { RxPerson } from "react-icons/rx";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/qahub/Sidebar";
+import { createAlert } from "../../Redux/Alert";
 
 const Singlequestion = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const [loading, setloading] = useState(true);
+  const [Applyloading, setApplyloading] = useState(false);
+  const [AlreadyApplied, setAlreadyApplied] = useState(false);
   const [Question, setQuestion] = useState({});
+  const session = useSelector((state) => state.session?.session);
+  const token = localStorage.getItem("authtoken");
+
   const fetchQuestion = async () => {
     await axios
       .get(
@@ -25,19 +34,63 @@ const Singlequestion = () => {
       .then((result) => {
         console.log(result);
         setQuestion(result.data.question[0]);
+        //eslint-disable-next-line
+        result.data.question[0].PeopleApplied.filter((elem) => {
+          if (elem === session?.user?.profileId) {
+            return setAlreadyApplied(true);
+          }
+        });
         setloading(false);
       })
       .catch((err) => {
         console.log(err);
+        dispatch(
+          createAlert({
+            type: "error",
+            message: "Something Went Wrong! Try Again",
+          })
+        );
+      });
+  };
+
+  const ApplyForJob = async (id) => {
+    setApplyloading(true);
+    await axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/qahub/applyForQaHub?id=${id}`,
+        {},
+        { headers: { token: token } }
+      )
+      .then((result) => {
+        setApplyloading(false);
+        dispatch(
+          createAlert({
+            type: "success",
+            message: "Applied Successfully",
+          })
+        );
+        fetchQuestion();
+      })
+      .catch((error) => {
+        setApplyloading(false);
+        dispatch(
+          createAlert({
+            type: "error",
+            message: "Something Went Wrong! Try Again",
+          })
+        );
+        console.log(error);
       });
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchQuestion();
     //eslint-disable-next-line
   }, []);
 
   return (
     <>
+      <ToastContainer />
       <Header page={"singlequestion"} />
       <div className="my-10 sm:mx-6 lg:mx-auto lg:max-w-7xl">
         <div className="mt-5 grid grid-cols-10 gap-x-3">
@@ -112,10 +165,33 @@ const Singlequestion = () => {
                           <p>100 views</p>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <Button className="px-7 flex items-center rounded-sm py-2 bg-hover_color hover:bg-main_bg_color shadow-none hover:shadow-none">
+                      <div className="flex flex-col items-end space-x-2 space-y-1">
+                        <Button
+                          disabled={
+                            session?.user?.role === "teacher" && !AlreadyApplied
+                              ? false
+                              : true
+                          }
+                          onClick={() => ApplyForJob(Question?._id)}
+                          className="px-7 flex items-center rounded-sm py-2 bg-hover_color hover:bg-main_bg_color shadow-none hover:shadow-none disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
                           <RiPenNibFill className="mr-1" /> Apply
                         </Button>
+                        {token && session?.user?.role !== "teacher" && (
+                          <span className="text-red-500 text-sm italic">
+                            Only Teachers can apply
+                          </span>
+                        )}
+                        {!token && (
+                          <span className="text-red-500 text-sm italic">
+                            Please Login to Continue
+                          </span>
+                        )}
+                        {AlreadyApplied && (
+                          <span className="text-red-500 text-sm italic">
+                            You Have Already Applied to this Question
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -127,6 +203,17 @@ const Singlequestion = () => {
             <Sidebar />
           </div>
         </div>
+        {Applyloading && (
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={true}
+          >
+            <div className="flex items-center gap-2">
+              <CircularProgress size={25} color="inherit" />
+              <h2>Applying! Please Wait</h2>
+            </div>
+          </Backdrop>
+        )}
       </div>
       <Footer />
     </>

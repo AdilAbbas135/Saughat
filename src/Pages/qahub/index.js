@@ -12,6 +12,10 @@ import Sidebar from "../../Components/qahub/Sidebar";
 import moment from "moment";
 
 const QAHUB = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   let numbers = [1, 2, 3, 4, 5];
   const [initialData, setinitialData] = useState({
     page: 1,
