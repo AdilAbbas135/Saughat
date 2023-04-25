@@ -1,7 +1,6 @@
 import { Button } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
 import GetQaHubApprovals from "./GetQaHubApprovals";
 
 const links = [
@@ -91,84 +90,6 @@ const Dashboard = () => {
         <div className="mt-5 grid grid-cols-2 gap-5">
           <div className="col-span-2">
             <GetQaHubApprovals />
-          </div>
-          <div>
-            <h1 className="text-2xl uppercase font-semibold leading-6 text-gray-900 border-l-4 border-hover_color pl-2">
-              Tution Services Updates
-            </h1>
-            <div className="mt-5 bg-white rounded-md border-2 border-gray-200 p-5 space-y-6">
-              <div className="flex items-center justify-between space-x-3">
-                <div className="flex items-center space-x-2">
-                  <img
-                    src="/assets/user.png"
-                    alt=""
-                    className="h-[50px] w-[50px] rounded-full"
-                  />
-                  <div>
-                    <h1 className="capitalize font-semibold text-lg ">
-                      Hafsa Dar
-                    </h1>
-                    <p className="text-sm">Accepted Your Request For Q&A</p>
-                  </div>
-                </div>
-                <div className="buttons flex items-center space-x-2">
-                  <Button
-                    ripple
-                    className="bg-hover_color text-white px-4 py-2 shadow-none hover:shadow-none font-semibold text-[15px] rounded-md"
-                  >
-                    Enter Room
-                  </Button>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between space-x-3">
-                <div className="flex items-center space-x-2">
-                  <img
-                    src="/assets/user.png"
-                    alt=""
-                    className="h-[50px] w-[50px] rounded-full"
-                  />
-                  <div>
-                    <h1 className="capitalize font-semibold text-lg ">
-                      Hafsa Dar
-                    </h1>
-                    <p className="text-sm">Accepted Your Request For Q&A</p>
-                  </div>
-                </div>
-                <div className="buttons flex items-center space-x-2">
-                  <Button
-                    ripple
-                    className="bg-hover_color text-white px-4 py-2 shadow-none hover:shadow-none font-semibold text-[15px] rounded-md"
-                  >
-                    Enter Room
-                  </Button>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between space-x-3">
-                <div className="flex items-center space-x-2">
-                  <img
-                    src="/assets/user.png"
-                    alt=""
-                    className="h-[50px] w-[50px] rounded-full"
-                  />
-                  <div>
-                    <h1 className="capitalize font-semibold text-lg ">
-                      Hafsa Dar
-                    </h1>
-                    <p className="text-sm">Accepted Your Request For Q&A</p>
-                  </div>
-                </div>
-                <div className="buttons flex items-center space-x-2">
-                  <Button
-                    ripple
-                    className="bg-hover_color text-white px-4 py-2 shadow-none hover:shadow-none font-semibold text-[15px] rounded-md"
-                  >
-                    Enter Room
-                  </Button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

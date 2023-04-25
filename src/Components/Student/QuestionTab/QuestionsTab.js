@@ -130,7 +130,7 @@ const QuestionsTab = () => {
               regarding them
             </p>
           </div>
-          <div className="AddQuestion flex space-x-3">
+          <div className="AddQuestion flex items-center space-x-3">
             <button
               // disabled={loading ? true : false}
               onClick={handleOpen}
@@ -138,13 +138,15 @@ const QuestionsTab = () => {
             >
               Add Question
             </button>
-            <Button
-              variant="text"
-              className="w-fit font-semibold text-hover_color"
-              size="small"
-            >
-              Open Q&A Hub <FiExternalLink />
-            </Button>
+            <a href="/qahub" target="_blank" rel="noreffer" className="h-full">
+              <Button
+                variant="text"
+                className="w-fit h-full font-semibold text-hover_color"
+                size="small"
+              >
+                Open Q&A Hub <FiExternalLink />
+              </Button>
+            </a>
             <Modal
               keepMounted
               open={open}

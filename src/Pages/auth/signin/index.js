@@ -105,10 +105,6 @@ const Login = () => {
   }, []);
   return (
     <>
-      {/* <Head>
-        <title>Login into Your Account - TeachersHub</title>
-        <meta name="description" content="Find the Best Teachers Near You" />
-      </Head> */}
       <ToastContainer />
       <div className="overflow-hidden">
         <div

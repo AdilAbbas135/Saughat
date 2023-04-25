@@ -28,7 +28,11 @@ const links = [
   {
     title: "Setting",
     links: [
-      { name: "General", icon: <MdSettingsAccessibility /> },
+      {
+        name: "General",
+        icon: <MdSettingsAccessibility />,
+        link: "/user/teacher/settings/general",
+      },
       { name: "Change Password", icon: <MdPassword /> },
       { name: "Change Email", icon: <ImMail /> },
       { name: "Logout", icon: <RiLogoutCircleLine /> },

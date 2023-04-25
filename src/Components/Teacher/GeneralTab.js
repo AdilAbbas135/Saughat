@@ -1,11 +1,15 @@
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const GeneralTab = ({ Student }) => {
-  const [StudentValues, setStudentValues] = useState(Student);
+const GeneralTab = () => {
+  // const Student = useSelector((state) => state.StudentDashboard.Student);
+  const [StudentValues, setStudentValues] = useState(
+    useSelector((state) => state.StudentDashboard.Student)
+  );
   const handleSubmitAccount = async () => {
     const token = localStorage.getItem("authtoken");
     await toast.promise(
@@ -32,9 +36,7 @@ const GeneralTab = ({ Student }) => {
     );
   };
 
-  useEffect(() => {
-    console.log("re-render");
-  }, []);
+  useEffect(() => {}, []);
   return (
     <>
       {/* <ToastContainer /> */}

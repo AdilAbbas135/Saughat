@@ -26,22 +26,34 @@ import TeacherProfilePage from "./Pages/Teacher/Profile";
 import TeacherTutionPage from "./Pages/Teacher/Tution";
 import ViewQuestion from "./Pages/student/QAHUB/ViewQuestion";
 import QaHubRoom from "./Pages/qahub/QaHubRoom";
+import StudentDiscussionPage from "./Pages/student/Discussion";
+import TeacherGeneralSettings from "./Pages/Teacher/Settings/General";
 
 function App() {
   const router = createBrowserRouter([
     { path: "/", element: <Home /> },
     { path: "/auth/signin", element: <Login /> },
     { path: "/auth/signup", element: <SignUp /> },
+    // STUDENT ROUTES
     { path: "/user/student", element: <Student /> },
     { path: "/user/student/profile", element: <Profile /> },
     { path: "/user/student/questions", element: <StudentQAHUB /> },
     { path: "/user/student/questions/:id", element: <ViewQuestion /> },
+    { path: "/user/student/discussion", element: <StudentDiscussionPage /> },
+    // TEACHER ROUTES
     { path: "/user/teacher", element: <Teacher /> },
     { path: "/user/teacher/profile", element: <TeacherProfilePage /> },
     { path: "/user/teacher/tution-services", element: <TeacherTutionPage /> },
+    {
+      path: "/user/teacher/settings/general",
+      element: <TeacherGeneralSettings />,
+    },
+
+    // SIGNUP,SIGNIN AND VERIFICATION ROUTES
     { path: "/auth/signup/sendemail", element: <SendEmail /> },
     { path: "/auth/signup/emailverification", element: <Emailverification /> },
     { path: "/auth/signup/nextstep", element: <CompleteProfile /> },
+    // NORMAL PAGES ROUTES
     { path: "/teachers", element: <TeachersPage /> },
     { path: "/teachers/:id", element: <SingleTeacher /> },
     { path: "/SearchTeacher", element: <SearchTeacher /> },
