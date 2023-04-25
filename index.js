@@ -27,3 +27,7 @@ app.use("/tutions", require("./Routes/Teacher/Tution"));
 // QAHUB Route
 app.use("/qahub", require("./Routes/QaHub/qahub"));
 app.use("/qahub/rooms", require("./Routes/QaHub/Rooms/rooms"));
+app.use("/qahub/conversation", require("./Routes/QaHub/Rooms/messages"));
+app.use("/qahub/feedback", require("./Routes/QaHub/feedback"));
+// Discussion Routes
+app.use("/discussion", require("./Routes/Discussion/index"));

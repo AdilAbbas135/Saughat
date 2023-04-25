@@ -48,10 +48,6 @@ const TeacherSchema = new Schema(
     AccountType: {
       type: String,
     },
-    Rating: {
-      type: Number,
-      default: 0,
-    },
     Description: {
       type: String,
     },
