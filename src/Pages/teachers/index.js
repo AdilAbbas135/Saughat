@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Components/Header/Header";
 import { MenuItem, Select, TextField } from "@mui/material";
 import Footer from "../../Components/Footer/Footer";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const TeachersPage = () => {
+  const [loading, setloading] = useState(false);
+
   const [userType, setuserType] = useState("");
   const ChangeUserType = (event) => {
     setuserType(event.target.value);
   };
 
-  const loading = false;
   const Teachers = [
     {
       ProfilePicture: "/assets/teacher1.jpg",
@@ -84,6 +86,7 @@ const TeachersPage = () => {
       city: "Gujrat",
     },
   ];
+
   return (
     <div>
       <Header page="TeacherSearch" />
@@ -134,7 +137,7 @@ const TeachersPage = () => {
           </div>
         </div>
         <div className="w-full pr-5 relative">
-          <div className="mt-5 w-full grid grid-cols-1 px-3 xl:px-5 2xl:px-0  lg:grid-cols-2 gap-x-3 gap-y-3">
+          <div className="mt-5 w-full grid grid-cols-1 px-3 xl:px-5 2xl:px-0  lg:grid-cols-2  gap-x-3 gap-y-3">
             {!loading &&
               Teachers.map((teacher, index) => (
                 <div key={index}>
