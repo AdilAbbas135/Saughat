@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const connect_to_db = require("./db");
 var cors = require("cors");
-var cookieParser = require("cookie-parser");
+// var cookieParser = require("cookie-parser");
 const PORT = 8800;
 
 app.listen(PORT, () => {
@@ -13,8 +13,11 @@ app.listen(PORT, () => {
 connect_to_db();
 app.use(express.json());
 app.use(cors());
-app.use(cookieParser());
+// app.use(cookieParser());
+app.use("/uploads", express.static("uploads"));
 
+//Public Pages Routes
+app.use("/find", require("./Routes/find"));
 //Create email account and login
 app.use("/account", require("./Routes/auth/account"));
 // LOGIN WITH GOOGLE ROUTE

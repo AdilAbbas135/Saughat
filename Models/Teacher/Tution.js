@@ -9,10 +9,12 @@ const TutionSchema = new Schema(
     Description: {
       type: String,
     },
-    isActive: { type: Boolean },
+    Picture: {
+      type: String,
+    },
+    isActive: { type: Boolean, default: true },
     TeacherId: {
       type: Schema.Types.ObjectId,
-      ref: "Teachers",
       required: true,
     },
     Subjects: {
