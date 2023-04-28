@@ -96,10 +96,7 @@ const TutionServices = () => {
           My Tution Servies
         </h1>
         <Link to="/teacher/tution-services/add-tution">
-          <Button
-            // onClick={() => setOpenModal(true)}
-            className="px-5 py-2 h-fit bg-hover_color shadow-none hover:shadow-none  font-semibold rounded-md flex items-center justify-center hover:scale-105 transition-all"
-          >
+          <Button className="px-5 py-2 text-[16px] h-fit bg-hover_color shadow-none hover:shadow-none  font-semibold rounded-md flex items-center justify-center hover:scale-105 transition-all">
             <IoMdAddCircleOutline className="mr-1" /> Add Service
           </Button>
         </Link>
@@ -166,7 +163,7 @@ const TutionServices = () => {
               return (
                 <div
                   key={index}
-                  className="bg-white h-fit border-2 border-gray-100 rounded-md overflow-hidden border-2 border-dashed border-gray-200 transition-all hover:shadow-md"
+                  className="bg-white h-fit rounded-md overflow-hidden border-2 border-gray-200 transition-all hover:shadow-md"
                 >
                   <img
                     src={
@@ -186,7 +183,11 @@ const TutionServices = () => {
                       {elem?.Title}
                     </h1>
                     <p className="text-text_color_secondary_2 text-sm mb-3">
-                      {elem?.Description}
+                      {elem?.Description.length > 150 ? (
+                        <span>{elem.Description.substring(0, 150)}...</span>
+                      ) : (
+                        elem.Description
+                      )}
                     </p>
                     {elem.Subjects.map((elem2, index2) => {
                       return (
@@ -211,10 +212,17 @@ const TutionServices = () => {
                       /Per Month
                     </p>
 
-                    <div className=" flex items-center space-x-2">
-                      <Button className="flex-1 bg-hover_color shadow-none hover:shadow-none py-2 font-semibold rounded-md flex items-center justify-center hover:bg-main_bg_color transition-all">
-                        <BiEditAlt className="mr-1" /> View
-                      </Button>
+                    <div className="flex items-center space-x-2">
+                      <a
+                        href={`/tutions/${elem._id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex-1"
+                      >
+                        <Button className="flex-1 bg-hover_color shadow-none hover:shadow-none py-2 font-semibold rounded-md flex items-center justify-center hover:bg-main_bg_color transition-all">
+                          <BiEditAlt className="mr-1" /> View
+                        </Button>
+                      </a>
                       <Button className="flex-1 bg-hover_color shadow-none hover:shadow-none py-2 font-semibold rounded-md flex items-center justify-center hover:bg-main_bg_color transition-all">
                         <BiEditAlt className="mr-1" /> Edit
                       </Button>

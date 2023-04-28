@@ -29,7 +29,8 @@ import QaHubRoom from "./Pages/qahub/QaHubRoom";
 import StudentDiscussionPage from "./Pages/student/Discussion";
 import TeacherGeneralSettings from "./Pages/Teacher/Settings/General";
 import AddTutionPage from "./Pages/Teacher/AddTution";
-import TutionsPage from "./Pages/teachers/Tutions";
+import TutionsPage from "./Pages/Tutions/Tutions";
+import SingleTution from "./Pages/Tutions/SingleTution";
 
 function App() {
   const router = createBrowserRouter([
@@ -60,7 +61,9 @@ function App() {
     { path: "/teachers", element: <TeachersPage /> },
     { path: "/teachers/:id", element: <SingleTeacher /> },
     { path: "/SearchTeacher", element: <SearchTeacher /> },
+
     { path: "/tutions", element: <TutionsPage /> },
+    { path: "tutions/:id", element: <SingleTution /> },
     { path: "/qahub", element: <QAHUB /> },
     { path: "/qahub/:qid", element: <Singlequestion /> },
     { path: "/qahub/create-room/roomDetails", element: <QaHubRoom /> },
