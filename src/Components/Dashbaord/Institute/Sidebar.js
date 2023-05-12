@@ -1,40 +1,28 @@
 import React from "react";
+import { AiFillQuestionCircle } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import { GiDiscussion, GiTeacher } from "react-icons/gi";
+import { GiTeacher } from "react-icons/gi";
 import { ImMail } from "react-icons/im";
 import { RiDashboardFill, RiLogoutCircleLine } from "react-icons/ri";
 import { MdPassword, MdSettingsAccessibility } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { SiFoodpanda } from "react-icons/si";
 const links = [
   {
     title: "Dashboard",
     links: [
+      { name: "Dashboard", icon: <RiDashboardFill />, link: "/user/teacher" },
+      { name: "Profile", icon: <CgProfile />, link: "/user/teacher/profile" },
       {
-        name: "Dashboard",
-        icon: <RiDashboardFill />,
-        link: "/user/hall-manager",
-      },
-      {
-        name: "Profile",
-        icon: <CgProfile />,
-        link: "/user/hall-manager/profile",
-      },
-      {
-        name: "Halls",
+        name: "Tution Services",
         icon: <GiTeacher />,
-        link: "/user/hall-manager/halls",
+        link: "/user/teacher/tution-services",
       },
       {
-        name: "Food",
-        icon: <SiFoodpanda />,
-        link: "/user/hall-manager/food",
+        name: "QaHub",
+        icon: <AiFillQuestionCircle />,
+        link: "/user/teacher/qahub",
       },
-      {
-        name: "Bookings",
-        icon: <GiDiscussion />,
-        link: "/user/hall-manager/bookings",
-      },
+      // { name: "Discussion", icon: <GiDiscussion /> },
     ],
   },
   {
@@ -43,7 +31,7 @@ const links = [
       {
         name: "General",
         icon: <MdSettingsAccessibility />,
-        link: "/user/hall-manager/settings/general",
+        link: "/user/teacher/settings/general",
       },
       { name: "Change Password", icon: <MdPassword /> },
       { name: "Change Email", icon: <ImMail /> },

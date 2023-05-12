@@ -14,7 +14,7 @@ import {
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 
-const Header = ({ HallManager, showSidebar, setshowSidebar }) => {
+const Header = ({ Institute, showSidebar, setshowSidebar }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfileMenu = Boolean(anchorEl);
   const handleClose = () => {
@@ -37,26 +37,10 @@ const Header = ({ HallManager, showSidebar, setshowSidebar }) => {
           />
         </Tooltip>
         <Link to={"/"}>
-          {/* <img src={"/TH-black.png"} height={200} width={200} alt="" /> */}
-          <div className="ml-2 logo font-extrabold text-lg tablets:text-3xl text-hover_color">
-            Saughaat
-          </div>
+          <img src={"/TH-black.png"} height={200} width={200} alt="" />
         </Link>
       </div>
       <div className="flex items-center space-x-2">
-        {/* <Button
-          variant="text"
-          className="font-bold bg-gray_light text-text_color hover:bg-hover_color hover:text-white"
-        >
-          Forum
-        </Button>
-        <Button
-          variant="text"
-          className="font-bold bg-gray_light text-text_color hover:bg-hover_color hover:text-white"
-        >
-          Help
-        </Button> */}
-
         <div className="flex items-center ">
           <div className="mr-1">
             <IconButton>
@@ -75,18 +59,16 @@ const Header = ({ HallManager, showSidebar, setshowSidebar }) => {
                 <div className="rounded-full border-2 border-gray-300 p-[3px]">
                   <Avatar
                     alt="Remy Sharp"
-                    src={HallManager?.ProfilePicture}
+                    src={Institute?.ProfilePicture}
                     className="rounded-full"
                   />
                 </div>
                 <div>
                   <h1 className="font-sans font-semibold text-[15px] capitalize text-text_color">
-                    {HallManager?.FirstName?.toLowerCase() +
-                      " " +
-                      HallManager?.LastName?.toLowerCase()}
+                    {Institute?.Name?.toLowerCase()}
                   </h1>
                   <h2 className="text-start font-sans font-[700] text-[12px] capitalize text-hover_color -mt-[5px]">
-                    Hall Manager
+                    Institute
                   </h2>
                 </div>
               </div>
@@ -139,7 +121,7 @@ const Header = ({ HallManager, showSidebar, setshowSidebar }) => {
               <Link href={"/profile"}>
                 <div className="flex items-center space-x-2s">
                   <Avatar
-                    src={HallManager?.ProfilePicture}
+                    src={Institute?.ProfilePicture}
                     className="inline-block"
                   />
                   <span>Profile</span>

@@ -23,19 +23,19 @@ const Navbar = () => {
       <div className="navbar-container my-2 flex justify-between items-center h-full w-full max-w-6xl px-5 lg:px-0 text-white">
         <div>
           <Link to={"/"}>
-            {/* <div className="logo font-bold text-lg tablets:text-3xl">
-              TEACHERS HUB.
-            </div> */}
-            <img height={200} width={200} src={"/TH-white.png"} alt="" />
+            <div className="logo font-bold text-lg tablets:text-3xl text-search_color">
+              Saughaat
+            </div>
+            {/* <img height={200} width={200} src={"/TH-white.png"} alt="" /> */}
           </Link>
         </div>
         <div className="hidden md:block menu">
           <ul className="font-semibold flex space-x-2 text-[15px]">
             <li className="cursor-pointer">
-              <Link to={"/teachers"}>Teachers</Link>
+              <Link to={"/halls"}>Halls</Link>
             </li>
             <li className="cursor-pointer">
-              <Link to={"/tutions"}>Tutions</Link>
+              <Link to={"/food"}>Foods</Link>
             </li>
             <li className="cursor-pointer">
               <Link to={"/qahub"}>Q&A HUB</Link>

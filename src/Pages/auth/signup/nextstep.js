@@ -37,12 +37,11 @@ const CompleteProfile = (props) => {
   const CreatePofileFunc = async (e) => {
     e.preventDefault();
     if (UserData.Password === UserData.c_Password) {
-      if (userType === "student") {
-        console.log("ok i am in student");
+      if (userType === "hall-manager") {
         console.log(UserData);
         await axios
           .post(
-            `${process.env.REACT_APP_BACKEND_URL}/student/createprofile`,
+            `${process.env.REACT_APP_BACKEND_URL}/hall-manager/createprofile`,
             UserData
           )
           .then((result) => {
@@ -50,11 +49,11 @@ const CompleteProfile = (props) => {
             dispatch(
               createAlert({
                 type: "success",
-                message: "Login Successfull",
+                message: "Account Created Successfully",
               })
             );
             localStorage.setItem("authtoken", result.data.authtoken);
-            navigate("/user/student");
+            navigate("/user/hall-manager");
           })
           .catch((err) => {
             dispatch(
@@ -65,12 +64,12 @@ const CompleteProfile = (props) => {
             );
           });
       }
-      if (userType === "teacher") {
-        console.log("i am in teacher");
-        console.log(UserData);
+      if (userType === "event-organizer") {
+        // console.log("i am in teacher");
+        // console.log(UserData);
         await axios
           .post(
-            `${process.env.REACT_APP_BACKEND_URL}/teacher/createprofile`,
+            `${process.env.REACT_APP_BACKEND_URL}/event-organizer/createprofile`,
             UserData
           )
           .then((result) => {
@@ -82,7 +81,7 @@ const CompleteProfile = (props) => {
               })
             );
             localStorage.setItem("authtoken", result.data.authtoken);
-            navigate("/user/teacher");
+            navigate("/user/event-organizer");
           })
           .catch((err) => {
             console.log(err);
@@ -90,6 +89,37 @@ const CompleteProfile = (props) => {
               createAlert({
                 type: "error",
                 message: "Something Went Wrong! Try Again",
+              })
+            );
+          });
+      }
+      if (userType === "institute") {
+        // console.log("i am in teacher");
+        // console.log(UserData);
+        await axios
+          .post(
+            `${process.env.REACT_APP_BACKEND_URL}/institute/createprofile`,
+            UserData
+          )
+          .then((result) => {
+            console.log(result);
+            dispatch(
+              createAlert({
+                type: "success",
+                message: "SignUp Successfull",
+              })
+            );
+            localStorage.setItem("authtoken", result.data.authtoken);
+            navigate("/user/institute");
+          })
+          .catch((err) => {
+            console.log(err);
+            dispatch(
+              createAlert({
+                type: "error",
+                message: err?.response?.data?.error
+                  ? err?.response?.data?.error
+                  : "Something Went Wrong! Try Again",
               })
             );
           });
@@ -176,9 +206,11 @@ const CompleteProfile = (props) => {
                     <MenuItem value="" disabled>
                       Who are You?
                     </MenuItem>
-                    <MenuItem value={"student"}>Student</MenuItem>
-                    <MenuItem value={"teacher"}>Teacher</MenuItem>
-                    <MenuItem value={"institute"}>Institute</MenuItem>
+                    <MenuItem value={"hall-manager"}>Hall Manager</MenuItem>
+                    <MenuItem value={"event-organizer"}>
+                      Event Organizer
+                    </MenuItem>
+                    <MenuItem value={"entertainer"}>Entertainer</MenuItem>
                   </Select>
                 </div>
                 {!UserALLData?.googleData && (

@@ -16,13 +16,11 @@ const Header = ({ page }) => {
           <div className="header-container w-full max-w-6xl px-5 lg:px-0">
             <div className="mt-10 pb-5 relative">
               <div className="max-w-4xl">
-                <h1 className="mb-5 text-5xl font-bold font-sans leading-[1.2] uppercase">
-                  FIND <span className="text-search_color">Best Teachers</span>{" "}
-                  Near You
+                <h1 className="mb-5 text-7xl font-bold font-sans leading-[1.2] uppercase text-search_color">
+                  Saughaat
                 </h1>
                 <p className="text-lg ">
-                  Find the best Teacher Near You that is providing Tution
-                  Services or Search Any of your Favourite Teacher to join him.
+                  A place where scheduling events are few clicks away
                 </p>
               </div>
               <div

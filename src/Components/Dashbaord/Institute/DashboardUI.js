@@ -3,22 +3,21 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import { clearSession } from "../../Redux/SessionRedux";
-import { FetchProfile } from "../../Redux/HallManagerDashboard";
-import Loader from "../Loader";
+import { clearSession } from "../../../Redux/SessionRedux";
+import Loader from "../../Loader";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import { FetchProfile } from "../../../Redux/InstituteDashboard";
 
 const DashboardUI = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dashboard = useSelector((state) => state.HallManagerDashboard);
-  const error = useSelector((state) => state.HallManagerDashboard.error);
+  const dashboard = useSelector((state) => state.InstituteDashboard);
+  const error = useSelector((state) => state.InstituteDashboard.error);
   const [showSidebar, setshowSidebar] = useState(true);
 
   useEffect(() => {
-    if (!dashboard.isProfileFetched && !dashboard?.HallManager?._id) {
+    if (!dashboard.isProfileFetched && !dashboard?.Institute?._id) {
       dispatch(FetchProfile());
     }
     //eslint-disable-next-line
@@ -31,7 +30,6 @@ const DashboardUI = (props) => {
   }
   return (
     <>
-      <ToastContainer />
       <div className="min-h-screen overflow-hidden bg-[#F7F7F7]">
         {dashboard.loading ? (
           <Loader />
@@ -39,7 +37,7 @@ const DashboardUI = (props) => {
           <div>
             <div className="fixed top-0 left-0 z-[500]">
               <Header
-                HallManager={dashboard?.HallManager}
+                Institute={dashboard?.Institute}
                 setshowSidebar={setshowSidebar}
                 showSidebar={showSidebar}
               />
