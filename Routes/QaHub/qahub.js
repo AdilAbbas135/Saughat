@@ -1,6 +1,6 @@
 const express = require("express");
 const QaHubModel = require("../../Models/Qahub");
-const StudentModel = require("../../Models/Student");
+const StudentModel = require("../../Models/HallManager");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const VerifyToken = require("../../Middlewear/VerifyToken");

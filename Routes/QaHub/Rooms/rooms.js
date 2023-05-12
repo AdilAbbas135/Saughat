@@ -1,6 +1,6 @@
 const express = require("express");
 const VerifyToken = require("../../../Middlewear/VerifyToken");
-const StudentModel = require("../../../Models/Student");
+const StudentModel = require("../../../Models/HallManager");
 const RoomModel = require("../../../Models/Conversation/Rooms");
 const TeacherModel = require("../../../Models/Teacher/Teacher");
 const { default: mongoose } = require("mongoose");

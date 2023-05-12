@@ -10,7 +10,6 @@ const VerifyToken = (req, res, next) => {
       const data = jwt.verify(token, process.env.JWT_SECRET_KEY);
       if (data) {
         req.user = data;
-        // req.isTokenVerified = true;
         next();
       } else {
         return res.status(401).json({ error: "Access Denied" });
