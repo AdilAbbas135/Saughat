@@ -3,35 +3,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { createAlert } from "../../Redux/Alert";
 import { CircularProgress } from "@mui/material";
 
 const FeaturedTeachers = () => {
   const [Tutions, setTutions] = useState([]);
   const [loading, setloading] = useState(true);
   const dispatch = useDispatch();
-  const Teachers = [
-    {
-      ProfilePicture: "/assets/teacher1.jpg",
-      name: "Teacher 1",
-      Subjects: ["Math", "Chemistry", "Physics"],
-    },
-    {
-      ProfilePicture: "/assets/teacher2.jpg",
-      name: "Teacher 2",
-      Subjects: ["English", "Urdu"],
-    },
-    {
-      ProfilePicture: "/assets/teacher3.jpg",
-      name: "Teacher 3",
-      Subjects: ["Urdu", "Math", "Physics"],
-    },
-    {
-      ProfilePicture: "/assets/teacher4.jpg",
-      name: "Teacher 4",
-      Subjects: ["Math", "English", "Physics"],
-    },
-  ];
 
   const FetchTutions = async () => {
     await axios
@@ -43,16 +20,16 @@ const FeaturedTeachers = () => {
       })
       .catch((error) => {
         console.log(error);
-        dispatch(
-          createAlert({
-            type: "error",
-            message: error?.message
-              ? error?.message
-              : error?.response?.error
-              ? error?.response?.error
-              : "Something went wrong! Try again later",
-          })
-        );
+        // dispatch(
+        //   createAlert({
+        //     type: "error",
+        //     message: error?.message
+        //       ? error?.message
+        //       : error?.response?.error
+        //       ? error?.response?.error
+        //       : "Something went wrong! Try again later",
+        //   })
+        // );
       });
   };
   useEffect(() => {
@@ -72,7 +49,7 @@ const FeaturedTeachers = () => {
             </button>
           </Link>
         </div>
-        <div className=" grid grid-cols-1 tablets:grid-cols-2  md:grid-cols-4 gap-x-5 gap-y-5">
+        <div className="grid grid-cols-1 tablets:grid-cols-2  md:grid-cols-4 gap-x-5 gap-y-5">
           {loading ? (
             <div className="min-h-[100px] w-full flex space-x-2 items-center justify-center">
               <CircularProgress disableShrink /> <h1>Loading..</h1>
