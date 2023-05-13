@@ -26,33 +26,133 @@ const Book = () => {
   const [SelectedStage, setSelectedStage] = useState(null);
 
   const ThemeDesign = [
-    { name: "Theme 1", picture: "/assets/theme 1.jpg", value: "Theme1" },
-    { name: "Theme 2", picture: "/assets/theme 2.jpg", value: "Theme2" },
-    { name: "Theme 3", picture: "/assets/theme 3.jpeg", value: "Theme3" },
-    { name: "Theme 4", picture: "/assets/theme 4.jpeg", value: "Theme4" },
-    { name: "Theme 5", picture: "/assets/theme 6.jpeg", value: "Theme5" },
+    {
+      name: "Theme 1",
+      picture: "/assets/theme 1.jpg",
+      value: "Theme1",
+      price: "3000",
+    },
+    {
+      name: "Theme 2",
+      picture: "/assets/theme 2.jpg",
+      value: "Theme2",
+      price: "4000",
+    },
+    {
+      name: "Theme 3",
+      picture: "/assets/theme 3.jpeg",
+      value: "Theme3",
+      price: "2000",
+    },
+    {
+      name: "Theme 4",
+      picture: "/assets/theme 4.jpeg",
+      value: "Theme4",
+      price: "2500",
+    },
+    {
+      name: "Theme 5",
+      picture: "/assets/theme 6.jpeg",
+      value: "Theme5",
+      price: "3000",
+    },
   ];
   const Curtains = [
-    { name: "Curtain 1", picture: "/assets/Curtain 1.jpg", value: "Curtain1" },
-    { name: "Curtain 2", picture: "/assets/Curtain 2.jpg", value: "Curtain2" },
-    { name: "Curtain 3", picture: "/assets/Curtain 3.jpeg", value: "Curtain3" },
-    { name: "Curtain 4", picture: "/assets/Curtain 4.jpeg", value: "Curtain4" },
-    { name: "Curtain 5", picture: "/assets/Curtain 5.jpeg", value: "Curtain5" },
+    {
+      name: "Curtain 1",
+      picture: "/assets/Curtain 1.jpg",
+      value: "Curtain1",
+      price: "3000",
+    },
+    {
+      name: "Curtain 2",
+      picture: "/assets/Curtain 2.jpg",
+      value: "Curtain2",
+      price: "2000",
+    },
+    {
+      name: "Curtain 3",
+      picture: "/assets/Curtain 3.jpeg",
+      value: "Curtain3",
+      price: "4000",
+    },
+    {
+      name: "Curtain 4",
+      picture: "/assets/Curtain 4.jpeg",
+      value: "Curtain4",
+      price: "5000",
+    },
+    {
+      name: "Curtain 5",
+      picture: "/assets/Curtain 5.jpeg",
+      value: "Curtain5",
+      price: "3000",
+    },
     // { name: "Curtain 6", picture: "/assets/Curtain 6.jpg", value: "Curtain6" },
   ];
   const Lights = [
-    { name: "Light 1", picture: "/assets/Light 1.jpeg", value: "Light1" },
-    { name: "Light 2", picture: "/assets/Light 2.jpeg", value: "Light2" },
-    { name: "Light 3", picture: "/assets/Light 3.jpeg", value: "Light3" },
-    { name: "Light 4", picture: "/assets/Light 4.jpg", value: "Light4" },
-    { name: "Light 5", picture: "/assets/Light 5.jpg", value: "Light5" },
+    {
+      name: "Light 1",
+      picture: "/assets/Light 1.jpeg",
+      value: "Light1",
+      price: "3000",
+    },
+    {
+      name: "Light 2",
+      picture: "/assets/Light 2.jpeg",
+      value: "Light2",
+      price: "2000",
+    },
+    {
+      name: "Light 3",
+      picture: "/assets/Light 3.jpeg",
+      value: "Light3",
+      price: "1000",
+    },
+    {
+      name: "Light 4",
+      picture: "/assets/Light 4.jpg",
+      value: "Light4",
+      price: "3000",
+    },
+    {
+      name: "Light 5",
+      picture: "/assets/Light 5.jpg",
+      value: "Light5",
+      price: "6000",
+    },
   ];
   const Flowers = [
-    { name: "Flowers 2", picture: "/assets/flower 2.jpg", value: "Flowers2" },
-    { name: "Flowers 1", picture: "/assets/flower 1.jpg", value: "Flowers1" },
-    { name: "Flowers 3", picture: "/assets/flower 3.jpeg", value: "Flowers3" },
-    { name: "Flowers 4", picture: "/assets/flower 4.jpeg", value: "Flowers4" },
-    { name: "Flowers 5", picture: "/assets/flower 5.webp", value: "Flowers5" },
+    {
+      name: "Flowers 2",
+      picture: "/assets/flower 2.jpg",
+      value: "Flowers2",
+      price: "3000",
+    },
+    {
+      name: "Flowers 1",
+      picture: "/assets/flower 1.jpg",
+      value: "Flowers1",
+      price: "2000",
+    },
+    {
+      name: "Flowers 3",
+      picture: "/assets/flower 3.jpeg",
+      value: "Flowers3",
+      price: "5000",
+    },
+    {
+      name: "Flowers 4",
+      picture: "/assets/flower 4.jpeg",
+      value: "Flowers4",
+      price: "1000",
+    },
+    {
+      name: "Flowers 5",
+      picture: "/assets/flower 5.webp",
+      value: "Flowers5",
+      price: "3000",
+    },
   ];
 
   const FetchHall = async () => {
@@ -185,6 +285,9 @@ const Book = () => {
                               <h2 className="mt-2 text-sm font-semibold text-[18px] text-center">
                                 {stage.name}
                               </h2>
+                              <span className="mt-2 bg-main_bg_color text-white w-full py-1 text-[16px] font-bold text-center rounded-md">
+                                Rs. {stage.price}
+                              </span>
                             </div>
                           </Radio.Button>
                         );
@@ -218,6 +321,9 @@ const Book = () => {
                               <h2 className="mt-2 text-sm font-semibold text-[18px] text-center">
                                 {stage.name}
                               </h2>
+                              <span className="mt-2 bg-main_bg_color text-white w-full py-1 text-[16px] font-bold text-center rounded-md">
+                                Rs. {stage.price}
+                              </span>
                             </div>
                           </Radio.Button>
                         );
@@ -251,6 +357,9 @@ const Book = () => {
                               <h2 className="mt-2 text-sm font-semibold text-[18px] text-center">
                                 {stage.name}
                               </h2>
+                              <span className="mt-2 bg-main_bg_color text-white w-full py-1 text-[16px] font-bold text-center rounded-md">
+                                Rs. {stage.price}
+                              </span>
                             </div>
                           </Radio.Button>
                         );
@@ -284,6 +393,9 @@ const Book = () => {
                               <h2 className="mt-2 text-sm font-semibold text-[18px] text-center">
                                 {stage.name}
                               </h2>
+                              <span className="mt-2 bg-main_bg_color text-white w-full py-1 text-[16px] font-bold text-center rounded-md">
+                                Rs. {stage.price}
+                              </span>
                             </div>
                           </Radio.Button>
                         );
