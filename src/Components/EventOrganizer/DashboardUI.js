@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { clearSession } from "../../Redux/SessionRedux";
-import { FetchProfile } from "../../Redux/HallManagerDashboard";
+import { FetchProfile } from "../../Redux/EventOrganizerDashboard";
 import Loader from "../Loader";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -13,12 +13,12 @@ import Sidebar from "./Sidebar";
 const DashboardUI = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dashboard = useSelector((state) => state.HallManagerDashboard);
-  const error = useSelector((state) => state.HallManagerDashboard.error);
+  const dashboard = useSelector((state) => state.EventOrganizerDashboard);
+  const error = useSelector((state) => state.EventOrganizerDashboard.error);
   const [showSidebar, setshowSidebar] = useState(true);
 
   useEffect(() => {
-    if (!dashboard.isProfileFetched && !dashboard?.HallManager?._id) {
+    if (!dashboard.isProfileFetched && !dashboard?.EventOrganizer?._id) {
       dispatch(FetchProfile());
     }
     //eslint-disable-next-line
@@ -39,7 +39,7 @@ const DashboardUI = (props) => {
           <div>
             <div className="fixed top-0 left-0 z-[500]">
               <Header
-                HallManager={dashboard?.HallManager}
+                HallManager={dashboard?.EventOrganizer}
                 setshowSidebar={setshowSidebar}
                 showSidebar={showSidebar}
               />

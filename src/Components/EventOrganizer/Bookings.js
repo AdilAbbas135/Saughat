@@ -15,15 +15,13 @@ const AllBookings = () => {
   const [deleteLoading, setdeleteLoading] = useState(false);
   const [allTutions, setallTutions] = useState([]);
   const [SelectedTution, setSelectedTution] = useState({});
+  const [FoodBookings, setFoodBookings] = useState([]);
 
   // DELETE CONFIRM DIALOG
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const handleCloseConfirmModal = () => {
     setOpenConfirmModal(false);
     setSelectedTution({});
-  };
-  const handleOpenConfirmModal = () => {
-    setOpenConfirmModal(true);
   };
 
   // GLOBAL FUNCTIONS
@@ -32,13 +30,14 @@ const AllBookings = () => {
     const token = localStorage.getItem("authtoken");
     axios
       .post(
-        `${process.env.REACT_APP_BACKEND_URL}/hall-manager/bookings`,
+        `${process.env.REACT_APP_BACKEND_URL}/event-organizer/bookings`,
         {},
         { headers: { token: token } }
       )
       .then((result) => {
         console.log(result);
-        setallTutions(result.data?.Bookings);
+        setallTutions(result.data?.Halls);
+        setFoodBookings(result.data?.Food);
         setloading(false);
       })
       .catch((err) => {
@@ -90,7 +89,7 @@ const AllBookings = () => {
 
   return (
     <div className="">
-      <div className="mb-2 flex justify-between">
+      <div className=" flex justify-between">
         <h1 className="font-bold text-text_color text-2xl mb-5 pl-1 border-l-[5px] border-hover_color">
           ALL OF YOUR HALLS BOOKINGS
         </h1>
@@ -150,106 +149,235 @@ const AllBookings = () => {
         </div>
       ) : (
         <div className="">
-          {allTutions.length === 0 ? (
-            <p className="italic text-red-500">No Services Added Yet</p>
-          ) : (
-            <>
-              <table className="min-w-full rounded border">
-                <thead className="bg-white">
-                  <tr>
-                    <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
-                      S#
-                    </th>
-                    <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
-                      Name
-                    </th>
-                    <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
-                      Event
-                    </th>
-                    <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
-                      Date/Time
-                    </th>
-                    <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
-                      Price
-                    </th>
-                    <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
-                      Hall
-                    </th>
-                    <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
-                      Status
-                    </th>
-                    <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {allTutions.map((offering, index) => (
-                    <tr
-                      className="border-b border-gray-300 bg-white text-sm cursor-pointer hover:bg-gray-100 transition-all"
-                      key={index}
-                    >
-                      <td className="py-3 px-5">
-                        <div className="flex">
-                          <div className="pl-2 pt-1">{index + 1}</div>
-                        </div>
-                      </td>
-                      <td className="py-3 px-5">
-                        {offering?.FirstName + " " + offering?.LastName}
-                      </td>
-                      <td className="py-3 px-5">
-                        {offering?.Event ? offering?.Event : "Not Found"}
-                      </td>
-                      <td className="py-3 px-5">{offering?.Date}</td>
-                      <td className="py-3 px-5">
-                        {offering?.Price ? offering?.Price : "Not Found"}
-                      </td>
-                      <td className="py-3 px-5">
-                        <img
-                          src={
-                            offering?.Hall[0]?.Picture
-                              ? `${
-                                  process.env.REACT_APP_BACKEND_URL +
-                                  "/" +
-                                  offering?.Hall[0]?.Picture
-                                }`
-                              : "/assets/TH1.jpg"
-                          }
-                          className="h-[50px] w-auto object-contain rounded-md"
-                          alt=""
-                        />
-                      </td>
-                      <td className="py-3 px-5">
-                        {offering?.Status ? offering?.Status : "Not Decided"}
-                      </td>
-
-                      <td className="py-3 px-5 flex items-center gap-2">
-                        <Link
-                          to={`/user/hall-manager/bookings/${offering._id}`}
-                          className="edit-btn p-2 rounded-lg bg-[#fff8dd] hover:bg-[#ffc700] text-[#ffc700] hover:text-white transition-all"
-                        >
-                          <AiFillEye
-                            size={20}
-                            className="text-inherit edit-icon"
-                          />
-                        </Link>
-                        {/* eslint-disable-next-line */}
-                        <a
-                          // onClick={() => deleteOffering(offering._id)}
-                          className={`delete-btn bg-[#fff5f8] p-2 rounded-lg hover:bg-[#f1416c] text-[#f1416c] hover:text-white transition-all cursor-pointer`}
-                        >
-                          <MdDelete
-                            size={20}
-                            className="delete-icon text-inherit"
-                          />
-                        </a>
-                      </td>
+          <div className="">
+            {allTutions.length === 0 ? (
+              <p className="italic text-red-500">No Halls Booking Yet</p>
+            ) : (
+              <>
+                <table className="min-w-full rounded border">
+                  <thead className="bg-white">
+                    <tr>
+                      <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                        S#
+                      </th>
+                      <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                        Name
+                      </th>
+                      <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                        Event
+                      </th>
+                      <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                        Date/Time
+                      </th>
+                      <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                        Price
+                      </th>
+                      <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                        Hall
+                      </th>
+                      <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                        Status
+                      </th>
+                      <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                        Actions
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </>
-          )}
+                  </thead>
+                  <tbody>
+                    {allTutions.map((offering, index) => (
+                      <tr
+                        className="border-b border-gray-300 bg-white text-sm cursor-pointer hover:bg-gray-100 transition-all"
+                        key={index}
+                      >
+                        <td className="py-3 px-5">
+                          <div className="flex">
+                            <div className="pl-2 pt-1">{index + 1}</div>
+                          </div>
+                        </td>
+                        <td className="py-3 px-5">
+                          {offering?.FirstName + " " + offering?.LastName}
+                        </td>
+                        <td className="py-3 px-5">
+                          {offering?.Event ? offering?.Event : "Not Found"}
+                        </td>
+                        <td className="py-3 px-5">{offering?.Date}</td>
+                        <td className="py-3 px-5">
+                          RS:{" "}
+                          <span className="font-bold">
+                            {offering?.SelectedStage
+                              ? Number(offering?.Price) +
+                                Number(
+                                  offering?.SelectedStage?.Flowers?.price
+                                ) +
+                                Number(offering?.SelectedStage?.Lights?.price) +
+                                Number(
+                                  offering?.SelectedStage?.Curtain?.price
+                                ) +
+                                Number(offering?.SelectedStage?.Theme?.price)
+                              : "Not Found"}
+                          </span>
+                        </td>
+                        <td className="py-3 px-5">
+                          <img
+                            src={
+                              offering?.Hall[0]?.Picture
+                                ? `${
+                                    process.env.REACT_APP_BACKEND_URL +
+                                    "/" +
+                                    offering?.Hall[0]?.Picture
+                                  }`
+                                : "/assets/TH1.jpg"
+                            }
+                            className="h-[50px] w-auto object-contain rounded-md"
+                            alt=""
+                          />
+                        </td>
+                        <td className="py-3 px-5">
+                          {offering?.Status ? offering?.Status : "Not Decided"}
+                        </td>
+
+                        <td className="py-3 px-5 flex items-center gap-2">
+                          <Link
+                            to={`/user/hall-manager/bookings/${offering._id}`}
+                            className="edit-btn p-2 rounded-lg bg-[#fff8dd] hover:bg-[#ffc700] text-[#ffc700] hover:text-white transition-all"
+                          >
+                            <AiFillEye
+                              size={20}
+                              className="text-inherit edit-icon"
+                            />
+                          </Link>
+                          {/* eslint-disable-next-line */}
+                          <a
+                            // onClick={() => deleteOffering(offering._id)}
+                            className={`delete-btn bg-[#fff5f8] p-2 rounded-lg hover:bg-[#f1416c] text-[#f1416c] hover:text-white transition-all cursor-pointer`}
+                          >
+                            <MdDelete
+                              size={20}
+                              className="delete-icon text-inherit"
+                            />
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            )}
+          </div>
+          <div className="my-10">
+            <div className=" flex justify-between">
+              <h1 className="font-bold text-text_color text-2xl mb-5 pl-1 border-l-[5px] border-hover_color">
+                ALL OF YOUR Foods BOOKINGS
+              </h1>
+            </div>
+            <div className="">
+              {FoodBookings.length === 0 ? (
+                <p className="italic text-red-500">No Foods Booking Yet</p>
+              ) : (
+                <>
+                  <table className="min-w-full rounded border">
+                    <thead className="bg-white">
+                      <tr>
+                        <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                          S#
+                        </th>
+                        <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                          Name
+                        </th>
+                        <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                          Event
+                        </th>
+                        <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                          Date/Time
+                        </th>
+                        <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                          Price
+                        </th>
+                        <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                          Hall
+                        </th>
+                        <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                          Status
+                        </th>
+                        <th className="border-b-2 border-gray-200 bg-inherit px-5 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-700">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {FoodBookings.map((offering, index) => (
+                        <tr
+                          className="border-b border-gray-300 bg-white text-sm cursor-pointer hover:bg-gray-100 transition-all"
+                          key={index}
+                        >
+                          <td className="py-3 px-5">
+                            <div className="flex">
+                              <div className="pl-2 pt-1">{index + 1}</div>
+                            </div>
+                          </td>
+                          <td className="py-3 px-5">
+                            {offering?.FirstName + " " + offering?.LastName}
+                          </td>
+                          <td className="py-3 px-5">
+                            {offering?.Event ? offering?.Event : "Not Found"}
+                          </td>
+                          <td className="py-3 px-5">{offering?.Date}</td>
+                          <td className="py-3 px-5">
+                            RS:{" "}
+                            <span className="font-bold">
+                              {offering?.Price ? offering?.Price : "Not Found"}
+                            </span>
+                          </td>
+                          <td className="py-3 px-5">
+                            <img
+                              src={
+                                offering?.FoodDetail[0]?.Picture
+                                  ? `${
+                                      process.env.REACT_APP_BACKEND_URL +
+                                      "/" +
+                                      offering?.FoodDetail[0]?.Picture
+                                    }`
+                                  : "/assets/TH1.jpg"
+                              }
+                              className="h-[50px] w-auto object-contain rounded-md"
+                              alt=""
+                            />
+                          </td>
+                          <td className="py-3 px-5">
+                            {offering?.Status
+                              ? offering?.Status
+                              : "Not Decided"}
+                          </td>
+
+                          <td className="py-3 px-5 flex items-center gap-2">
+                            <Link
+                              to={`/user/hall-manager/bookings/${offering._id}`}
+                              className="edit-btn p-2 rounded-lg bg-[#fff8dd] hover:bg-[#ffc700] text-[#ffc700] hover:text-white transition-all"
+                            >
+                              <AiFillEye
+                                size={20}
+                                className="text-inherit edit-icon"
+                              />
+                            </Link>
+                            {/* eslint-disable-next-line */}
+                            <a
+                              // onClick={() => deleteOffering(offering._id)}
+                              className={`delete-btn bg-[#fff5f8] p-2 rounded-lg hover:bg-[#f1416c] text-[#f1416c] hover:text-white transition-all cursor-pointer`}
+                            >
+                              <MdDelete
+                                size={20}
+                                className="delete-icon text-inherit"
+                              />
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

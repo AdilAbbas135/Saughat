@@ -86,7 +86,7 @@ const Header = ({ HallManager, showSidebar, setshowSidebar }) => {
                       HallManager?.LastName?.toLowerCase()}
                   </h1>
                   <h2 className="text-start font-sans font-[700] text-[12px] capitalize text-hover_color -mt-[5px]">
-                    Hall Manager
+                    Event Organizer
                   </h2>
                 </div>
               </div>

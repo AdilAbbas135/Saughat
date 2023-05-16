@@ -4,6 +4,7 @@ import Alert from "./Alert";
 import StudentDashboard from "./StudentDashboard";
 import HallManagerDashboard from "./HallManagerDashboard";
 import InstituteDashboard from "./InstituteDashboard";
+import EventOrganizerDashboard from "./EventOrganizerDashboard";
 
 export default configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export default configureStore({
     Alert,
     StudentDashboard,
     HallManagerDashboard,
+    EventOrganizerDashboard,
     InstituteDashboard,
   },
 });

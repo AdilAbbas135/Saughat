@@ -52,7 +52,8 @@ const Login = () => {
     await axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/account/login`, formData)
       .then((response) => {
-        // console.log(response);
+        console.log("login success");
+        console.log(response);
         dispatch(
           createAlert({
             type: "success",

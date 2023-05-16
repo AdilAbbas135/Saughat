@@ -23,7 +23,7 @@ const Book = () => {
   const [TutionData, setTutionData] = useState({});
   const token = localStorage.getItem("authtoken");
   const [BookingStep, setBookingStep] = useState(1);
-  const [SelectedStage, setSelectedStage] = useState(null);
+  const [SelectedStage, setSelectedStage] = useState([]);
 
   const ThemeDesign = [
     {
@@ -171,7 +171,12 @@ const Book = () => {
   };
   const AddBooking = async () => {
     setaddLoading(true);
-    const data = { TutionData, HallDetail: Tution, userDetail: session };
+    const data = {
+      TutionData,
+      HallDetail: Tution,
+      userDetail: session,
+      SelectedStage,
+    };
     await axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/booking/hall`, data, {
         headers: { token: token },
@@ -630,10 +635,10 @@ const Book = () => {
                               alt=""
                               className="h-[200px] w-full object-contain"
                             />
-                            <div className="mt-3">
-                              <h1 className="font-bold text-xl capitalize text-hover_color">
-                                {Tution?.Title}
-                              </h1>
+                            <h1 className="font-bold text-xl capitalize text-text_color_secondary_2">
+                              {Tution?.Title}
+                            </h1>
+                            {/* <div className="mt-3">
                               <p className="text-sm text-text_color_secondary_2">
                                 {Tution?.Description}
                               </p>
@@ -643,7 +648,55 @@ const Book = () => {
                             </div>
                             <p className="text-sm text-text_color_secondary_2 text-center mt-1">
                               Capacity {Tution?.Capacity} (people)
-                            </p>
+                            </p> */}
+                            <h1 className="mt-2 font-bold text-xl text-hover_color">
+                              Bill Details:
+                            </h1>
+                            <span className="h-1 w-10 bg-hover_color block rounded-md"></span>
+                            <div className="mt-3 w-full space-y-1">
+                              <div className="flex items-center justify-between font-semibold">
+                                <p>Hall</p>
+                                <p className="text-hover_color">
+                                  PKR {Tution?.Price}
+                                </p>
+                              </div>
+                              <div className="flex items-center justify-between font-semibold">
+                                <p>Theme</p>
+                                <p className="text-hover_color">
+                                  PKR {SelectedStage.Theme.price}
+                                </p>
+                              </div>
+                              <div className="flex items-center justify-between font-semibold">
+                                <p>Curtain</p>
+                                <p className="text-hover_color">
+                                  PKR {SelectedStage.Curtain.price}
+                                </p>
+                              </div>
+                              <div className="flex items-center justify-between font-semibold">
+                                <p>Lights</p>
+                                <p className="text-hover_color">
+                                  PKR {SelectedStage.Lights.price}
+                                </p>
+                              </div>
+                              <div className="flex items-center justify-between font-semibold">
+                                <p>Flowers</p>
+                                <p className="text-hover_color">
+                                  PKR {SelectedStage.Flowers.price}
+                                </p>
+                              </div>
+                            </div>
+                            <h1 className="font-bold text-xl text-hover_color">
+                              Total:
+                            </h1>
+                            <span className="mt-2 h-1 w-10 bg-hover_color block rounded-md"></span>
+                            <div className="mt-2 text-white rounded-md font-bold text-center bg-hover_color w-full py-2">
+                              Pay:{" "}
+                              {Number(Tution?.Price) +
+                                Number(SelectedStage.Flowers.price) +
+                                Number(SelectedStage.Lights.price) +
+                                Number(SelectedStage.Curtain.price) +
+                                Number(SelectedStage.Theme.price)}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -707,7 +760,7 @@ const Book = () => {
                       </h1>
                       <div className="mt-5">
                         <img
-                          src={SelectedStage.Curtain.picture}
+                          src={SelectedStage.Flowers.picture}
                           alt=""
                           className="h-[200px] w-full object-contain"
                         />

@@ -1,11 +1,11 @@
 import React from "react";
 import { CgProfile } from "react-icons/cg";
-import { GiDiscussion, GiTeacher } from "react-icons/gi";
+import { GiDiscussion } from "react-icons/gi";
 import { ImMail } from "react-icons/im";
 import { RiDashboardFill, RiLogoutCircleLine } from "react-icons/ri";
 import { MdPassword, MdSettingsAccessibility } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { SiFoodpanda } from "react-icons/si";
+
 const links = [
   {
     title: "Dashboard",
@@ -13,27 +13,18 @@ const links = [
       {
         name: "Dashboard",
         icon: <RiDashboardFill />,
-        link: "/user/hall-manager",
+        link: "/user/event-organizer",
       },
       {
         name: "Profile",
         icon: <CgProfile />,
         link: "/user/hall-manager/profile",
       },
-      {
-        name: "Halls",
-        icon: <GiTeacher />,
-        link: "/user/hall-manager/halls",
-      },
-      {
-        name: "Food",
-        icon: <SiFoodpanda />,
-        link: "/user/hall-manager/food",
-      },
+
       {
         name: "Bookings",
         icon: <GiDiscussion />,
-        link: "/user/hall-manager/bookings",
+        link: "/user/event-organizer/bookings",
       },
     ],
   },

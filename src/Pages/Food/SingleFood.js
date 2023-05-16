@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Loader from "../../Components/Loader";
 import { Button } from "@material-tailwind/react";
@@ -104,9 +104,14 @@ const SingleFood = () => {
                     </p>
                   </div>
                   <div className="mt-10">
-                    <Button className="w-full text-[15px] rounded-md bg-hover_color shadow-none hover:shadow-none">
-                      Book Now
-                    </Button>
+                    <div className="text-hover_color font-bold min-w-full text-lg border-2 border-hover_color rounded-md py-3 mb-5 text-center">
+                      Rs. {Tution?.Price}
+                    </div>
+                    <Link to={`/food/${Tution._id}/book`}>
+                      <Button className="w-full text-[15px] rounded-md bg-hover_color shadow-none hover:shadow-none">
+                        Book Now
+                      </Button>
+                    </Link>
                   </div>
 
                   <div className="mt-10">
@@ -131,7 +136,7 @@ const SingleFood = () => {
                               Tution?.Teacher[0]?.LastName}
                           </h1>
                           <h1 className="font-bold text-sm capitalize text-text_color_secondary_2">
-                            Mobile Developer
+                            Hall Manager
                           </h1>
                         </div>
                       </div>
@@ -149,56 +154,6 @@ const SingleFood = () => {
                   </div>
                 </div>
                 <div className="col-span-3 sticky top-5 h-fit space-y-5 ">
-                  {/* <div className="border-2 border-dashed border-gray-500 p-5 rounded-md">
-                    <div className="flex items-center justify-between">
-                      <h1 className="text-xl font-[600]">Service Includes</h1>
-                      <h1 className="text-xl text-center text-text_color_secondary_2">
-                        PKR{" "}
-                        <span className="font-bold text-hover_color">
-                          {Tution.Fee}
-                        </span>
-                      </h1>
-                    </div>
-                    <div className="mt-2 space-y-2">
-                      <div className="flex items-center">
-                        <TiTick size={20} className="text-green-500 mr-2" />
-                        <h2 className="font-[600] text-text_color_secondary_2">
-                          English
-                        </h2>
-                      </div>
-                      <div className="flex items-center">
-                        <TiTick size={20} className="text-green-500 mr-2" />
-                        <h2 className="font-[600] text-text_color_secondary_2">
-                          English
-                        </h2>
-                      </div>{" "}
-                      <div className="flex items-center">
-                        <TiTick size={20} className="text-green-500 mr-2" />
-                        <h2 className="font-[600] text-text_color_secondary_2">
-                          English
-                        </h2>
-                      </div>{" "}
-                      <div className="flex items-center">
-                        <TiTick size={20} className="text-green-500 mr-2" />
-                        <h2 className="font-[600] text-text_color_secondary_2">
-                          English
-                        </h2>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-center">
-                      <a
-                        href={`mailto:${Tution.Teacher[0].Email}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <Button className="mx-auto mt-5 font-semibold bg-hover_color text-white rounded-[4px] text-[15px] shadow-none hover:shadow-none">
-                          Contact Teacher
-                        </Button>
-                      </a>
-                    </div>
-                  </div> */}
-
                   <div className="border-2 border-dashed border-gray-500 p-5 rounded-md">
                     <div className="">
                       <h1 className="text-2xl text-text_color_secondary font-bold">
@@ -222,7 +177,7 @@ const SingleFood = () => {
                                 Tution?.Teacher[0]?.LastName}
                             </h1>
                             <h1 className="font-bold text-sm capitalize text-text_color_secondary_2">
-                              Mobile Developer
+                              Hall Manager
                             </h1>
                           </div>
                         </div>
@@ -232,9 +187,14 @@ const SingleFood = () => {
                       </div>
                     </div>
                   </div>
-                  <Button className="w-full text-[15px] rounded-md bg-hover_color shadow-none hover:shadow-none">
-                    Book Now
-                  </Button>
+                  <div className="text-hover_color font-bold min-w-full text-lg border-2 border-hover_color rounded-md py-3 mb-5 text-center">
+                    Rs. {Tution?.Price}
+                  </div>
+                  <Link to={`/food/${Tution._id}/book`}>
+                    <Button className="mt-3 w-full text-[15px] rounded-md bg-hover_color shadow-none hover:shadow-none">
+                      Book Now
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>

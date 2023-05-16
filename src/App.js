@@ -20,6 +20,8 @@ import HallBookingPage from "./Pages/Halls/Book";
 import Bookings from "./Pages/Dashboards/HallManager/Bookings";
 import SingleBooking from "./Pages/Dashboards/HallManager/SingleBooking";
 import EventOrganizerDashbaord from "./Pages/Dashboards/EventOrganizer";
+import BookSingleFood from "./Pages/Food/Book";
+import EventOrganizerBookings from "./Pages/Dashboards/EventOrganizer/Bookings";
 
 function App() {
   const router = createBrowserRouter([
@@ -49,6 +51,10 @@ function App() {
 
     // Event Organizer ROUTES
     { path: "/user/event-organizer", element: <EventOrganizerDashbaord /> },
+    {
+      path: "/user/event-organizer/bookings",
+      element: <EventOrganizerBookings />,
+    },
     // { path: "/user/teacher/profile", element: <TeacherProfilePage /> },
     // {
     //   path: "/user/teacher/settings/general",
@@ -68,6 +74,7 @@ function App() {
     { path: "/halls/:id/book", element: <HallBookingPage /> },
     { path: "/food", element: <FoodsPage /> },
     { path: "/food/:id", element: <SingleFood /> },
+    { path: "/food/:id/book", element: <BookSingleFood /> },
     // { path: "/qahub", element: <QAHUB /> },
     // { path: "/qahub/:qid", element: <Singlequestion /> },
     // { path: "/qahub/create-room/roomDetails", element: <QaHubRoom /> },

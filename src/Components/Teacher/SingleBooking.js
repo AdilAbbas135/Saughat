@@ -194,8 +194,8 @@ const SingleBooking = () => {
             <div className="col-span-10 sticky top-5 h-fit space-y-5 ">
               <div className="border-2 border-dashed border-gray-500 p-5 rounded-md">
                 <div className="">
-                  <h1 className="font-bold text-text_color text-2xl pl-1 border-l-[5px] border-hover_color">
-                    Hall Detail:
+                  <h1 className="text-2xl text-text_color_secondary font-bold">
+                    Selected Package
                   </h1>
                   <div className="mt-5">
                     <img
@@ -211,20 +211,128 @@ const SingleBooking = () => {
                       alt=""
                       className="h-[200px] w-full object-contain"
                     />
+                    <h1 className="font-bold text-xl capitalize text-text_color_secondary_2">
+                      {BookingDetail?.Title}
+                    </h1>
+
+                    <h1 className="mt-2 font-bold text-xl text-hover_color">
+                      Bill Details:
+                    </h1>
+                    <span className="h-1 w-10 bg-hover_color block rounded-md"></span>
+                    <div className="mt-3 w-full space-y-1">
+                      <div className="flex items-center justify-between font-semibold">
+                        <p>Hall</p>
+                        <p className="text-hover_color">
+                          PKR {BookingDetail?.Price}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between font-semibold">
+                        <p>Theme</p>
+                        <p className="text-hover_color">
+                          PKR {BookingDetail?.SelectedStage?.Theme?.price}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between font-semibold">
+                        <p>Curtain</p>
+                        <p className="text-hover_color">
+                          PKR {BookingDetail?.SelectedStage?.Curtain?.price}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between font-semibold">
+                        <p>Lights</p>
+                        <p className="text-hover_color">
+                          PKR {BookingDetail?.SelectedStage?.Lights?.price}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between font-semibold">
+                        <p>Flowers</p>
+                        <p className="text-hover_color">
+                          PKR {BookingDetail?.SelectedStage?.Flowers?.price}
+                        </p>
+                      </div>
+                    </div>
+                    <h1 className="font-bold text-xl text-hover_color">
+                      Total:
+                    </h1>
+                    <span className="mt-2 h-1 w-10 bg-hover_color block rounded-md"></span>
+                    <div className="mt-2 text-white rounded-md font-bold text-center bg-hover_color w-full py-2">
+                      Toal Bill:{" "}
+                      {Number(BookingDetail?.Price) +
+                        Number(BookingDetail?.SelectedStage?.Flowers?.price) +
+                        Number(BookingDetail?.SelectedStage?.Lights?.price) +
+                        Number(BookingDetail?.SelectedStage?.Curtain?.price) +
+                        Number(BookingDetail?.SelectedStage?.Theme?.price)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-4 gap-5">
+                <div className="h-fit border-2 border-dashed border-gray-500 p-5 rounded-md">
+                  <h1 className="text-xl text-text_color_secondary font-bold">
+                    Selected Theme Design
+                  </h1>
+                  <div className="mt-5">
+                    <img
+                      src={BookingDetail?.SelectedStage?.Theme?.picture}
+                      alt=""
+                      className="h-[200px] w-full object-contain"
+                    />
                     <div className="mt-3">
                       <h1 className="font-bold text-xl capitalize text-hover_color">
-                        {BookingDetail?.Hall[0]?.Title}
+                        {BookingDetail?.SelectedStage?.Theme?.name}
                       </h1>
-                      <p className="text-sm text-text_color_secondary_2">
-                        {BookingDetail?.Hall[0]?.Description}
-                      </p>
                     </div>
-                    <div className="mt-2 text-white rounded-md font-bold text-center bg-hover_color w-full py-2">
-                      PKR {BookingDetail?.Hall[0]?.Price}{" "}
+                  </div>
+                </div>
+                <div className="h-fit border-2 border-dashed border-gray-500 p-5 rounded-md">
+                  <h1 className="text-xl text-text_color_secondary font-bold">
+                    Selected Curtain Design
+                  </h1>
+                  <div className="mt-5">
+                    <img
+                      src={BookingDetail?.SelectedStage?.Curtain?.picture}
+                      alt=""
+                      className="h-[200px] w-full object-contain"
+                    />
+                    <div className="mt-3">
+                      <h1 className="font-bold text-xl capitalize text-hover_color">
+                        {BookingDetail?.SelectedStage?.Curtain?.name}
+                      </h1>
                     </div>
-                    <p className="text-sm text-text_color_secondary_2 text-center mt-1">
-                      Capacity {BookingDetail?.Hall[0]?.Capacity} (people)
-                    </p>
+                  </div>
+                </div>
+                <div className="h-fit border-2 border-dashed border-gray-500 p-5 rounded-md">
+                  <h1 className="text-xl text-text_color_secondary font-bold">
+                    Selected Lights Design
+                  </h1>
+                  <div className="mt-5">
+                    <img
+                      src={BookingDetail?.SelectedStage?.Lights?.picture}
+                      alt=""
+                      className="h-[200px] w-full object-contain"
+                    />
+                    <div className="mt-3">
+                      <h1 className="font-bold text-xl capitalize text-hover_color">
+                        {BookingDetail?.SelectedStage?.Lights?.name}
+                      </h1>
+                    </div>
+                  </div>
+                </div>
+                <div className="h-fit border-2 border-dashed border-gray-500 p-5 rounded-md">
+                  <h1 className="text-xl text-text_color_secondary font-bold">
+                    Selected Flowers Design
+                  </h1>
+                  <div className="mt-5">
+                    <img
+                      src={BookingDetail?.SelectedStage?.Flowers?.picture}
+                      alt=""
+                      className="h-[200px] w-full object-contain"
+                    />
+                    <div className="mt-3">
+                      <h1 className="font-bold text-xl capitalize text-hover_color">
+                        {BookingDetail?.SelectedStage?.Flowers?.name}
+                      </h1>
+                    </div>
                   </div>
                 </div>
               </div>

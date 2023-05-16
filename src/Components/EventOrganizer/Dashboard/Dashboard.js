@@ -1,20 +1,12 @@
-import { Button } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import GetQaHubApprovals from "./GetQaHubApprovals";
-import AllBookings from "../Bookings";
-import AllHalls from "../Halls/ALLHalls";
+import Bookings from "../../../Pages/Dashboards/EventOrganizer/Bookings";
 
 const links = [
   {
     name: "My Profile",
     image: "/assets/icons8-customer-96.png",
     count: "Check",
-  },
-  {
-    name: "Halls Management",
-    image: "/assets/icons8-question-mark-96.png",
-    count: "View All",
   },
 ];
 const data = [
@@ -26,7 +18,7 @@ const data = [
 ];
 const Dashboard = () => {
   const Teacher = useSelector(
-    (state) => state.HallManagerDashboard.HallManager
+    (state) => state.EventOrganizerDashboard.EventOrganizer
   );
   return (
     <div className="mt-5 pb-10 sm:mx-6 lg:mx-auto lg:max-w-7xl">
@@ -38,7 +30,7 @@ const Dashboard = () => {
             Teacher?.LastName?.toLowerCase()}
         </h1>
         <h3 className="text-lg font-semibold leading-6 text-text_color_secondary_2">
-          <Link to={"/"}>Home</Link> / Hall Manager
+          <Link to={"/"}>Home</Link> / Event Organizer
         </h3>
       </div>
       {/* <div className="sm:mt-0 rounded-lg bg-white px-4 shadow-sm border border-gray-200"> */}
@@ -86,17 +78,8 @@ const Dashboard = () => {
         })}
       </div>
       <div className="space-y-5">
-        <AllBookings />
-        <AllHalls />
+        <Bookings />
       </div>
-
-      {/* <div className="w-full">
-        <div className="mt-5 grid grid-cols-2 gap-5">
-          <div className="col-span-2">
-            <GetQaHubApprovals />
-          </div>
-        </div>
-      </div> */}
     </div>
   );
 };
