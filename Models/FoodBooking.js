@@ -31,14 +31,14 @@ const BookingSchema = new Schema(
       type: Number,
       required: true,
     },
-    Capacity: {
-      type: Number,
-      required: true,
-    },
+
     Description: {
       type: String,
     },
-    HallId: { type: Schema.Types.ObjectId, required: true },
+    FoodId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
     HallManagerId: {
       type: Schema.Types.ObjectId,
       required: true,
@@ -51,12 +51,9 @@ const BookingSchema = new Schema(
       type: String,
       default: "Pending",
     },
-    SelectedStage: {
-      type: Object,
-    },
   },
   { timestamps: true }
 );
 
-const BookingModel = mongoose.model("bookings", BookingSchema);
-module.exports = BookingModel;
+const FoodBookingModel = mongoose.model("food-bookings", BookingSchema);
+module.exports = FoodBookingModel;

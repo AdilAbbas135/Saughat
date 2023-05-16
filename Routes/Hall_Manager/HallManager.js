@@ -10,6 +10,7 @@ const HallModel = require("../../Models/HallManager/Hall");
 const FoodModel = require("../../Models/Food");
 const BookingModel = require("../../Models/HallManager/Booking");
 const { default: mongoose } = require("mongoose");
+const FoodBookingModel = require("../../Models/FoodBooking");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./uploads/");
@@ -262,7 +263,26 @@ router.post("/bookings", VerifyToken, async (req, res) => {
       },
       { $sort: { createdAt: -1 } },
     ]);
-    return res.status(200).json({ success: true, Bookings });
+
+    const FoodBookings = await FoodBookingModel.aggregate([
+      {
+        $match: {
+          HallManagerId: mongoose.Types.ObjectId(req?.user?.profileId),
+        },
+      },
+      {
+        $lookup: {
+          from: "foods",
+          localField: "FoodId",
+          foreignField: "_id",
+          as: "FoodDetail",
+        },
+      },
+      { $sort: { createdAt: -1 } },
+    ]);
+    return res
+      .status(200)
+      .json({ success: true, Halls: Bookings, Food: FoodBookings });
   } catch (error) {
     return res
       .status(400)

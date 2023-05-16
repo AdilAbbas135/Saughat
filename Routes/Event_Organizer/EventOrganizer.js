@@ -11,6 +11,7 @@ const FoodModel = require("../../Models/Food");
 const BookingModel = require("../../Models/HallManager/Booking");
 const { default: mongoose } = require("mongoose");
 const EventOrganizerModel = require("../../Models/EventOrganizer/EventOrganizer");
+const FoodBookingModel = require("../../Models/FoodBooking");
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./uploads/");
@@ -27,12 +28,12 @@ const upload = multer({ storage: storage });
 router.post("/", VerifyToken, async (req, res) => {
   if (req.method === "POST") {
     try {
-      const student = await HallsManagerModel.findOne({
+      const student = await EventOrganizerModel.findOne({
         _id: req.user?.profileId,
         userId: req.user?.userId,
       });
       if (student) {
-        return res.status(200).json({ Success: true, HallManager: student });
+        return res.status(200).json({ Success: true, EventOrganizer: student });
       } else {
         res.status(404).json({
           Success: false,
@@ -144,6 +145,53 @@ router.post("/createprofile", async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// FIND ALL Bookings RELATED TO A SPECIFIC HALL MANAGER
+router.post("/bookings", VerifyToken, async (req, res) => {
+  try {
+    const Bookings = await BookingModel.aggregate([
+      {
+        $match: {
+          userId: mongoose.Types.ObjectId(req?.user?.profileId),
+        },
+      },
+      {
+        $lookup: {
+          from: "halls",
+          localField: "HallId",
+          foreignField: "_id",
+          as: "Hall",
+        },
+      },
+      { $sort: { createdAt: -1 } },
+    ]);
+
+    const FoodBookings = await FoodBookingModel.aggregate([
+      {
+        $match: {
+          userId: mongoose.Types.ObjectId(req?.user?.profileId),
+        },
+      },
+      {
+        $lookup: {
+          from: "foods",
+          localField: "FoodId",
+          foreignField: "_id",
+          as: "FoodDetail",
+        },
+      },
+      { $sort: { createdAt: -1 } },
+    ]);
+    return res
+      .status(200)
+      .json({ success: true, Halls: Bookings, Food: FoodBookings });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .json({ success: false, error: "Error in finding Bookings" });
   }
 });
 module.exports = router;
