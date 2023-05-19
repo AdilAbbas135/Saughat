@@ -13,12 +13,12 @@ import Sidebar from "./Sidebar";
 const DashboardUI = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const dashboard = useSelector((state) => state.EventOrganizerDashboard);
-  const error = useSelector((state) => state.EventOrganizerDashboard.error);
+  const dashboard = useSelector((state) => state.EntertainerDashboard);
+  const error = useSelector((state) => state.EntertainerDashboard.error);
   const [showSidebar, setshowSidebar] = useState(true);
 
   useEffect(() => {
-    if (!dashboard.isProfileFetched && !dashboard?.EventOrganizer?._id) {
+    if (!dashboard.isProfileFetched && !dashboard?.Entertainer?._id) {
       dispatch(FetchProfile());
     }
     //eslint-disable-next-line
@@ -39,7 +39,7 @@ const DashboardUI = (props) => {
           <div>
             <div className="fixed top-0 left-0 z-[500]">
               <Header
-                HallManager={dashboard?.EventOrganizer}
+                HallManager={dashboard?.Entertainer}
                 setshowSidebar={setshowSidebar}
                 showSidebar={showSidebar}
               />

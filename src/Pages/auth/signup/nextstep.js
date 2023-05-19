@@ -12,6 +12,7 @@ const CompleteProfile = (props) => {
   const dispatch = useDispatch();
 
   const [SamePasswordError, setSamePasswordError] = useState(false);
+  //eslint-disable-next-line
   const [UserALLData, setUserALLData] = useState(
     location?.state?.data ? JSON.parse(location?.state?.data) : ""
   );
@@ -32,6 +33,9 @@ const CompleteProfile = (props) => {
   const ChangeUserType = (event) => {
     setuserType(event.target.value);
     setUserData({ ...UserData, userRole: event.target.value });
+  };
+  const ChangeEntertainerRole = (event) => {
+    setUserData({ ...UserData, EntertainerRole: event.target.value });
   };
 
   const CreatePofileFunc = async (e) => {
@@ -65,8 +69,6 @@ const CompleteProfile = (props) => {
           });
       }
       if (userType === "event-organizer") {
-        // console.log("i am in teacher");
-        // console.log(UserData);
         await axios
           .post(
             `${process.env.REACT_APP_BACKEND_URL}/event-organizer/createprofile`,
@@ -93,12 +95,12 @@ const CompleteProfile = (props) => {
             );
           });
       }
-      if (userType === "institute") {
-        // console.log("i am in teacher");
+      if (userType === "entertainer") {
+        // console.log("i am in entertainer");
         // console.log(UserData);
         await axios
           .post(
-            `${process.env.REACT_APP_BACKEND_URL}/institute/createprofile`,
+            `${process.env.REACT_APP_BACKEND_URL}/entertainer/createprofile`,
             UserData
           )
           .then((result) => {
@@ -110,16 +112,14 @@ const CompleteProfile = (props) => {
               })
             );
             localStorage.setItem("authtoken", result.data.authtoken);
-            navigate("/user/institute");
+            navigate("/user/entertainer");
           })
           .catch((err) => {
             console.log(err);
             dispatch(
               createAlert({
                 type: "error",
-                message: err?.response?.data?.error
-                  ? err?.response?.data?.error
-                  : "Something Went Wrong! Try Again",
+                message: "Something Went Wrong! Try Again",
               })
             );
           });
@@ -191,9 +191,7 @@ const CompleteProfile = (props) => {
                   />
                 </div>
                 <div className="col-span-2 tablets:col-span-1">
-                  {/* <InputLabel id="user-role-label">Age</InputLabel> */}
                   <Select
-                    // labelId="user-role-label"
                     id="user-role"
                     value={userType}
                     label="Who Are You"
@@ -261,6 +259,27 @@ const CompleteProfile = (props) => {
                       </div>
                     )}
                   </>
+                )}
+                {userType === "entertainer" && (
+                  <div className="col-span-2">
+                    <Select
+                      id="entertainer-role"
+                      value={UserData?.EntertainerRole}
+                      label="Who Are You"
+                      onChange={ChangeEntertainerRole}
+                      size="medium"
+                      className="w-full"
+                      displayEmpty
+                      required
+                    >
+                      <MenuItem value="" disabled>
+                        Who are You?
+                      </MenuItem>
+                      <MenuItem value={"pyro"}>Pyro Technician</MenuItem>
+                      <MenuItem value={"photographer"}>Photographer</MenuItem>
+                      <MenuItem value={"bands-man"}>Bands Man</MenuItem>
+                    </Select>
+                  </div>
                 )}
 
                 <Button

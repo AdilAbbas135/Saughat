@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import AllBookings from "../../../Components/EventOrganizer/Bookings";
+import AllBookings from "../../../Components/Entertainer/Bookings";
 
 const links = [
   {

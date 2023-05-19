@@ -18,10 +18,21 @@ import FoodsPage from "./Pages/Food/Food";
 import SingleFood from "./Pages/Food/SingleFood";
 import HallBookingPage from "./Pages/Halls/Book";
 import Bookings from "./Pages/Dashboards/HallManager/Bookings";
+import EntertainerBookings from "./Pages/Dashboards/Entertainer/Bookings";
 import SingleBooking from "./Pages/Dashboards/HallManager/SingleBooking";
 import EventOrganizerDashbaord from "./Pages/Dashboards/EventOrganizer";
 import BookSingleFood from "./Pages/Food/Book";
 import EventOrganizerBookings from "./Pages/Dashboards/EventOrganizer/Bookings";
+import SingleEventOrganizerBooking from "./Pages/Dashboards/EventOrganizer/SingleBooking";
+import EntertainerDashbaord from "./Pages/Dashboards/Entertainer";
+import Services from "./Pages/Dashboards/Entertainer/Services";
+import AddServicePage from "./Pages/Dashboards/Entertainer/AddService";
+import PhotoGraphersPage from "./Pages/Photographers";
+import SinglePhotographer from "./Pages/Photographers/SinglePhotographer";
+import BookPhotographer from "./Pages/Photographers/Book";
+import SingleEntertainerBooking from "./Pages/Dashboards/Entertainer/SingleBooking";
+import PyroPage from "./Pages/Pyro";
+import Bandspage from "./Pages/BandsMan";
 
 function App() {
   const router = createBrowserRouter([
@@ -34,12 +45,6 @@ function App() {
     { path: "/auth/signup/emailverification", element: <Emailverification /> },
     { path: "/auth/signup/nextstep", element: <CompleteProfile /> },
 
-    // STUDENT ROUTES
-    // { path: "/user/student", element: <Student /> },
-    // { path: "/user/student/profile", element: <Profile /> },
-    // { path: "/user/student/questions", element: <StudentQAHUB /> },
-    // { path: "/user/student/questions/:id", element: <ViewQuestion /> },
-    // { path: "/user/student/discussion", element: <StudentDiscussionPage /> },
     // Hall Manager ROUTES
     { path: "/user/hall-manager", element: <HallManagerDashbaord /> },
     { path: "/user/hall-manager/halls", element: <Halls /> },
@@ -55,19 +60,23 @@ function App() {
       path: "/user/event-organizer/bookings",
       element: <EventOrganizerBookings />,
     },
-    // { path: "/user/teacher/profile", element: <TeacherProfilePage /> },
-    // {
-    //   path: "/user/teacher/settings/general",
-    //   element: <TeacherGeneralSettings />,
-    // },
+    {
+      path: "/user/event-organizer/bookings/:id",
+      element: <SingleEventOrganizerBooking />,
+    },
 
-    // Institute ROUTES
-    // { path: "/user/institute", element: <InstituteDashboard /> },
-
-    // NORMAL PAGES ROUTES
-    // { path: "/teachers", element: <TeachersPage /> },
-    // { path: "/teachers/:id", element: <SingleTeacher /> },
-    // { path: "/SearchTeacher", element: <SearchTeacher /> },
+    // Entertainer ROUTES
+    { path: "/user/entertainer", element: <EntertainerDashbaord /> },
+    { path: "/user/entertainer/services", element: <Services /> },
+    {
+      path: "/user/entertainer/services/add-service",
+      element: <AddServicePage />,
+    },
+    { path: "/user/entertainer/bookings", element: <EntertainerBookings /> },
+    {
+      path: "/user/entertainer/bookings/:id",
+      element: <SingleEntertainerBooking />,
+    },
 
     { path: "/halls", element: <HallsPage /> },
     { path: "/halls/:id", element: <SingleHall /> },
@@ -75,15 +84,12 @@ function App() {
     { path: "/food", element: <FoodsPage /> },
     { path: "/food/:id", element: <SingleFood /> },
     { path: "/food/:id/book", element: <BookSingleFood /> },
-    // { path: "/qahub", element: <QAHUB /> },
-    // { path: "/qahub/:qid", element: <Singlequestion /> },
-    // { path: "/qahub/create-room/roomDetails", element: <QaHubRoom /> },
-    // { path: "/discussion", element: <Discussion /> },
-    // { path: "/discussion/:id", element: <SingleDiscussion /> },
-    // { path: "/jobs", element: <Jobs /> },
-    // { path: "/jobs/:id", element: <SingleJob /> },
-    // { path: "/institutes", element: <Institute /> },
-    // { path: "/institutes/:id", element: <SingleInstitute /> },
+    { path: "/photographers", element: <PhotoGraphersPage /> },
+    { path: "/photographers/:id", element: <SinglePhotographer /> },
+    { path: "/photographers/:id/book", element: <BookPhotographer /> },
+    { path: "/pyro", element: <PyroPage /> },
+    { path: "/bands", element: <Bandspage /> },
+
     { path: "*", element: <Error /> },
   ]);
   return <RouterProvider router={router} />;

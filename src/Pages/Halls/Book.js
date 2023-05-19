@@ -11,6 +11,9 @@ import { RxReader } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { createAlert } from "../../Redux/Alert";
 import { Radio } from "antd";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 const Book = () => {
   const session = useSelector((state) => state.session.session);
@@ -24,6 +27,7 @@ const Book = () => {
   const token = localStorage.getItem("authtoken");
   const [BookingStep, setBookingStep] = useState(1);
   const [SelectedStage, setSelectedStage] = useState([]);
+  const [EndingDate, setEndingDate] = useState();
 
   const ThemeDesign = [
     {
@@ -176,6 +180,7 @@ const Book = () => {
       HallDetail: Tution,
       userDetail: session,
       SelectedStage,
+      EndingDate,
     };
     await axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/booking/hall`, data, {
@@ -183,7 +188,7 @@ const Book = () => {
       })
       .then((response) => {
         console.log(response);
-        setTutionData(null);
+
         dispatch(
           createAlert({
             type: "success",
@@ -528,23 +533,24 @@ const Book = () => {
                               />
                             </div>
                             <div className="col-span-1 grid grid-cols-2 gap-2">
-                              <TextField
-                                name="Date"
-                                id="Date"
-                                type={"text"}
-                                required
-                                label="Date"
-                                className="w-full mt-1"
-                                variant="outlined"
-                                size="medium"
-                                value={TutionData?.Date}
-                                onChange={(e) => {
-                                  setTutionData({
-                                    ...TutionData,
-                                    Date: e.target.value,
-                                  });
-                                }}
-                              />
+                              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DatePicker
+                                  label="Ending Date"
+                                  value={EndingDate}
+                                  onChange={(newValue) => {
+                                    setEndingDate(newValue);
+                                  }}
+                                  className="w-full"
+                                  renderInput={(params) => (
+                                    <TextField {...params} />
+                                  )}
+                                  slotProps={{
+                                    textField: {
+                                      required: true,
+                                    },
+                                  }}
+                                />
+                              </LocalizationProvider>
                               <TextField
                                 name="capacity"
                                 id="capacity"

@@ -4,6 +4,7 @@ import { GiDiscussion } from "react-icons/gi";
 import { ImMail } from "react-icons/im";
 import { RiDashboardFill, RiLogoutCircleLine } from "react-icons/ri";
 import { MdPassword, MdSettingsAccessibility } from "react-icons/md";
+import { BiPackage } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
 const links = [
@@ -13,18 +14,23 @@ const links = [
       {
         name: "Dashboard",
         icon: <RiDashboardFill />,
-        link: "/user/event-organizer",
+        link: "/user/entertainer",
       },
       {
         name: "Profile",
         icon: <CgProfile />,
-        link: "/user/event-organizer/profile",
+        link: "/user/entertainer/profile",
+      },
+      {
+        name: "My Services",
+        icon: <BiPackage />,
+        link: "/user/entertainer/services",
       },
 
       {
         name: "Bookings",
         icon: <GiDiscussion />,
-        link: "/user/event-organizer/bookings",
+        link: "/user/entertainer/bookings",
       },
     ],
   },

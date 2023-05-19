@@ -38,16 +38,13 @@ const Navbar = () => {
               <Link to={"/food"}>Foods</Link>
             </li>
             <li className="cursor-pointer">
-              <Link to={"/qahub"}>Q&A HUB</Link>
+              <Link to={"/photographers"}>Photographers</Link>
             </li>
             <li className="cursor-pointer">
-              <Link to={"/jobs"}>Jobs</Link>
+              <Link to={"/pyro"}>Pyro Technicians</Link>
             </li>
             <li className="cursor-pointer">
-              <Link to={"/institutes"}>Institutes</Link>
-            </li>
-            <li className="cursor-pointer">
-              <Link to={"/discussion"}>Discussion</Link>
+              <Link to={"/bands"}>Bands/Music</Link>
             </li>
           </ul>
         </div>
