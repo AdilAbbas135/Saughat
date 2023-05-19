@@ -27,6 +27,8 @@ app.use("/auth/login/google", require("./Routes/auth/googleLogin"));
 app.use("/hall-manager", require("./Routes/Hall_Manager/HallManager"));
 // Event Organizer
 app.use("/event-organizer", require("./Routes/Event_Organizer/EventOrganizer"));
+// Entertainer
+app.use("/entertainer", require("./Routes/Entertainer/Entertainer"));
 // Teacher ROUTES
 // app.use("/teacher", require("./Routes/Teacher/Teacher"));
 // app.use("/tutions", require("./Routes/Teacher/Tution"));

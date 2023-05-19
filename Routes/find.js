@@ -2,6 +2,7 @@ const express = require("express");
 const { default: mongoose } = require("mongoose");
 const HallModel = require("../Models/HallManager/Hall");
 const FoodModel = require("../Models/Food");
+const EntertainerServicesModel = require("../Models/Entertainer/Services");
 const router = express.Router();
 
 //GET ALL HLLS FOR ALL HALLS PAGE
@@ -85,6 +86,92 @@ router.get("/food/singleFood", async (req, res) => {
     ]);
     // console.log(tution);
     return res.status(200).json(tution[0]);
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//GET ALL HLLS FOR ALL HALLS PAGE
+router.get("/photographers", async (req, res) => {
+  try {
+    const tutions = await EntertainerServicesModel.aggregate([
+      { $match: { EntertainerRole: "photographer" } },
+      {
+        $lookup: {
+          from: "entertainers",
+          localField: "EntertainerId",
+          foreignField: "_id",
+          as: "Teacher",
+        },
+      },
+      { $sort: { createdAt: -1 } },
+    ]);
+    return res.status(200).json(tutions);
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// GET SINGLE PhotoGrapher DETAIL FOR SINGLE FOOD PAGE
+router.get("/photographers/singlePhotographer", async (req, res) => {
+  try {
+    const FoodId = req.query.Id;
+    const tution = await EntertainerServicesModel.aggregate([
+      { $match: { _id: mongoose.Types.ObjectId(FoodId) } },
+      {
+        $lookup: {
+          from: "entertainers",
+          localField: "EntertainerId",
+          foreignField: "_id",
+          as: "Teacher",
+        },
+      },
+      { $sort: { createdAt: -1 } },
+    ]);
+    // console.log(tution);
+    return res.status(200).json(tution[0]);
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//GET ALL Pyro Technicians FOR ALL HALLS PAGE
+router.get("/pyro", async (req, res) => {
+  try {
+    const tutions = await EntertainerServicesModel.aggregate([
+      { $match: { EntertainerRole: "pyro" } },
+      {
+        $lookup: {
+          from: "entertainers",
+          localField: "EntertainerId",
+          foreignField: "_id",
+          as: "Teacher",
+        },
+      },
+      { $sort: { createdAt: -1 } },
+    ]);
+    return res.status(200).json(tutions);
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+//GET ALL Pyro Technicians FOR ALL HALLS PAGE
+router.get("/bands", async (req, res) => {
+  try {
+    const tutions = await EntertainerServicesModel.aggregate([
+      { $match: { EntertainerRole: "bands-man" } },
+      {
+        $lookup: {
+          from: "entertainers",
+          localField: "EntertainerId",
+          foreignField: "_id",
+          as: "Teacher",
+        },
+      },
+      { $sort: { createdAt: -1 } },
+    ]);
+    return res.status(200).json(tutions);
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
   }
