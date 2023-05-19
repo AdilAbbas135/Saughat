@@ -64,8 +64,9 @@ const Login = () => {
           })
         );
         localStorage.setItem("authtoken", response.data.authtoken);
+        console.log(`/user/${response?.data?.role}`);
         dispatch(createSession());
-        navigate(`/user/${response.data?.role}`);
+        navigate(`/user/${response?.data?.role}`);
         setloading(false);
       })
       .catch((err) => {
@@ -106,7 +107,6 @@ const Login = () => {
   }, []);
   return (
     <>
-      <ToastContainer />
       <div className="overflow-hidden">
         <div
           className={`LoginWrapper md:h-screen w-screen flex items-center justify-center`}

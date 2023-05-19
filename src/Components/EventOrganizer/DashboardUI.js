@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { clearSession } from "../../Redux/SessionRedux";
-import { FetchProfile } from "../../Redux/EntertainerDashboard";
+import { FetchProfile } from "../../Redux/EventOrganizerDashboard";
 import Loader from "../Loader";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
