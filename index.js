@@ -19,6 +19,7 @@ app.use("/uploads", express.static("uploads"));
 //Public Pages Routes
 app.use("/find", require("./Routes/find"));
 app.use("/booking", require("./Routes/Booking"));
+app.use("/checkout", require("./Routes/stripe"));
 //Create email account and login
 app.use("/account", require("./Routes/auth/account"));
 // LOGIN WITH GOOGLE ROUTE
