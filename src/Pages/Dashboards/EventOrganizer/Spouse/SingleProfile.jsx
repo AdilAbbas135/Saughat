@@ -6,6 +6,7 @@ import DashboardUI from "../../../../Components/EventOrganizer/DashboardUI";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { createAlert } from "../../../../Redux/Alert";
+import StripeCheckout from "react-stripe-checkout";
 
 const SingleProfile = () => {
   const location = useLocation();
@@ -13,7 +14,14 @@ const SingleProfile = () => {
   const Id = location.pathname.split("/").slice(-1);
   const [loading, setloading] = useState(true);
   const [Profile, setProfile] = useState({});
+  const [ShowContact, setShowContact] = useState(false);
   const token = localStorage.getItem("authtoken");
+  const stripeKey =
+    "pk_test_51JGojQHB8vwABSSpHM2xByAZIfXbe0OIFVUmcrexiKkJmzHZAAj8457O7BuGXCiNkzQWWKpWsUiLQJj6ZTDXIpCS00RsoWj3HG";
+  const [StripeToken, setStripeToken] = useState(null);
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
 
   const FetchSingleSpouse = async () => {
     await axios
@@ -45,6 +53,46 @@ const SingleProfile = () => {
     FetchSingleSpouse();
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    try {
+      const Checkout = async () => {
+        await axios
+          .post(`${process.env.REACT_APP_BACKEND_URL}/checkout/payment`, {
+            tokenId: StripeToken?.id,
+            amount: 500,
+          })
+          .then((response2) => {
+            setShowContact(true);
+            dispatch(
+              createAlert({
+                type: "success",
+                message: "Payement Made Successfully",
+                options: {
+                  position: "top-right",
+                },
+              })
+            );
+          })
+          .catch((error) => {
+            console.log(error);
+            dispatch(
+              createAlert({
+                type: "error",
+                message: "Something Went Wrong! Try Again",
+                options: {
+                  position: "top-right",
+                },
+              })
+            );
+          });
+      };
+      StripeToken && Checkout();
+    } catch (error) {
+      console.log(error);
+    }
+    //eslint-disable-next-line
+  }, [StripeToken]);
 
   return (
     <>
@@ -153,11 +201,38 @@ const SingleProfile = () => {
                           </div>
 
                           <div className="mt-5">
-                            <div className="flex items-center space-x-3"></div>
-
-                            <Button className="mt-5 pointer-events-none bg-transparent border-2 border-text_color_secondary text-text_color_secondary shadow-none hover:shadow-none text-[15px] py-2 rounded-[4px]">
-                              Pay $5 to See Contact Details
-                            </Button>
+                            {ShowContact ? (
+                              <>
+                                <div className="mt-3 ml-3">
+                                  <h1>
+                                    <b>Email:</b> {Profile?.Email}
+                                  </h1>
+                                </div>{" "}
+                                <div className="mt-3 ml-3">
+                                  <h1>
+                                    <b>Phone No:</b> {Profile?.PhoneNo}
+                                  </h1>
+                                </div>
+                              </>
+                            ) : (
+                              <div className="cursor-pointer">
+                                <StripeCheckout
+                                  name="Saughat Payment"
+                                  // image="./assets/product-accessories-10.jpg"
+                                  billingAddress
+                                  shippingAddress
+                                  description={`Your Total is $${5}`}
+                                  amount={500}
+                                  token={onToken}
+                                  stripeKey={stripeKey}
+                                  className="cursor-pointer"
+                                >
+                                  <Button className="mt-5 pointer-events-none bg-transparent border-2 border-text_color_secondary text-text_color_secondary shadow-none hover:shadow-none text-[15px] py-2 rounded-[4px] cursor-pointer">
+                                    Pay $5 to See Contact Details
+                                  </Button>
+                                </StripeCheckout>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
