@@ -38,6 +38,31 @@ const EventOrganizerSchema = new Schema(
     PhoneNo: {
       type: String,
     },
+    Height: {
+      type: String,
+    },
+    Nationality: {
+      type: String,
+    },
+    Religion: {
+      type: String,
+    },
+    Siblings: {
+      type: String,
+    },
+    Gender: {
+      type: Boolean,
+      default: null,
+    },
+    Age: {
+      type: Number,
+    },
+    Qualifications: {
+      type: String,
+    },
+    Description: {
+      type: String,
+    },
     ProfilePicture: {
       type: String,
     },
@@ -45,7 +70,7 @@ const EventOrganizerSchema = new Schema(
       type: String,
     },
 
-    Address: { type: AddressSchema },
+    Address: { type: String },
   },
   { timestamps: true }
 );

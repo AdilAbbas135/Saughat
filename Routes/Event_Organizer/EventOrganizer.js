@@ -194,4 +194,66 @@ router.post("/bookings", VerifyToken, async (req, res) => {
       .json({ success: false, error: "Error in finding Bookings" });
   }
 });
+
+router.post("/updateprofile", VerifyToken, async (req, res) => {
+  // console.log(req.body);
+  try {
+    await EventOrganizerModel.findByIdAndUpdate(
+      req.body._id,
+      {
+        $set: {
+          FirstName: req.body.FirstName,
+          LastName: req.body.LastName,
+          PhoneNo: req.body.PhoneNo,
+          Height: req.body.Height,
+          Nationality: req.body.Nationality,
+          Religion: req.body.Religion,
+          Siblings: req.body.Siblings,
+          Address: req.body.Address,
+          Gender: req.body.Gender === "male" ? true : false,
+          Age: req.body.Age,
+          Qualifications: req.body.Qualifications,
+          Description: req.body.Description,
+        },
+      },
+      { upsert: true }
+    );
+    return res.status(200).json({ message: "Profile updated successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.post("/spouse", VerifyToken, async (req, res) => {
+  try {
+    const user = await EventOrganizerModel.findById(req.user.profileId);
+    const results = await EventOrganizerModel.aggregate([
+      {
+        $match: {
+          Gender:
+            user?.Gender === true
+              ? false
+              : user?.Gender === false
+              ? true
+              : true || false,
+        },
+      },
+    ]);
+    return res.status(200).json(results);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.post("/spouse/:id", VerifyToken, async (req, res) => {
+  try {
+    const user = await EventOrganizerModel.findById(req.params.id);
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 module.exports = router;
