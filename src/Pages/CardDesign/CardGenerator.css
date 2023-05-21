@@ -1,0 +1,227 @@
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.top-right-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: 25%;
+}
+
+.top-left-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 25%;
+}
+
+.title1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Dancing Script";
+  font-weight: bold;
+  font-style: normal;
+  font-size: 35px;
+  margin-top: 20px;
+  margin-right: 20px;
+  color: #674ea7;
+  border: none;
+  text-align: center;
+  width: 90%;
+}
+
+.name1 {
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  border: 1px solid black;
+  font-family: "Dancing Script", cursive;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 35px;
+  margin-top: 20px;
+  margin-left: -170px;
+  color: #674ea7;
+  border: none;
+  /* text-align: center; */
+  width: 90%;
+}
+
+.details1 {
+  font-family: "Avro";
+  font-size: 18px;
+}
+
+.name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  font-family: "Dancing Script", cursive;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 35px;
+  margin: 32px 0;
+  color: #674ea7;
+  border: none;
+  text-align: center;
+  width: 90%;
+}
+
+.title h2 {
+  font-family: "Dancing Script", cursive;
+  font-weight: bold;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  color: #e25c67;
+  line-height: 1;
+}
+
+.title h3 {
+  font-weight: 300;
+  font-family: Arvo;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 24px;
+  color: #674ea7;
+  margin-top: 5px;
+}
+
+.dance-med {
+  font-family: "Dancing Script", cursive;
+  font-weight: bolder;
+  font-style: normal;
+  font-size: 32px;
+  color: #674ea7;
+  margin: 16px;
+  text-align: center;
+}
+
+.title p {
+  color: #564861;
+  margin: 30px 0 20px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 16px;
+}
+
+.wrap {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 40px;
+}
+
+.time {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  width: 360px;
+  margin: auto;
+  height: auto;
+  padding: 20px;
+  background-color: #eee;
+  border-radius: 20px;
+  font-size: 16px;
+  font-family: Arvo;
+  text-align: center;
+  font-weight: 600;
+}
+
+.venue1 {
+  width: auto;
+  height: auto;
+  background-color: #674ea7;
+  border-radius: 16px;
+  text-align: center;
+  color: #fff;
+  padding: 8px;
+  margin-right: 8px;
+}
+
+.venue1 a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.dateAndTime {
+  font-family: Arvo;
+}
+
+.date {
+  color: #874562;
+  font-weight: 900;
+  font-family: Arvo;
+  border: none;
+  max-width: 33%;
+  min-width: auto;
+}
+
+.place {
+  color: #874562;
+  font-weight: 900;
+  font-family: Arvo;
+  border: none;
+}
+
+.footer {
+  color: #564861;
+  text-align: center;
+  font-size: 16px;
+  font-family: Arvo;
+  margin: 24px;
+}
+
+.phone {
+  color: #874562;
+}
+
+.end-msg {
+  width: auto;
+  height: auto;
+  padding: 12px;
+  background: linear-gradient(90deg, #b33a46, #9b313c);
+  border-radius: 20px;
+  font-size: 14px;
+  color: #fff;
+  font-size: 24px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.happiness {
+  color: #874562;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.music {
+  display: none;
+}
+
+.actions {
+  display: flex;
+  font-size: 12px;
+  letter-spacing: 0pt;
+}

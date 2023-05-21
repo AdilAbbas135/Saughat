@@ -33,6 +33,10 @@ import BookPhotographer from "./Pages/Photographers/Book";
 import SingleEntertainerBooking from "./Pages/Dashboards/Entertainer/SingleBooking";
 import PyroPage from "./Pages/Pyro";
 import Bandspage from "./Pages/BandsMan";
+import ProfilePage from "./Pages/Dashboards/EventOrganizer/Profile";
+import Profiles from "./Pages/Dashboards/EventOrganizer/Spouse/Profiles";
+import SingleProfile from "./Pages/Dashboards/EventOrganizer/Spouse/SingleProfile";
+// import CardGenerator from "./Pages/CardDesign/CardGenerator";
 
 function App() {
   const router = createBrowserRouter([
@@ -64,6 +68,18 @@ function App() {
       path: "/user/event-organizer/bookings/:id",
       element: <SingleEventOrganizerBooking />,
     },
+    {
+      path: "/user/event-organizer/profile",
+      element: <ProfilePage />,
+    },
+    {
+      path: "/user/event-organizer/find-spouse",
+      element: <Profiles />,
+    },
+    {
+      path: "/user/event-organizer/find-spouse/:id",
+      element: <SingleProfile />,
+    },
 
     // Entertainer ROUTES
     { path: "/user/entertainer", element: <EntertainerDashbaord /> },
@@ -89,6 +105,7 @@ function App() {
     { path: "/photographers/:id/book", element: <BookPhotographer /> },
     { path: "/pyro", element: <PyroPage /> },
     { path: "/bands", element: <Bandspage /> },
+    // { path: "/card-generator", element: <CardGenerator /> },
 
     { path: "*", element: <Error /> },
   ]);

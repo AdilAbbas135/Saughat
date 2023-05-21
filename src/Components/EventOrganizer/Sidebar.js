@@ -1,6 +1,6 @@
 import React from "react";
 import { CgProfile } from "react-icons/cg";
-import { GiDiscussion } from "react-icons/gi";
+import { GiDiscussion, GiMarrowDrain } from "react-icons/gi";
 import { ImMail } from "react-icons/im";
 import { RiDashboardFill, RiLogoutCircleLine } from "react-icons/ri";
 import { MdPassword, MdSettingsAccessibility } from "react-icons/md";
@@ -16,15 +16,20 @@ const links = [
         link: "/user/event-organizer",
       },
       {
-        name: "Profile",
+        name: "My Profile",
         icon: <CgProfile />,
         link: "/user/event-organizer/profile",
       },
 
       {
-        name: "Bookings",
+        name: "My Bookings",
         icon: <GiDiscussion />,
         link: "/user/event-organizer/bookings",
+      },
+      {
+        name: "Find Spouse",
+        icon: <GiMarrowDrain />,
+        link: "/user/event-organizer/find-spouse",
       },
     ],
   },

@@ -1,39 +1,49 @@
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { createAlert } from "../../Redux/Alert";
 
 const GeneralTab = () => {
-  // const Student = useSelector((state) => state.StudentDashboard.Student);
+  const dispatch = useDispatch();
   const [StudentValues, setStudentValues] = useState(
-    useSelector((state) => state.StudentDashboard.Student)
+    useSelector((state) => state?.EventOrganizerDashboard?.EventOrganizer)
   );
   const handleSubmitAccount = async () => {
     const token = localStorage.getItem("authtoken");
-    await toast.promise(
-      axios
-        .post(
-          `${process.env.REACT_APP_BACKEND_URL}/student/updatestudent`,
-          StudentValues,
-          { headers: { token: token } }
-        )
-        .then((result) => {
-          console.log(result);
-        })
-        .catch((err) => {
-          console.log(err);
-        }),
-      {
-        pending: "Updating! Please Wait",
-        success: "Profile Updated Successfully",
-        error: "Error in Udating Account",
-      },
-      {
-        toastId: "123456789",
-      }
-    );
+
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/event-organizer/updateprofile`,
+        StudentValues,
+        { headers: { token: token } }
+      )
+      .then((result) => {
+        console.log(result);
+        dispatch(
+          createAlert({
+            type: "success",
+            message: "Profile Updated Successfully",
+            options: {
+              position: "top-right",
+            },
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(
+          createAlert({
+            type: "error",
+            message: "Something Went Wrong! Try Again",
+            options: {
+              position: "top-right",
+            },
+          })
+        );
+      });
   };
 
   useEffect(() => {}, []);
@@ -47,7 +57,7 @@ const GeneralTab = () => {
             handleSubmitAccount();
           }}
         >
-          <div className=" mt-5">
+          <div className="mt-5 mb-10">
             <div className="flex justify-between items-center mb-5">
               <h3 className="text-2xl font-semibold leading-6 text-gray-900 border-l-4 border-hover_color pl-2">
                 Your Profile
@@ -78,23 +88,6 @@ const GeneralTab = () => {
                         setStudentValues({
                           ...StudentValues,
                           FirstName: e.target.value,
-                        });
-                      }}
-                    />
-                  </div>
-                  <div className="col-span-6 sm:col-span-2">
-                    <TextField
-                      id="MiddleName"
-                      type={"text"}
-                      label="Middle Name"
-                      className="w-full"
-                      variant="outlined"
-                      size="medium"
-                      value={StudentValues?.MiddleName}
-                      onChange={(e) => {
-                        setStudentValues({
-                          ...StudentValues,
-                          MiddleName: e.target.value,
                         });
                       }}
                     />
@@ -133,22 +126,10 @@ const GeneralTab = () => {
                           Email: e.target.value,
                         });
                       }}
-                      // disabled={
-                      //   Student.AccountType === "google.com" ? true : false
-                      // }
                       disabled
                     />
                   </div>
-                  {/* <div className="col-span-6 sm:col-span-2">
-                      <TextField
-                        id="lastName"
-                        type={"text"}
-                        label="Cuurent Class"
-                        className="w-full"
-                        variant="outlined"
-                        size="medium"
-                      />
-                    </div> */}
+
                   <div className="col-span-6 sm:col-span-2">
                     <TextField
                       id="lastName"
@@ -157,6 +138,7 @@ const GeneralTab = () => {
                       className="w-full"
                       variant="outlined"
                       size="medium"
+                      required
                       value={StudentValues?.PhoneNo}
                       onChange={(e) => {
                         setStudentValues({
@@ -166,91 +148,169 @@ const GeneralTab = () => {
                       }}
                     />
                   </div>
+                  <div className="col-span-6 sm:col-span-2">
+                    <TextField
+                      id="lastName"
+                      type={"number"}
+                      label="Height (in feets)"
+                      className="w-full"
+                      variant="outlined"
+                      size="medium"
+                      value={StudentValues?.Height}
+                      onChange={(e) => {
+                        setStudentValues({
+                          ...StudentValues,
+                          Height: e.target.value,
+                        });
+                      }}
+                      required
+                    />
+                  </div>
+                  <div className="col-span-6 sm:col-span-2">
+                    <TextField
+                      id="lastName"
+                      type={"text"}
+                      label="Nationality"
+                      className="w-full"
+                      variant="outlined"
+                      required
+                      size="medium"
+                      value={StudentValues?.Nationality}
+                      onChange={(e) => {
+                        setStudentValues({
+                          ...StudentValues,
+                          Nationality: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-6 sm:col-span-2">
+                    <TextField
+                      id="lastName"
+                      type={"text"}
+                      label="Religion"
+                      required
+                      className="w-full"
+                      variant="outlined"
+                      size="medium"
+                      value={StudentValues?.Religion}
+                      onChange={(e) => {
+                        setStudentValues({
+                          ...StudentValues,
+                          Religion: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-6 sm:col-span-2">
+                    <TextField
+                      id="lastName"
+                      type={"number"}
+                      required
+                      label="Siblings"
+                      className="w-full"
+                      variant="outlined"
+                      size="medium"
+                      value={StudentValues?.Siblings}
+                      onChange={(e) => {
+                        setStudentValues({
+                          ...StudentValues,
+                          Siblings: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-6 sm:col-span-2">
+                    <TextField
+                      id="lastName"
+                      type={"text"}
+                      label="Gender"
+                      required
+                      className="w-full"
+                      variant="outlined"
+                      size="medium"
+                      value={StudentValues?.Gender}
+                      onChange={(e) => {
+                        setStudentValues({
+                          ...StudentValues,
+                          Gender: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-6 sm:col-span-2">
+                    <TextField
+                      id="lastName"
+                      type={"number"}
+                      label="Age"
+                      required
+                      className="w-full"
+                      variant="outlined"
+                      size="medium"
+                      value={StudentValues?.Age}
+                      onChange={(e) => {
+                        setStudentValues({
+                          ...StudentValues,
+                          Age: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-6 sm:col-span-2">
+                    <TextField
+                      id="lastName"
+                      type={"text"}
+                      label="Qualifications"
+                      required
+                      className="w-full"
+                      variant="outlined"
+                      size="medium"
+                      value={StudentValues?.Qualifications}
+                      onChange={(e) => {
+                        setStudentValues({
+                          ...StudentValues,
+                          Qualifications: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-6">
+                    <TextField
+                      id="lastName"
+                      type={"text"}
+                      required
+                      label="Your Address"
+                      className="w-full"
+                      variant="outlined"
+                      size="medium"
+                      value={StudentValues?.Address}
+                      onChange={(e) => {
+                        setStudentValues({
+                          ...StudentValues,
+                          Address: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
+                  <div className="col-span-6">
+                    <TextField
+                      id="lastName"
+                      type={"text"}
+                      required
+                      label="Dscribe Yourself"
+                      className="w-full"
+                      variant="outlined"
+                      size="medium"
+                      value={StudentValues?.Description}
+                      onChange={(e) => {
+                        setStudentValues({
+                          ...StudentValues,
+                          Description: e.target.value,
+                        });
+                      }}
+                    />
+                  </div>
                 </div>
-
-                <div className="mt-10 mb-5">
-                  <h3 className="text-2xl font-[600] leading-6 text-gray-900">
-                    Address
-                  </h3>
-                </div>
-                <div className="grid grid-cols-6 gap-6">
-                  <div className="col-span-6 sm:col-span-3">
-                    <TextField
-                      id="street-address"
-                      type={"text"}
-                      label="Street Address"
-                      className="w-full"
-                      variant="outlined"
-                      size="medium"
-                      value={StudentValues?.Address?.StreetAddress}
-                      onChange={(e) => {
-                        setStudentValues({
-                          ...StudentValues,
-                          StreetAddress: e.target.value,
-                        });
-                      }}
-                    />
-                  </div>
-                  <div className="col-span-6 sm:col-span-3">
-                    <TextField
-                      id="province"
-                      type={"text"}
-                      label="Province"
-                      className="w-full"
-                      variant="outlined"
-                      size="medium"
-                      value={StudentValues?.Address?.Province}
-                      onChange={(e) => {
-                        setStudentValues({
-                          ...StudentValues,
-                          Province: e.target.value,
-                        });
-                      }}
-                    />
-                  </div>
-                  <div className="col-span-6 sm:col-span-3">
-                    <TextField
-                      id="city"
-                      type={"text"}
-                      label="City"
-                      className="w-full"
-                      variant="outlined"
-                      size="medium"
-                      value={StudentValues?.Address?.City}
-                      onChange={(e) => {
-                        setStudentValues({
-                          ...StudentValues,
-                          City: e.target.value,
-                        });
-                      }}
-                    />
-                  </div>
-                  <div className="col-span-6 sm:col-span-3">
-                    <TextField
-                      id="zipcode"
-                      type={"text"}
-                      label="Zip Code"
-                      className="w-full"
-                      variant="outlined"
-                      size="medium"
-                      value={StudentValues?.Address?.ZipCode}
-                      onChange={(e) => {
-                        setStudentValues({
-                          ...StudentValues,
-                          ZipCode: e.target.value,
-                        });
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* <div className="mt-7 py-1 px-4 m-auto rounded-md w-max border-2 border-gray-300  ">
-                      <FormControlLabel
-                        className="select-none"
-                        label=" I agree to the Terms & Conditions"
-                        control={<Checkbox />}
-                      />
-                    </div> */}
               </div>
             </div>
             <div className="bg-white px-4 py-3 text-right sm:px-6 rounded-lg">
