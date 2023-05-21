@@ -8,18 +8,18 @@ import Footer from "../Components/Footer/Footer";
 export default function Home() {
   return (
     <>
-      <head>
+      {/* <head>
         <title>TeachersHub - Find the Best Teachers Near You</title>
         <meta name="description" content="Find the Best Teachers Near You" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
+      </head> */}
       <div>
         <Header page="home" />
         <div className="w-full">
           <div className="w-full max-w-6xl m-auto pt-16  ">
             <FeaturedTeachers />
-            <Banners />
-            <FeaturedJobs />
+            {/* <Banners /> */}
+            {/* <FeaturedJobs /> */}
           </div>
           <EmailList />
           <Footer />

@@ -42,19 +42,9 @@ const Footer = () => {
       </div> */}
       <div className="copyright bg-main_bg_color py-2 text-white flex justify-between px-8">
         <span className="text-center md:text-left">
-          copyright @TeachersHub.com 2022
+          copyright @Saughat.com 2022
         </span>
-        <span className="hidden md:block">
-          Developed By{" "}
-          <a
-            href="https://devadil.netlify.app/"
-            target={"_blank"}
-            rel="noreferrer"
-            className="font-bold"
-          >
-            Dev. Adil
-          </a>
-        </span>
+        <span className="hidden md:block">Developed By Saughat Team</span>
       </div>
     </div>
   );

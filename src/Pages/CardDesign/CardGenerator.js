@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 import "./CardGenerator.css";
 import { Button } from "@mui/material";
 import { Print } from "@mui/icons-material";
-import UserSpeedDial from "../Home/SpeedDial/UserSpeedDial";
+import UserSpeedDial from "./SpeedDial/UserSpeedDial";
 const CardGenerator = () => {
   // User Data
   const auth = useSelector((state) => state.authReducer);
-  const { isLogged } = auth;
+  const isLogged = true;
   // React-to-pdf
 
   const componentRef = useRef();

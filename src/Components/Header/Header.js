@@ -23,7 +23,7 @@ const Header = ({ page }) => {
                   A place where scheduling events are few clicks away
                 </p>
               </div>
-              <div
+              {/* <div
                 className={`headerSearch hidden  z-[2] h-16 bg-white md:flex items-center text-black justify-around rounded-md absolute -bottom-24 w-full`}
               >
                 <div className="flex items-center space-x-2">
@@ -45,7 +45,7 @@ const Header = ({ page }) => {
                     Search
                   </button>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
