@@ -54,51 +54,6 @@ const TutionsPage = () => {
           <div>
             <Header page="TeacherSearch" />
             <div className=" w-full">
-              <div className="w-full z-10 sticky top-0 hidden md:block bg-main_color_2 py-3 px-5 ">
-                <div className="w-full mx-auto">
-                  {/* <h2 className="text-xl mb-1 font-bold">Filter Teachers</h2> */}
-                  <div className="mt-1 grid grid-cols-5 gap-x-2 gap-y-2">
-                    <TextField
-                      id="standard-basic"
-                      label="Teacher Name"
-                      variant="outlined"
-                      size="small"
-                    />
-                    <TextField
-                      id="standard-basic"
-                      label="City"
-                      variant="outlined"
-                      size="small"
-                    />
-                    <Select
-                      // labelId="user-role-label"
-                      id="user-role"
-                      value={userType}
-                      label="Who Are You"
-                      onChange={ChangeUserType}
-                      size="small"
-                      className="w-full"
-                      displayEmpty
-                    >
-                      <MenuItem value="" disabled>
-                        Gender
-                      </MenuItem>
-                      <MenuItem value={"Male"}>Male</MenuItem>
-                      <MenuItem value={"teacher"}>Female</MenuItem>
-                    </Select>
-                    <TextField
-                      id="standard-basic"
-                      label="Subjet"
-                      variant="outlined"
-                      size="small"
-                    />
-                    {/* <Button variant="outlined">Search</Button> */}
-                    <button className="h-full px-4 bg-hover_color text-white font-semibold rounded-md w-full text-lg ">
-                      Filter
-                    </button>
-                  </div>
-                </div>
-              </div>
               <div className="w-full mb-10 pr-5 relative">
                 <div className="mt-5 w-full max-w-7xl mx-auto grid grid-cols-1 px-3 xl:px-5 2xl:px-0  lg:grid-cols-2 xl:grid-cols-4 gap-x-5 gap-y-5">
                   {!loading &&

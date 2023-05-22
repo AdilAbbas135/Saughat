@@ -43,7 +43,7 @@ const FeaturedTeachers = () => {
           <h1 className="pb-1 w-fit h-fit text-2xl md:text-3xl font-bold font-sans uppercase border-b-2 border-search_color">
             Our Top Rated Halls -
           </h1>
-          <Link to={"/teachers"}>
+          <Link to={"/halls"}>
             <button className="hidden md:block px-10 py-2 bg-hover_color text-white font-semibold rounded-sm">
               View All
             </button>

@@ -3,7 +3,6 @@ import { GrLinkedin } from "react-icons/gr";
 import { FaFacebookSquare } from "react-icons/fa";
 import { Button, CircularProgress, TextField } from "@mui/material";
 import { SignInWithGoogle } from "../../../firebase";
-import { ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -115,13 +114,9 @@ const Login = () => {
             <div className="w-full md:max-w-md space-y-3 md:space-y-3 bg-white py-5 pt-10 px-5 md:px-12 rounded-sm md:rounded-md">
               <div className="flex flex-col justify-center items-center">
                 <Link to={"/"} className="cursor-pointer">
-                  <img
-                    height={300}
-                    width={250}
-                    src={"/TH-black.png"}
-                    className="h-full w-full"
-                    alt=""
-                  />
+                  <div className="logo font-extrabold text-lg tablets:text-4xl text-hover_color capitalize">
+                    Saughaat
+                  </div>
                 </Link>
                 <h2 className="mt-5 capitalize text-xl font-bold text-gray-900">
                   Sign in to your account

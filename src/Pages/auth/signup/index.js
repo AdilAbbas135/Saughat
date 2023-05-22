@@ -57,13 +57,9 @@ const SignUp = () => {
           <div className="w-full max-w-sm md:max-w-md space-y-4 md:space-y-6 bg-white py-8 px-5 md:px-12 rounded-sm">
             <div>
               <Link to={"/"} className="cursor-pointer">
-                <img
-                  height={300}
-                  width={250}
-                  src={"/TH-black.png"}
-                  className="h-full w-full"
-                  alt=""
-                />
+                <div className="logo font-extrabold text-lg tablets:text-4xl text-hover_color capitalize text-center">
+                  Saughaat
+                </div>
               </Link>
               <h2 className="mt-6 text-center text-xl font-bold text-gray-900">
                 Create Your Account
