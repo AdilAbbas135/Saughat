@@ -1,9 +1,8 @@
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { createAlert } from "../../Redux/Alert";
 
 const GeneralTab = () => {
@@ -11,13 +10,36 @@ const GeneralTab = () => {
   const [StudentValues, setStudentValues] = useState(
     useSelector((state) => state?.EventOrganizerDashboard?.EventOrganizer)
   );
+  const [Errors, setErrors] = useState({
+    SubjectError: false,
+    FileError: false,
+  });
+  const Fileref = useRef();
+  const [File, setFile] = useState({});
+  const [Preview, setPreview] = useState(false);
+
+  const ShowPreviewImage = (event) => {
+    if (event.target.files.length > 0) {
+      var src = URL.createObjectURL(event.target.files[0]);
+      var preview = document.getElementById("file-ip-1-preview");
+      preview.src = src;
+      setErrors({ ...Errors, FileError: false });
+      setPreview(true);
+      setFile(event.target.files[0]);
+      //   preview.style.display = "block";
+    }
+  };
+
   const handleSubmitAccount = async () => {
     const token = localStorage.getItem("authtoken");
+    let Data = new FormData();
+    Data.append("file", File);
+    Data.append("Data", JSON.stringify(StudentValues));
 
     axios
       .post(
         `${process.env.REACT_APP_BACKEND_URL}/event-organizer/updateprofile`,
-        StudentValues,
+        Data,
         { headers: { token: token } }
       )
       .then((result) => {
@@ -109,6 +131,140 @@ const GeneralTab = () => {
                         });
                       }}
                     />
+                  </div>
+                  <div className="col-span-2 row-span-4">
+                    <div className="flex items-center justify-between">
+                      {/* <h3
+                        className={`font-semibold ${
+                          Errors.FileError
+                            ? "text-red-500"
+                            : "text-text_color_secondary_2"
+                        }`}
+                      >
+                        Choose Profile Picture:
+                      </h3> */}
+                      {Errors.FileError && (
+                        <p className="text-red-500 italic">
+                          {" "}
+                          Image Field is Required
+                        </p>
+                      )}
+                    </div>
+
+                    <div
+                      className={`${
+                        Preview ? "block" : "hidden"
+                      } grid grid-cols-10 gap-5`}
+                    >
+                      <div className={`h-64 w-full col-span-10`}>
+                        <img
+                          id="file-ip-1-preview"
+                          alt=""
+                          className="h-full w-full object-contain"
+                        />
+                      </div>
+                      <div
+                        className={`flex flex-col items-center justify-center gap-3 col-span-10`}
+                      >
+                        <Button
+                          variant="contained"
+                          size="large"
+                          onClick={() => Fileref.current.click()}
+                          className="w-full h-fit text-[16px] bg-hover_color flex items-center justify-center shadow-none hover:shadow-none rounded-[4px] font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          Change Picture
+                        </Button>
+
+                        <Button
+                          variant="contained"
+                          size="large"
+                          onClick={() => {
+                            setPreview(false);
+                            setFile(null);
+                          }}
+                          className="w-full h-fit text-[16px] bg-red-500 flex items-center justify-center shadow-none hover:shadow-none rounded-[4px] font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          Remove
+                        </Button>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div
+                        className={`${
+                          Preview ? "hidden" : "block"
+                        } flex items-center justify-center w-full`}
+                      >
+                        <label
+                          for="dropzone-file"
+                          className={`flex flex-col items-center justify-center w-full h-64 border-2 ${
+                            Errors.FileError
+                              ? "border-red-500"
+                              : "border-gray-300"
+                          }  border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600`}
+                        >
+                          <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg
+                              aria-hidden="true"
+                              className={`w-10 h-10 mb-3 text-gray-400 ${
+                                Errors.FileError
+                                  ? "text-red-500"
+                                  : "text-gray-500 "
+                              }`}
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                              ></path>
+                            </svg>
+                            <p
+                              className={`mb-2 text-sm ${
+                                Errors.FileError
+                                  ? "text-red-500"
+                                  : "text-gray-500 "
+                              }`}
+                            >
+                              <span className="font-semibold">
+                                Choose Your Profile Picture
+                              </span>
+                              <br />
+                              <span className="text-center text-sm">
+                                Click To Upload
+                              </span>
+                            </p>
+                            <p
+                              className={`text-xs ${
+                                Errors.FileError
+                                  ? "text-red-500"
+                                  : "text-gray-500 "
+                              }`}
+                            >
+                              SVG, PNG, JPG or GIF (MAX. 800x400px)
+                            </p>
+                          </div>
+                          <input
+                            id="dropzone-file"
+                            ref={Fileref}
+                            type="file"
+                            className="hidden"
+                            onChange={ShowPreviewImage}
+                            accept="image/*"
+                          />
+                        </label>
+                      </div>
+                      {Errors.FileError && (
+                        <p className="text-red-500 italic">
+                          {" "}
+                          Image Field is Required
+                        </p>
+                      )}
+                    </div>
                   </div>
                   <div className="col-span-6 sm:col-span-2">
                     <TextField
@@ -292,6 +448,7 @@ const GeneralTab = () => {
                       }}
                     />
                   </div>
+
                   <div className="col-span-6">
                     <TextField
                       id="lastName"

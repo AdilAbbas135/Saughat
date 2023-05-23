@@ -199,6 +199,7 @@ const AddFood = () => {
                       label="Chicken Tikka"
                       onChange={ChangeSubjects}
                     />
+                    
                     <FormControlLabel
                       value="Boti"
                       name="Boti"
