@@ -30,17 +30,3 @@ app.use("/hall-manager", require("./Routes/Hall_Manager/HallManager"));
 app.use("/event-organizer", require("./Routes/Event_Organizer/EventOrganizer"));
 // Entertainer
 app.use("/entertainer", require("./Routes/Entertainer/Entertainer"));
-// Teacher ROUTES
-// app.use("/teacher", require("./Routes/Teacher/Teacher"));
-// app.use("/tutions", require("./Routes/Teacher/Tution"));
-
-// Institute ROUTES
-// app.use("/institute", require("./Routes/Institute/Institute"));
-
-// QAHUB Route
-// app.use("/qahub", require("./Routes/QaHub/qahub"));
-// app.use("/qahub/rooms", require("./Routes/QaHub/Rooms/rooms"));
-// app.use("/qahub/conversation", require("./Routes/QaHub/Rooms/messages"));
-// app.use("/qahub/feedback", require("./Routes/QaHub/feedback"));
-// Discussion Routes
-// app.use("/discussion", require("./Routes/Discussion/index"));

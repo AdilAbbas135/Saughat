@@ -195,35 +195,43 @@ router.post("/bookings", VerifyToken, async (req, res) => {
   }
 });
 
-router.post("/updateprofile", VerifyToken, async (req, res) => {
-  // console.log(req.body);
-  try {
-    await EventOrganizerModel.findByIdAndUpdate(
-      req.body._id,
-      {
-        $set: {
-          FirstName: req.body.FirstName,
-          LastName: req.body.LastName,
-          PhoneNo: req.body.PhoneNo,
-          Height: req.body.Height,
-          Nationality: req.body.Nationality,
-          Religion: req.body.Religion,
-          Siblings: req.body.Siblings,
-          Address: req.body.Address,
-          Gender: req.body.Gender === "male" ? true : false,
-          Age: req.body.Age,
-          Qualifications: req.body.Qualifications,
-          Description: req.body.Description,
+router.post(
+  "/updateprofile",
+  VerifyToken,
+  upload.single("file"),
+  async (req, res) => {
+    // console.log(req.body);
+    try {
+      const Data = JSON.parse(req.body.Data);
+
+      await EventOrganizerModel.findByIdAndUpdate(
+        Data?._id,
+        {
+          $set: {
+            FirstName: Data.FirstName,
+            LastName: Data.LastName,
+            PhoneNo: Data.PhoneNo,
+            Height: Data.Height,
+            Nationality: Data.Nationality,
+            Religion: Data.Religion,
+            Siblings: Data.Siblings,
+            Address: Data.Address,
+            Gender: Data.Gender === "male" ? true : false,
+            Age: Data.Age,
+            Qualifications: Data.Qualifications,
+            Description: Data.Description,
+            ProfilePicture: req.file.path,
+          },
         },
-      },
-      { upsert: true }
-    );
-    return res.status(200).json({ message: "Profile updated successfully" });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+        { upsert: true }
+      );
+      return res.status(200).json({ message: "Profile updated successfully" });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
   }
-});
+);
 
 router.post("/spouse", VerifyToken, async (req, res) => {
   try {
