@@ -165,6 +165,7 @@ const Book = () => {
         `${process.env.REACT_APP_BACKEND_URL}/find/halls/singleHall?HallId=${HallId}`
       )
       .then((response) => {
+        console.log("hall booking detail with bookings are given below");
         console.log(response);
         setTution(response.data);
         setloading(false);
@@ -173,6 +174,18 @@ const Book = () => {
         console.log(error);
       });
   };
+
+  const disableBookedDays = (date) => {
+    // console.log("the date that is passing inside is")
+    return Tution?.Bookings?.some(
+      (disabledDate) =>
+        new Date(disabledDate.Date).getDate() === new Date(date).getDate() &&
+        new Date(disabledDate.Date).getMonth() === new Date(date).getMonth() &&
+        new Date(disabledDate.Date).getFullYear() ===
+          new Date(date).getFullYear()
+    );
+  };
+
   const AddBooking = async () => {
     setaddLoading(true);
     const data = {
@@ -535,11 +548,13 @@ const Book = () => {
                             <div className="col-span-1 grid grid-cols-2 gap-2">
                               <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
+                                  disablePast={true}
                                   label="Ending Date"
                                   value={EndingDate}
                                   onChange={(newValue) => {
                                     setEndingDate(newValue);
                                   }}
+                                  shouldDisableDate={disableBookedDays}
                                   className="w-full"
                                   renderInput={(params) => (
                                     <TextField {...params} />

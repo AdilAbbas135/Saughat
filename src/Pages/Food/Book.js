@@ -10,6 +10,8 @@ import { CircularProgress, TextField, TextareaAutosize } from "@mui/material";
 import { RxReader } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { createAlert } from "../../Redux/Alert";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const BookSingleFood = () => {
   const session = useSelector((state) => state.session.session);
@@ -20,6 +22,7 @@ const BookSingleFood = () => {
   const [Tution, setTution] = useState({});
   const [addLoading, setaddLoading] = useState(false);
   const [TutionData, setTutionData] = useState({});
+  const [EndingDate, setEndingDate] = useState();
   const token = localStorage.getItem("authtoken");
 
   const FetchHall = async () => {
@@ -36,12 +39,24 @@ const BookSingleFood = () => {
         console.log(error);
       });
   };
+
+  const disableBookedDays = (date) => {
+    // console.log("the date that is passing inside is")
+    return Tution?.Bookings?.some(
+      (disabledDate) =>
+        new Date(disabledDate.Date).getDate() === new Date(date).getDate() &&
+        new Date(disabledDate.Date).getMonth() === new Date(date).getMonth() &&
+        new Date(disabledDate.Date).getFullYear() ===
+          new Date(date).getFullYear()
+    );
+  };
   const AddBooking = async () => {
     setaddLoading(true);
     const data = {
       TutionData,
       HallDetail: Tution,
       userDetail: session,
+      EndingDate,
     };
     await axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/booking/food`, data, {
@@ -199,23 +214,24 @@ const BookSingleFood = () => {
                           />
                         </div>
 
-                        <TextField
-                          name="Date"
-                          id="Date"
-                          type={"text"}
-                          required
-                          label="Date"
-                          className="w-full mt-1"
-                          variant="outlined"
-                          size="medium"
-                          value={TutionData?.Date}
-                          onChange={(e) => {
-                            setTutionData({
-                              ...TutionData,
-                              Date: e.target.value,
-                            });
-                          }}
-                        />
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            disablePast={true}
+                            label="Choose Date"
+                            value={EndingDate}
+                            onChange={(newValue) => {
+                              setEndingDate(newValue);
+                            }}
+                            shouldDisableDate={disableBookedDays}
+                            className="w-full"
+                            renderInput={(params) => <TextField {...params} />}
+                            slotProps={{
+                              textField: {
+                                required: true,
+                              },
+                            }}
+                          />
+                        </LocalizationProvider>
 
                         <div className="col-span-1">
                           <label

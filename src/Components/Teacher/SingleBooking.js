@@ -1,15 +1,62 @@
-import { CircularProgress, TextField, TextareaAutosize } from "@mui/material";
+import {
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  TextareaAutosize,
+} from "@mui/material";
 import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { createAlert } from "../../Redux/Alert";
 
 const SingleBooking = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
   const [loading, setloading] = useState(true);
   const BookingId = location.pathname.split("/").slice(-1);
   const [BookingDetail, setBookingDetail] = useState({});
+  const [Status, setStatus] = useState();
+
+  const ChangeStatus = (event) => {
+    setStatus(event.target.value);
+    const token = localStorage.getItem("authtoken");
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/hall-manager/bookings/${BookingId}/update`,
+        { Status: event.target.value },
+        { headers: { token: token } }
+      )
+      .then((result) => {
+        console.log(result);
+        dispatch(
+          createAlert({
+            type: "success",
+            message: "Status Updated Successfully",
+            options: {
+              position: "top-right",
+            },
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(
+          createAlert({
+            type: "error",
+            message: "Something went wrong! Try again later",
+            options: {
+              position: "top-right",
+            },
+          })
+        );
+      });
+  };
 
   // GLOBAL FUNCTIONS
   const FetchBooking = () => {
@@ -23,6 +70,7 @@ const SingleBooking = () => {
       .then((result) => {
         console.log(result);
         setBookingDetail(result.data?.Booking);
+        setStatus(result?.data?.Booking?.Status?.toLowerCase());
         setloading(false);
       })
       .catch((err) => {
@@ -165,6 +213,24 @@ const SingleBooking = () => {
                     className="w-full border px-2 py-4"
                     value={BookingDetail?.Description}
                   />
+                </div>
+                <div className="col-span-1">
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Status
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={Status}
+                      label="Status"
+                      onChange={ChangeStatus}
+                    >
+                      <MenuItem value={"pending"}>Pending</MenuItem>
+                      <MenuItem value={"approve"}>Approve</MenuItem>
+                      <MenuItem value={"decline"}>Decline</MenuItem>
+                    </Select>
+                  </FormControl>{" "}
                 </div>
                 {/* 
                   <div className="col-span-1 mt-5">
