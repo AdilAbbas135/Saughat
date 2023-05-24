@@ -327,40 +327,26 @@ router.post("/bookings/:id", VerifyToken, async (req, res) => {
   }
 });
 
-// Update the student Account
-// router.post("/updatestudent", VerifyToken, async (req, res) => {
-//   const student = await StudentModel.findOne({ _id: req.body._id });
-//   if (student) {
-//     const updatestudent = await student.update(
-//       {
-//         $set: {
-//           FirstName: req.body.FirstName,
-//           MiddleName: req.body.MiddleName,
-//           LastName: req.body.LastName,
-//           PhoneNo: req.body.PhoneNo,
-//           Address: {
-//             StreetAddress: req.body?.StreetAddress,
-//             Province: req.body?.Province,
-//             City: req.body?.City,
-//             ZipCode: req.body?.ZipCode,
-//           },
-//         },
-//       },
-//       { new: true }
-//     );
+// FIND SINGLE Booking DETAIL RELATED TO A BOOKING and update its status from pending to ter available options
+router.post("/bookings/:id/update", VerifyToken, async (req, res) => {
+  try {
+    console.log(req.body);
+    const BookingId = req.params.id;
+    await BookingModel.findByIdAndUpdate(
+      BookingId,
+      {
+        $set: { Status: req.body?.Status },
+      },
+      { upsert: true }
+    );
+    return res
+      .status(200)
+      .json({ success: true, msg: "Status has been Updated" });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ success: false, error: "Error in finding Bookings" });
+  }
+});
 
-//     if (updatestudent) {
-//       return res.status(200).json({ Success: true, updatestudent });
-//     } else {
-//       return res.status(404).json({
-//         Success: false,
-//         msg: "error in updating the user account",
-//       });
-//     }
-//   } else {
-//     res
-//       .status(404)
-//       .json({ Success: false, msg: "No account found with this id" });
-//   }
-// });
 module.exports = router;

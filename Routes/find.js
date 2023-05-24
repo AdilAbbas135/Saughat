@@ -39,6 +39,15 @@ router.get("/halls/singleHall", async (req, res) => {
           as: "Teacher",
         },
       },
+      {
+        $lookup: {
+          from: "bookings",
+          localField: "_id",
+          foreignField: "HallId",
+          as: "Bookings",
+        },
+      },
+
       { $sort: { createdAt: -1 } },
     ]);
     return res.status(200).json(tution[0]);
@@ -80,6 +89,14 @@ router.get("/food/singleFood", async (req, res) => {
           localField: "HallManagerId",
           foreignField: "_id",
           as: "Teacher",
+        },
+      },
+      {
+        $lookup: {
+          from: "food-bookings",
+          localField: "_id",
+          foreignField: "FoodId",
+          as: "Bookings",
         },
       },
       { $sort: { createdAt: -1 } },

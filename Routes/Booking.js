@@ -39,7 +39,7 @@ router.post("/food", VerifyToken, async (req, res) => {
       Email: req?.body?.TutionData?.Email,
       Number: req?.body?.TutionData?.Number,
       Event: req?.body?.TutionData?.Event,
-      Date: new Date(),
+      Date: new Date(req.body?.EndingDate),
       Price: req?.body?.HallDetail?.Price,
       Description: req?.body?.TutionData?.Description,
       FoodId: req?.body?.HallDetail._id,
