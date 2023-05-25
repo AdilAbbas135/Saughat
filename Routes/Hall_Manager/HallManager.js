@@ -327,12 +327,71 @@ router.post("/bookings/:id", VerifyToken, async (req, res) => {
   }
 });
 
+// FIND SINGLE Food Booking DETAIL RELATED TO A BOOKING
+router.post("/food-bookings/:id", VerifyToken, async (req, res) => {
+  try {
+    const BookingId = req.params.id;
+    const Booking = await FoodBookingModel.aggregate([
+      {
+        $match: {
+          _id: mongoose.Types.ObjectId(BookingId),
+          // HallManagerId: mongoose.Types.ObjectId(req?.user?.profileId),
+        },
+      },
+      {
+        $lookup: {
+          from: "foods",
+          localField: "FoodId",
+          foreignField: "_id",
+          as: "Hall",
+        },
+      },
+      {
+        $lookup: {
+          from: "allusers",
+          localField: "userIid",
+          foreignField: "_id",
+          as: "User",
+        },
+      },
+      { $sort: { createdAt: -1 } },
+    ]);
+    return res.status(200).json({ success: true, Booking: Booking[0] });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ success: false, error: "Error in finding Bookings" });
+  }
+});
+
 // FIND SINGLE Booking DETAIL RELATED TO A BOOKING and update its status from pending to ter available options
 router.post("/bookings/:id/update", VerifyToken, async (req, res) => {
   try {
     console.log(req.body);
     const BookingId = req.params.id;
     await BookingModel.findByIdAndUpdate(
+      BookingId,
+      {
+        $set: { Status: req.body?.Status },
+      },
+      { upsert: true }
+    );
+    return res
+      .status(200)
+      .json({ success: true, msg: "Status has been Updated" });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ success: false, error: "Error in finding Bookings" });
+  }
+});
+
+// FIND SINGLE Food Booking DETAIL RELATED TO A BOOKING and update its status from pending to ter available options
+router.post("/food-bookings/:id/update", VerifyToken, async (req, res) => {
+  try {
+    console.log(req.body);
+    const BookingId = req.params.id;
+    await FoodBookingModel.findByIdAndUpdate(
       BookingId,
       {
         $set: { Status: req.body?.Status },
