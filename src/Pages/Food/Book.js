@@ -41,7 +41,6 @@ const BookSingleFood = () => {
   };
 
   const disableBookedDays = (date) => {
-    // console.log("the date that is passing inside is")
     return Tution?.Bookings?.some(
       (disabledDate) =>
         new Date(disabledDate.Date).getDate() === new Date(date).getDate() &&

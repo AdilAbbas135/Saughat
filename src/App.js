@@ -37,6 +37,7 @@ import ProfilePage from "./Pages/Dashboards/EventOrganizer/Profile";
 import Profiles from "./Pages/Dashboards/EventOrganizer/Spouse/Profiles";
 import SingleProfile from "./Pages/Dashboards/EventOrganizer/Spouse/SingleProfile";
 import CardGenerator from "./Pages/CardDesign/CardGenerator";
+import SingleFoodBooking from "./Pages/Dashboards/HallManager/SingleFoodBooking";
 
 function App() {
   const router = createBrowserRouter([
@@ -57,6 +58,10 @@ function App() {
     { path: "/hall-manager/food/add-food", element: <AddFoodPage /> },
     { path: "/user/hall-manager/bookings", element: <Bookings /> },
     { path: "/user/hall-manager/bookings/:id", element: <SingleBooking /> },
+    {
+      path: "/user/hall-manager/food-bookings/:id",
+      element: <SingleFoodBooking />,
+    },
 
     // Event Organizer ROUTES
     { path: "/user/event-organizer", element: <EventOrganizerDashbaord /> },

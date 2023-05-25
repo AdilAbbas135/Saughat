@@ -13,12 +13,14 @@ import { createAlert } from "../../Redux/Alert";
 import { Radio } from "antd";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
+import StripeCheckout from "react-stripe-checkout";
+import { useRef } from "react";
 
 const Book = () => {
   const session = useSelector((state) => state.session.session);
   const location = useLocation();
   const dispatch = useDispatch();
+  const CheckoutbtnRef = useRef();
   const HallId = location.pathname.split("/")[2];
   const [loading, setloading] = useState(true);
   const [Tution, setTution] = useState({});
@@ -28,6 +30,12 @@ const Book = () => {
   const [BookingStep, setBookingStep] = useState(1);
   const [SelectedStage, setSelectedStage] = useState([]);
   const [EndingDate, setEndingDate] = useState();
+  const stripeKey =
+    "pk_test_51JGojQHB8vwABSSpHM2xByAZIfXbe0OIFVUmcrexiKkJmzHZAAj8457O7BuGXCiNkzQWWKpWsUiLQJj6ZTDXIpCS00RsoWj3HG";
+  const [StripeToken, setStripeToken] = useState(null);
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
 
   const ThemeDesign = [
     {
@@ -611,6 +619,31 @@ const Book = () => {
                             </div>
 
                             <div className="col-span-1 mt-5">
+                              <StripeCheckout
+                                name="Saughat Payment"
+                                // image="./assets/product-accessories-10.jpg"
+                                billingAddress
+                                shippingAddress
+                                description={`Your Total is Rs. ${
+                                  Number(Tution?.Price) +
+                                  Number(SelectedStage.Flowers.price) +
+                                  Number(SelectedStage.Lights.price) +
+                                  Number(SelectedStage.Curtain.price) +
+                                  Number(SelectedStage.Theme.price)
+                                }`}
+                                amount={
+                                  Number(Tution?.Price) +
+                                  Number(SelectedStage.Flowers.price) +
+                                  Number(SelectedStage.Lights.price) +
+                                  Number(SelectedStage.Curtain.price) +
+                                  Number(SelectedStage.Theme.price)
+                                }
+                                token={onToken}
+                                stripeKey={stripeKey}
+                                className="cursor-pointer"
+                              >
+                                <Button ref={CheckoutbtnRef}>Pay Amount</Button>
+                              </StripeCheckout>
                               <Button
                                 type="submit"
                                 variant="contained"
@@ -710,8 +743,8 @@ const Book = () => {
                               Total:
                             </h1>
                             <span className="mt-2 h-1 w-10 bg-hover_color block rounded-md"></span>
-                            <div className="mt-2 text-white rounded-md font-bold text-center bg-hover_color w-full py-2">
-                              Pay:{" "}
+                            <div className="mt-2 text-white rounded-md font-bold text-center bg-hover_color w-full py-2 opacity-50 ">
+                              Total Bill:{" "}
                               {Number(Tution?.Price) +
                                 Number(SelectedStage.Flowers.price) +
                                 Number(SelectedStage.Lights.price) +

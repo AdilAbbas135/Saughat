@@ -357,7 +357,7 @@ const AllBookings = () => {
 
                           <td className="py-3 px-5 flex items-center gap-2">
                             <Link
-                              to={`/user/hall-manager/bookings/${offering._id}`}
+                              to={`/user/hall-manager/food-bookings/${offering._id}`}
                               className="edit-btn p-2 rounded-lg bg-[#fff8dd] hover:bg-[#ffc700] text-[#ffc700] hover:text-white transition-all"
                             >
                               <AiFillEye

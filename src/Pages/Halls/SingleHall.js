@@ -114,14 +114,13 @@ const SingleHall = () => {
                               " " +
                               Tution?.Teacher[0]?.LastName}
                           </h1>
-                          <h1 className="font-bold text-sm capitalize text-text_color_secondary_2">
-                            Mobile Developer
-                          </h1>
                         </div>
                       </div>
-                      <Button className="mt-2 bg-transparent border-2 border-text_color_secondary text-text_color_secondary shadow-none hover:shadow-none text-[15px] py-2 rounded-[4px]">
-                        Contact Me
-                      </Button>
+                      <a href={`mailto:${Tution?.Teacher?.Email}`}>
+                        <Button className="mt-2 bg-transparent border-2 border-text_color_secondary text-text_color_secondary shadow-none hover:shadow-none text-[15px] py-2 rounded-[4px]">
+                          Contact Me
+                        </Button>
+                      </a>
                     </div>
                   </div>
 
@@ -205,15 +204,13 @@ const SingleHall = () => {
                                 " " +
                                 Tution?.Teacher[0]?.LastName}
                             </h1>
-                            <h1 className="font-bold text-sm capitalize text-text_color_secondary_2">
-                              Mobile Developer
-                            </h1>
                           </div>
                         </div>
-
-                        <Button className="mt-5 bg-transparent border-2 border-text_color_secondary text-text_color_secondary shadow-none hover:shadow-none text-[15px] py-2 rounded-[4px]">
-                          Contact Me
-                        </Button>
+                        <a href={`mailto:${Tution?.Teacher?.Email}`}>
+                          <Button className="mt-5 bg-transparent border-2 border-text_color_secondary text-text_color_secondary shadow-none hover:shadow-none text-[15px] py-2 rounded-[4px]">
+                            Contact Me
+                          </Button>
+                        </a>
                       </div>
                     </div>
                   </div>
